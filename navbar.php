@@ -32,8 +32,8 @@
             Cronogramas
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/Prj_RLE/Calendario/calendario.php">Dia</a></li>
-            <li><a class="dropdown-item" href="#">Semana</a></li>
+            <li><a class="dropdown-item" href="/Prj_RLE/Calendario/dia.php">Dia</a></li>
+            <li><a class="dropdown-item" href="/Prj_RLE/Calendario/semana.php">Semana</a></li>
             <li><a class="dropdown-item" href="#">Mês</a></li>
           </ul>
         </li>
