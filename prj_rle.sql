@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 28/05/2024 às 04:43
--- Versão do servidor: 10.4.28-MariaDB
--- Versão do PHP: 8.2.4
+-- Tempo de geração: 06/07/2024 às 01:41
+-- Versão do servidor: 10.4.32-MariaDB
+-- Versão do PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -30,8 +30,16 @@ SET time_zone = "+00:00";
 CREATE TABLE `administrador` (
   `adm_cod` int(11) NOT NULL,
   `adm_nome` varchar(40) NOT NULL,
-  `adm_senha` varchar(20) NOT NULL
+  `adm_senha` varchar(20) NOT NULL,
+  `adm_isActive` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `administrador`
+--
+
+INSERT INTO `administrador` (`adm_cod`, `adm_nome`, `adm_senha`, `adm_isActive`) VALUES
+(1, 'Teste', '123', b'1');
 
 -- --------------------------------------------------------
 
@@ -78,15 +86,17 @@ INSERT INTO `laboratorio` (`lab_cod`, `lab_nome`, `lab_desc`, `lab_isActive`) VA
 CREATE TABLE `professor` (
   `prof_cod` int(11) NOT NULL,
   `prof_nome` varchar(40) NOT NULL,
-  `prof_senha` varchar(20) NOT NULL
+  `prof_senha` varchar(20) NOT NULL,
+  `prof_isActive` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `professor`
 --
 
-INSERT INTO `professor` (`prof_cod`, `prof_nome`, `prof_senha`) VALUES
-(1, 'FELIPE', '123');
+INSERT INTO `professor` (`prof_cod`, `prof_nome`, `prof_senha`, `prof_isActive`) VALUES
+(1, 'FELIPE', '123', b'1'),
+(2, 'FELIPE', '123', b'1');
 
 -- --------------------------------------------------------
 
@@ -113,7 +123,9 @@ INSERT INTO `reserva` (`res_cod`, `res_desc`, `res_aula`, `res_data`, `res_dataR
 (1, 'AULA DE ADMINISTRAçãO', 1, '2024-05-28', '2024-05-26 00:26:21', b'1', 1, 1),
 (2, 'PW 2', 4, '2024-05-28', '0000-00-00 00:00:00', b'1', 1, 1),
 (3, 'PW 2', 5, '2024-05-28', '0000-00-00 00:00:00', b'1', 1, 1),
-(4, 'DS 1', 3, '2024-05-28', '2024-05-26 13:39:26', b'1', 1, 1);
+(4, 'DS 1', 3, '2024-05-28', '2024-05-26 13:39:26', b'1', 1, 1),
+(5, 'AULA DE MATEMATICA', 4, '2024-07-24', '2024-07-05 19:54:00', b'1', 1, 1),
+(6, 'AULA DE MATEMATICA', 3, '2024-07-02', '2024-07-05 19:57:00', b'1', 1, 1);
 
 --
 -- Índices para tabelas despejadas
@@ -161,7 +173,7 @@ ALTER TABLE `reserva`
 -- AUTO_INCREMENT de tabela `administrador`
 --
 ALTER TABLE `administrador`
-  MODIFY `adm_cod` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `adm_cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `cronograma`
@@ -179,13 +191,13 @@ ALTER TABLE `laboratorio`
 -- AUTO_INCREMENT de tabela `professor`
 --
 ALTER TABLE `professor`
-  MODIFY `prof_cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `prof_cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `reserva`
 --
 ALTER TABLE `reserva`
-  MODIFY `res_cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `res_cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restrições para tabelas despejadas
