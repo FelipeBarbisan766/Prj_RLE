@@ -11,15 +11,18 @@ date_default_timezone_set('America/Sao_Paulo');
         </form>
 </div>
 <div class="container text-center">
-  <div class="row"></div>
+  <div class="row">
 <?php
+
 $sabado = 6; //sabado = 6º dia = fim da semana.
-// if(!isset($_GET['data'])){
-//     $dia_atual = date('w'); //pego o dia atual
-// }else{
-   
-// }
-$dia_atual = date('w');
+if(isset($_GET['data'])){
+    $dia_atual = new DateTime($_GET['data'], new DateTimeZone('America/Sao_Paulo'));
+    $dia_atual= $dia_atual->format('w');
+}else
+{
+    $dia_atual = date('w');
+}
+// $dia_atual = date('w');
 $dias_que_faltam_para_o_sabado = $sabado - $dia_atual;
 
 $inicio = strtotime("-$dia_atual days");
@@ -45,12 +48,14 @@ $diaN = date("w", strtotime($data->format('Y-m-d')));
 $data->modify('-' . $diaN . ' day');
 
 for ($i = 0; $i <= 6; $i++) {
-    echo $data->format('d/m/Y') . ' - ' . $translate[$data->format('w')] . "<br>";
-    $data->modify('+1 day');
     ?>
 <div class="col">
     <?php
-        $dia = $data->format('d/m/Y');
+    echo $data->format('d/m/Y') . ' - ' . $translate[$data->format('w')] . "<br>";
+    $data->modify('+1 day');
+    
+        $dia = $data->format('Y-m-d');
+        // echo $dia;
         $slq = mysqli_query($conexao, "SELECT r.res_aula as aula,r.res_desc as descr,r.res_isActive as active, p.prof_nome as prof FROM reserva as r INNER JOIN professor as p on r.prof_cod=p.prof_cod INNER JOIN laboratorio as l on r.lab_cod=l.lab_cod WHERE r.res_data = '$dia' ORDER BY r.res_aula ASC");
          while ($reserva = mysqli_fetch_array($slq)) {
                 switch ($reserva["aula"]) {

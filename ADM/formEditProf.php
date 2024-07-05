@@ -18,11 +18,16 @@ include_once ("../navbar.php");
     
     <input type="submit" class="btn btn-primary">
 </form>
+<?php
+if(isset($_GET['prof'])) {
+    ?>
 <form action="addProf.php" method="post">
     <div class="mb-3">
         <?php
+        
         $slq = mysqli_query($conexao, 'SELECT * FROM professor WHERE prof_cod=' . $_GET['prof'] . '');
         $prof = mysqli_fetch_array($slq);
+        
         ?>
         <label for="nome" class="col-form-label">Nome:</label>
         <input type="text" class="form-control" id="nome" name="nome" value="<?php echo $prof['prof_nome']; ?>">
@@ -34,4 +39,5 @@ include_once ("../navbar.php");
     
     <input type="submit" class="btn btn-primary">
 </form>
+<?php }?>
 </div>
