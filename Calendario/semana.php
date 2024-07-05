@@ -3,23 +3,55 @@ include_once ("../conexao.php");
 include_once ("../navbar.php");
 date_default_timezone_set('America/Sao_Paulo');
 ?>
-<div class="row g-0 text-center">
-    <div class="col-6 col-md-4">
-        <form action="" method="get">
+<div class="container">
+    <form action="" method="get">
             <label for="data">Data:</label>
             <input type="date" name="data" id="data">
             <input type="submit" value="Continuar">
         </form>
-    </div>
-    <div class="col-sm-6 col-md-8">
-        <div class="list-group">
-        <?php
-        if (isset($_GET['data'])) {
-            $data = $_GET['data'];
-        } else {
-            $data = date("Y-m-d");
-        }
-        $slq = mysqli_query($conexao, "SELECT r.res_aula as aula,r.res_desc as descr,r.res_isActive as active, p.prof_nome as prof FROM reserva as r INNER JOIN professor as p on r.prof_cod=p.prof_cod INNER JOIN laboratorio as l on r.lab_cod=l.lab_cod WHERE r.res_data = '$data' ORDER BY r.res_aula ASC");
+</div>
+<div class="container text-center">
+  <div class="row"></div>
+<?php
+$sabado = 6; //sabado = 6º dia = fim da semana.
+// if(!isset($_GET['data'])){
+//     $dia_atual = date('w'); //pego o dia atual
+// }else{
+   
+// }
+$dia_atual = date('w');
+$dias_que_faltam_para_o_sabado = $sabado - $dia_atual;
+
+$inicio = strtotime("-$dia_atual days");
+$fim = strtotime("+$dias_que_faltam_para_o_sabado days");
+
+// echo date('m-d-Y', $inicio); //data inicial
+// echo '<br/ >';
+// echo date('m-d-Y', $fim); //data final
+
+$translate = array(
+    0 => "Dom",
+    1 => "Seg",
+    2 => "Ter",
+    3 => "Qua",
+    4 => "Qui",
+    5 => "Sex",
+    6 => "Sab",
+);
+
+$data = new DateTime();
+$diaN = date("w", strtotime($data->format('Y-m-d')));
+
+$data->modify('-' . $diaN . ' day');
+
+for ($i = 0; $i <= 6; $i++) {
+    echo $data->format('d/m/Y') . ' - ' . $translate[$data->format('w')] . "<br>";
+    $data->modify('+1 day');
+    ?>
+<div class="col">
+    <?php
+        $dia = $data->format('d/m/Y');
+        $slq = mysqli_query($conexao, "SELECT r.res_aula as aula,r.res_desc as descr,r.res_isActive as active, p.prof_nome as prof FROM reserva as r INNER JOIN professor as p on r.prof_cod=p.prof_cod INNER JOIN laboratorio as l on r.lab_cod=l.lab_cod WHERE r.res_data = '$dia' ORDER BY r.res_aula ASC");
          while ($reserva = mysqli_fetch_array($slq)) {
                 switch ($reserva["aula"]) {
                     case "1":
@@ -46,12 +78,18 @@ date_default_timezone_set('America/Sao_Paulo');
             }
 
         ; ?>
-        <a class="list-group-item list-group-item-action" <?php if(!isset($aula1)){echo 'href="../Reserva/formReserva.php?data='.$data.'&aula=1"';}else{echo 'disabled';}?>>1ºAula - <?php if(!isset($aula1)){echo "livre";}else{echo $aula1['desc'];}if(!isset($aula1)){echo "Nenhum";}else{echo '- Professor(a)'.$aula1['prof'];}  ?></a>
-        <a class="list-group-item list-group-item-action" <?php if(!isset($aula1)){echo 'href="../Reserva/formReserva.php?data='.$data.'&aula=2"';}else{echo 'disabled';}?>>2ºAula - <?php if(!isset($aula2)){echo "livre";}else{echo $aula2['desc'];}if(!isset($aula2)){echo "Nenhum";}else{echo '- Professor(a)'.$aula2['prof'];}  ?></a>
-        <a class="list-group-item list-group-item-action" <?php if(!isset($aula1)){echo 'href="../Reserva/formReserva.php?data='.$data.'&aula=3"';}else{echo 'disabled';}?>>3ºAula - <?php if(!isset($aula3)){echo "livre";}else{echo $aula3['desc'];}if(!isset($aula3)){echo "Nenhum";}else{echo '- Professor(a)'.$aula3['prof'];}  ?></a>
-        <a class="list-group-item list-group-item-action" <?php if(!isset($aula1)){echo 'href="../Reserva/formReserva.php?data='.$data.'&aula=4"';}else{echo 'disabled';}?>>4ºAula - <?php if(!isset($aula4)){echo "livre";}else{echo $aula4['desc'];}if(!isset($aula4)){echo "Nenhum";}else{echo '- Professor(a)'.$aula4['prof'];}  ?></a>
-        <a class="list-group-item list-group-item-action" <?php if(!isset($aula1)){echo 'href="../Reserva/formReserva.php?data='.$data.'&aula=5"';}else{echo 'disabled';}?>>5ºAula - <?php if(!isset($aula5)){echo "livre";}else{echo $aula5['desc'];}if(!isset($aula5)){echo "Nenhum";}else{echo '- Professor(a)'.$aula5['prof'];}  ?></a>
-        <a class="list-group-item list-group-item-action" <?php if(!isset($aula1)){echo 'href="../Reserva/formReserva.php?data='.$data.'&aula=6"';}else{echo 'disabled';}?>>6ºAula - <?php if(!isset($aula6)){echo "livre";}else{echo $aula6['desc'];}if(!isset($aula6)){echo "Nenhum";}else{echo '- Professor(a)'.$aula6['prof'];}  ?></a>
-        </div>
+        <a class="list-group-item list-group-item-action" <?php if(!isset($aula1)){echo 'href="../Reserva/formReserva.php?data='.$dia.'&aula=1"';}else{echo 'disabled';}?>>1ºAula - <?php if(!isset($aula1)){echo "livre";}else{echo $aula1['desc'];}if(!isset($aula1)){echo "Nenhum";}else{echo '- Professor(a)'.$aula1['prof'];}  ?></a>
+        <a class="list-group-item list-group-item-action" <?php if(!isset($aula1)){echo 'href="../Reserva/formReserva.php?data='.$dia.'&aula=2"';}else{echo 'disabled';}?>>2ºAula - <?php if(!isset($aula2)){echo "livre";}else{echo $aula2['desc'];}if(!isset($aula2)){echo "Nenhum";}else{echo '- Professor(a)'.$aula2['prof'];}  ?></a>
+        <a class="list-group-item list-group-item-action" <?php if(!isset($aula1)){echo 'href="../Reserva/formReserva.php?data='.$dia.'&aula=3"';}else{echo 'disabled';}?>>3ºAula - <?php if(!isset($aula3)){echo "livre";}else{echo $aula3['desc'];}if(!isset($aula3)){echo "Nenhum";}else{echo '- Professor(a)'.$aula3['prof'];}  ?></a>
+        <a class="list-group-item list-group-item-action" <?php if(!isset($aula1)){echo 'href="../Reserva/formReserva.php?data='.$dia.'&aula=4"';}else{echo 'disabled';}?>>4ºAula - <?php if(!isset($aula4)){echo "livre";}else{echo $aula4['desc'];}if(!isset($aula4)){echo "Nenhum";}else{echo '- Professor(a)'.$aula4['prof'];}  ?></a>
+        <a class="list-group-item list-group-item-action" <?php if(!isset($aula1)){echo 'href="../Reserva/formReserva.php?data='.$dia.'&aula=5"';}else{echo 'disabled';}?>>5ºAula - <?php if(!isset($aula5)){echo "livre";}else{echo $aula5['desc'];}if(!isset($aula5)){echo "Nenhum";}else{echo '- Professor(a)'.$aula5['prof'];}  ?></a>
+        <a class="list-group-item list-group-item-action" <?php if(!isset($aula1)){echo 'href="../Reserva/formReserva.php?data='.$dia.'&aula=6"';}else{echo 'disabled';}?>>6ºAula - <?php if(!isset($aula6)){echo "livre";}else{echo $aula6['desc'];}if(!isset($aula6)){echo "Nenhum";}else{echo '- Professor(a)'.$aula6['prof'];}  ?></a>
+
     </div>
+    <?php
+}?>
+
+    
+  </div>
 </div>
+       
