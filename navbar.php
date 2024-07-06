@@ -37,7 +37,16 @@
             <li><a class="dropdown-item" href="#">Mês</a></li>
           </ul>
         </li>
-       
+        <?php if(isset($_SESSION['admCod'])){?>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            definição de labs <!-- não achei um nome melhor (depois trocar pfv) -->
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/Prj_RLE/Definicaodelabs/definicao.php">sla</a></li>
+          </ul>
+        </li>
+        <?php }; ?>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           <?php echo $_SESSION['nome'] ?>
