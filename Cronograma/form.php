@@ -1,6 +1,6 @@
 <?php include_once('../navbar.php');?>
 <body>
-    <form action="reserva.php" method="post">
+    <form action="registro.php" method="post">
         <label for="desc">Descrição</label>
         <input type="text" name="desc" id="desc"><br>
         
@@ -14,8 +14,17 @@
             <option value="6" <?php if(isset($_GET['aula']) && $_GET['aula'] == 6){echo 'selected';} ?>>6º Aula - --/--</option>
         </select><br>
         
-        <label for="data">Data</label>
-        <input type="date" name="data" id="data" <?php if(isset($_GET['data'])){echo 'value="'.$_GET['data'].'"';} ?>><br>
+        <label for="sem">Semana</label>
+        <select name="sem" id="sem">
+            <option value="1">Segunda</option>
+            <option value="2">terça</option>
+            <option value="3">Quarta</option>
+            <option value="4">Quinta</option>
+            <option value="5">Sexta</option>
+        </select><br>
+        
+        <!-- <label for="sem">Semana</label>
+        <input type="number" name="sem" id="sem" min="1" max="5"><br> -->
         
         <label for="lab">Laboratorio</label>
         <select name="lab" id="lab">

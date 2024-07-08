@@ -29,7 +29,7 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Cronogramas
+            Calendario
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="/Prj_RLE/Calendario/dia.php">Dia</a></li>
@@ -40,10 +40,10 @@
         <?php if(isset($_SESSION['admCod'])){?>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            definição de labs <!-- não achei um nome melhor (depois trocar pfv) -->
+            Cronograma <!-- não achei um nome melhor (depois trocar pfv) -->
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/Prj_RLE/Definicaodelabs/definicao.php">sla</a></li>
+            <li><a class="dropdown-item" href="/Prj_RLE/Cronograma/cronograma.php">sla</a></li>
           </ul>
         </li>
         <?php }; ?>
