@@ -43,7 +43,8 @@
             Cronograma <!-- não achei um nome melhor (depois trocar pfv) -->
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/Prj_RLE/Cronograma/cronograma.php">sla</a></li>
+            <li><a class="dropdown-item" href="/Prj_RLE/Cronograma/cronograma.php">Semana</a></li>
+            <li><a class="dropdown-item" href="/Prj_RLE/Cronograma/form.php">Registrar</a></li>
           </ul>
         </li>
         <?php }; ?>

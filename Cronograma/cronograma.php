@@ -19,26 +19,26 @@ $translate = array(
 for ($sem = 1; $sem <= 5; $sem++) {
  
         // echo $dia;
-        $slq = mysqli_query($conexao, "SELECT c.cro_aula as aula,c.cro_desc as descr,c.cro_isActive as active, a.adm_nome as adm FROM cronograma as c INNER JOIN administrador as a on c.adm_cod=a.adm_cod INNER JOIN laboratorio as l on c.lab_cod=l.lab_cod WHERE c.cro_sem = '$sem' ORDER BY c.cro_aula ASC");
+        $slq = mysqli_query($conexao, "SELECT c.cro_aula as aula,c.cro_desc as descr,c.cro_isActive as active, a.adm_nome as adm, p.prof_nome as prof FROM cronograma as c INNER JOIN administrador as a on c.adm_cod=a.adm_cod INNER JOIN laboratorio as l on c.lab_cod=l.lab_cod INNER JOIN professor as p on c.prof_cod=p.prof_cod WHERE c.cro_sem = '$sem' ORDER BY c.cro_aula ASC");
          while ($reserva = mysqli_fetch_array($slq)) {
                 switch ($reserva["aula"]) {
                     case "1":
-                        $aula1 = ['desc' => $reserva['descr'],'adm' => $reserva['adm']];
+                        $aula1 = ['desc' => $reserva['descr'],'prof' => $reserva['prof']];
                         break;
                     case "2":
-                        $aula2 = ['desc' => $reserva['descr'],'adm' => $reserva['adm']];
+                        $aula2 = ['desc' => $reserva['descr'],'prof' => $reserva['prof']];
                         break;
                     case "3":
-                        $aula3 = array('desc' => $reserva['descr'],'adm' => $reserva['adm']);
+                        $aula3 = array('desc' => $reserva['descr'],'prof' => $reserva['prof']);
                         break;
                     case "4":
-                        $aula4 = array('desc' => $reserva['descr'],'adm' => $reserva['adm']);
+                        $aula4 = array('desc' => $reserva['descr'],'prof' => $reserva['prof']);
                         break;
                     case "5":
-                        $aula5 = array('desc' => $reserva['descr'],'adm' => $reserva['adm']);
+                        $aula5 = array('desc' => $reserva['descr'],'prof' => $reserva['prof']);
                         break;
                     case "6":
-                        $aula6 = array('desc' => $reserva['descr'],'adm' => $reserva['adm']);
+                        $aula6 = array('desc' => $reserva['descr'],'prof' => $reserva['prof']);
                         break;
                     default:
                         break;
@@ -49,12 +49,12 @@ for ($sem = 1; $sem <= 5; $sem++) {
 
       <div class="col">
         <a class="list-group-item list-group-item-action" disabled><?php echo $translate[$sem]; ?></a>
-        <a class="list-group-item list-group-item-action" <?php if(!isset($aula1)){echo 'href="../Reserva/formReserva.php?sem='.$sem.'&aula=1"';}else{echo 'disabled';}?>>1ºAula - <?php if(!isset($aula1)){echo "livre ";}else{echo $aula1['desc'];}if(!isset($aula1)){echo "- Nenhum";}else{echo '- admessor(a)'.$aula1['adm'];}  ?></a>
-        <a class="list-group-item list-group-item-action" <?php if(!isset($aula1)){echo 'href="../Reserva/formReserva.php?sem='.$sem.'&aula=2"';}else{echo 'disabled';}?>>2ºAula - <?php if(!isset($aula2)){echo "livre ";}else{echo $aula2['desc'];}if(!isset($aula2)){echo "- Nenhum";}else{echo '- admessor(a)'.$aula2['adm'];}  ?></a>
-        <a class="list-group-item list-group-item-action" <?php if(!isset($aula1)){echo 'href="../Reserva/formReserva.php?sem='.$sem.'&aula=3"';}else{echo 'disabled';}?>>3ºAula - <?php if(!isset($aula3)){echo "livre ";}else{echo $aula3['desc'];}if(!isset($aula3)){echo "- Nenhum";}else{echo '- admessor(a)'.$aula3['adm'];}  ?></a>
-        <a class="list-group-item list-group-item-action" <?php if(!isset($aula1)){echo 'href="../Reserva/formReserva.php?sem='.$sem.'&aula=4"';}else{echo 'disabled';}?>>4ºAula - <?php if(!isset($aula4)){echo "livre ";}else{echo $aula4['desc'];}if(!isset($aula4)){echo "- Nenhum";}else{echo '- admessor(a)'.$aula4['adm'];}  ?></a>
-        <a class="list-group-item list-group-item-action" <?php if(!isset($aula1)){echo 'href="../Reserva/formReserva.php?sem='.$sem.'&aula=5"';}else{echo 'disabled';}?>>5ºAula - <?php if(!isset($aula5)){echo "livre ";}else{echo $aula5['desc'];}if(!isset($aula5)){echo "- Nenhum";}else{echo '- admessor(a)'.$aula5['adm'];}  ?></a>
-        <a class="list-group-item list-group-item-action" <?php if(!isset($aula1)){echo 'href="../Reserva/formReserva.php?sem='.$sem.'&aula=6"';}else{echo 'disabled';}?>>6ºAula - <?php if(!isset($aula6)){echo "livre ";}else{echo $aula6['desc'];}if(!isset($aula6)){echo "- Nenhum";}else{echo '- admessor(a)'.$aula6['adm'];}  ?></a>
+        <a class="list-group-item list-group-item-action" <?php if(!isset($aula1)){echo 'href="../Reserva/formReserva.php?sem='.$sem.'&aula=1"';}else{echo 'disabled';}?>>1ºAula - <?php if(!isset($aula1)){echo "livre ";}else{echo $aula1['desc'];}if(!isset($aula1)){echo "- Nenhum";}else{echo ' - professor(a)'.$aula1['prof'];}  ?></a>
+        <a class="list-group-item list-group-item-action" <?php if(!isset($aula1)){echo 'href="../Reserva/formReserva.php?sem='.$sem.'&aula=2"';}else{echo 'disabled';}?>>2ºAula - <?php if(!isset($aula2)){echo "livre ";}else{echo $aula2['desc'];}if(!isset($aula2)){echo "- Nenhum";}else{echo ' - professor(a)'.$aula2['prof'];}  ?></a>
+        <a class="list-group-item list-group-item-action" <?php if(!isset($aula1)){echo 'href="../Reserva/formReserva.php?sem='.$sem.'&aula=3"';}else{echo 'disabled';}?>>3ºAula - <?php if(!isset($aula3)){echo "livre ";}else{echo $aula3['desc'];}if(!isset($aula3)){echo "- Nenhum";}else{echo ' - professor(a)'.$aula3['prof'];}  ?></a>
+        <a class="list-group-item list-group-item-action" <?php if(!isset($aula1)){echo 'href="../Reserva/formReserva.php?sem='.$sem.'&aula=4"';}else{echo 'disabled';}?>>4ºAula - <?php if(!isset($aula4)){echo "livre ";}else{echo $aula4['desc'];}if(!isset($aula4)){echo "- Nenhum";}else{echo ' - professor(a)'.$aula4['prof'];}  ?></a>
+        <a class="list-group-item list-group-item-action" <?php if(!isset($aula1)){echo 'href="../Reserva/formReserva.php?sem='.$sem.'&aula=5"';}else{echo 'disabled';}?>>5ºAula - <?php if(!isset($aula5)){echo "livre ";}else{echo $aula5['desc'];}if(!isset($aula5)){echo "- Nenhum";}else{echo ' - professor(a)'.$aula5['prof'];}  ?></a>
+        <a class="list-group-item list-group-item-action" <?php if(!isset($aula1)){echo 'href="../Reserva/formReserva.php?sem='.$sem.'&aula=6"';}else{echo 'disabled';}?>>6ºAula - <?php if(!isset($aula6)){echo "livre ";}else{echo $aula6['desc'];}if(!isset($aula6)){echo "- Nenhum";}else{echo ' - professor(a)'.$aula6['prof'];}  ?></a>
       </div>
 
     <?php

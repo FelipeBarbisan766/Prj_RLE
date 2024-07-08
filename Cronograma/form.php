@@ -23,8 +23,18 @@
             <option value="5">Sexta</option>
         </select><br>
         
-        <!-- <label for="sem">Semana</label>
-        <input type="number" name="sem" id="sem" min="1" max="5"><br> -->
+        <label for="prof">Professor</label>
+        <select name="prof" id="prof">
+        <?php
+        include_once ("../conexao.php");
+        $slq = mysqli_query($conexao, "SELECT * FROM professor");
+        while ($prof = mysqli_fetch_array($slq)) {
+          if ($prof['prof_isActive'] == true) { ?>
+              <option value="<?php echo $prof['prof_cod']; ?>"><?php echo $prof['prof_nome']; ?></option>
+                    <?php }
+        }
+        ; ?>
+        </select><br>
         
         <label for="lab">Laboratorio</label>
         <select name="lab" id="lab">
