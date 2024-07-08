@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 06/07/2024 às 01:41
+-- Tempo de geração: 08/07/2024 às 21:01
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -51,11 +51,20 @@ CREATE TABLE `cronograma` (
   `cro_cod` int(11) NOT NULL,
   `cro_desc` varchar(200) DEFAULT NULL,
   `cro_aula` int(11) NOT NULL,
-  `cro_data` date NOT NULL,
+  `cro_sem` int(11) NOT NULL,
   `cro_isActive` bit(1) NOT NULL,
   `adm_cod` int(11) NOT NULL,
-  `lab_cod` int(11) NOT NULL
+  `lab_cod` int(11) NOT NULL,
+  `prof_cod` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `cronograma`
+--
+
+INSERT INTO `cronograma` (`cro_cod`, `cro_desc`, `cro_aula`, `cro_sem`, `cro_isActive`, `adm_cod`, `lab_cod`, `prof_cod`) VALUES
+(1, 'IPSSI', 1, 1, b'1', 1, 1, 1),
+(3, 'BD', 3, 3, b'1', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -95,8 +104,7 @@ CREATE TABLE `professor` (
 --
 
 INSERT INTO `professor` (`prof_cod`, `prof_nome`, `prof_senha`, `prof_isActive`) VALUES
-(1, 'FELIPE', '123', b'1'),
-(2, 'FELIPE', '123', b'1');
+(1, 'FELIPE', '123', b'1');
 
 -- --------------------------------------------------------
 
@@ -112,7 +120,7 @@ CREATE TABLE `reserva` (
   `res_dataRes` datetime NOT NULL,
   `res_isActive` bit(1) NOT NULL,
   `lab_cod` int(11) NOT NULL,
-  `prof_cod` int(11) NOT NULL
+  `prof_cod` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -143,7 +151,8 @@ ALTER TABLE `administrador`
 ALTER TABLE `cronograma`
   ADD PRIMARY KEY (`cro_cod`),
   ADD KEY `adm_cod` (`adm_cod`),
-  ADD KEY `lab_cod` (`lab_cod`);
+  ADD KEY `lab_cod` (`lab_cod`),
+  ADD KEY `prof_cod` (`prof_cod`) USING BTREE;
 
 --
 -- Índices de tabela `laboratorio`
@@ -179,7 +188,7 @@ ALTER TABLE `administrador`
 -- AUTO_INCREMENT de tabela `cronograma`
 --
 ALTER TABLE `cronograma`
-  MODIFY `cro_cod` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `cro_cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `laboratorio`
@@ -197,7 +206,7 @@ ALTER TABLE `professor`
 -- AUTO_INCREMENT de tabela `reserva`
 --
 ALTER TABLE `reserva`
-  MODIFY `res_cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `res_cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Restrições para tabelas despejadas
