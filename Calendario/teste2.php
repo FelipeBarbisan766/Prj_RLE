@@ -7,7 +7,7 @@
 // $dia_atual = $_GET['data'];
 $dia_atual = new DateTime( $_GET['data'], new DateTimeZone('America/Sao_Paulo') );
 // $dia_atual = $dia_atual->format('d-m-Y');
-$timestamp = strtotime($dia_atual->format('d-m-Y'));
+$timestamp = strtotime($dia_atual->format('d-m-Y'));//https://www.delftstack.com/pt/howto/php/how-to-convert-a-date-to-the-timestamp-in-php/#utilize-strtotime-fun%c3%a7%c3%a3o-para-converter-uma-data-em-um-timestamp-em-php
 $today = getdate($timestamp);
 print_r($today);
 ?>
