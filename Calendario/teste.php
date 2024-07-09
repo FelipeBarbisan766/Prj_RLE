@@ -1,29 +1,41 @@
+<form action="" method="get">
+    <label for="data">Data:</label>
+    <input type="date" name="data" id="data">
+    <input type="submit" value="Continuar">
+</form>
 <?php
-$sabado = 6; //sabado = 6º dia = fim da semana.
-$dia_atual = date('w'); //pego o dia atual
-$dias_que_faltam_para_o_sabado = $sabado - $dia_atual;
+// $domingo = 6; //domingo = 6º dia = fim da semana.
+// // $dia_atual = $_GET['data'];
+// // $dia_atual = new DateTime( $dia_atual, new DateTimeZone('America/Sao_Paulo') );
+// // $dia_atual = $dia_atual->format('w');
+// $dia_atual = date('w'); //pego o dia atual
+// echo $dia_atual;
+// echo '<br/ >';
+// $dias_que_faltam_para_o_domingo = $domingo - $dia_atual;
+// $inicio = strtotime("  -$dia_atual days");
+// $fim = strtotime(" +$dias_que_faltam_para_o_domingo days");
 
-$inicio = strtotime("-$dia_atual days");
-$fim = strtotime("+$dias_que_faltam_para_o_sabado days");
+// echo date('m-d-Y', $inicio); //data inicial
+// echo '<br/ >';
+// echo date('m-d-Y', $fim); //data final
 
-echo date('m-d-Y', $inicio); //data inicial
-echo '<br/ >';
-echo date('m-d-Y', $fim); //data final
+// $translate = array(
+//     0 => "Dom",
+//     1 => "Seg",
+//     2 => "Ter",
+//     3 => "Qua",
+//     4 => "Qui",
+//     5 => "Sex",
+//     6 => "Sab",
+// );
 
-$translate = array(
-    0 => "Dom",
-    1 => "Seg",
-    2 => "Ter",
-    3 => "Qua",
-    4 => "Qui",
-    5 => "Sex",
-    6 => "Sab",
-);
-
-echo '<br/ >';
-echo '<br/ >';
-
-$data = new DateTime();
+// echo '<br/ >';
+// echo '<br/ >';
+if(isset($_GET['data'])){
+    $data = new DateTime($_GET['data']);
+}else{  
+    $data = new DateTime();
+}  
 $diaN = date("w", strtotime($data->format('Y-m-d')));
 
 $data->modify('-' . $diaN . ' day');

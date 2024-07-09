@@ -2,6 +2,15 @@
 include_once ("../conexao.php");
 include_once ("../navbar.php");
 date_default_timezone_set('America/Sao_Paulo');
+$translate = array(
+    0 => "Dom",
+    1 => "Seg",
+    2 => "Ter",
+    3 => "Qua",
+    4 => "Qui",
+    5 => "Sex",
+    6 => "Sab",
+);
 ?>
 <div class="container">
     <form action="" method="get">
@@ -14,35 +23,11 @@ date_default_timezone_set('America/Sao_Paulo');
   <div class="row">
 <?php
 
-$sabado = 6; //sabado = 6º dia = fim da semana.
 if(isset($_GET['data'])){
-    $dia_atual = new DateTime($_GET['data'], new DateTimeZone('America/Sao_Paulo'));
-    $dia_atual= $dia_atual->format('w');
-}else
-{
-    $dia_atual = date('w');
-}
-// $dia_atual = date('w');
-$dias_que_faltam_para_o_sabado = $sabado - $dia_atual;
-
-$inicio = strtotime("-$dia_atual days");
-$fim = strtotime("+$dias_que_faltam_para_o_sabado days");
-
-// echo date('m-d-Y', $inicio); //data inicial
-// echo '<br/ >';
-// echo date('m-d-Y', $fim); //data final
-
-$translate = array(
-    0 => "Dom",
-    1 => "Seg",
-    2 => "Ter",
-    3 => "Qua",
-    4 => "Qui",
-    5 => "Sex",
-    6 => "Sab",
-);
-
-$data = new DateTime();
+    $data = new DateTime($_GET['data']);
+}else{  
+    $data = new DateTime();
+}  
 $diaN = date("w", strtotime($data->format('Y-m-d')));
 
 $data->modify('-' . $diaN . ' day');
@@ -55,7 +40,6 @@ for ($i = 0; $i <= 6; $i++) {
     $data->modify('+1 day');
     
         $dia = $data->format('Y-m-d');
-        // echo $dia;
         $slq = mysqli_query($conexao, "SELECT r.res_aula as aula,r.res_desc as descr,r.res_isActive as active, p.prof_nome as prof FROM reserva as r INNER JOIN professor as p on r.prof_cod=p.prof_cod INNER JOIN laboratorio as l on r.lab_cod=l.lab_cod WHERE r.res_data = '$dia' ORDER BY r.res_aula ASC");
          while ($reserva = mysqli_fetch_array($slq)) {
                 switch ($reserva["aula"]) {
