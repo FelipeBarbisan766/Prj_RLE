@@ -11,6 +11,8 @@
     <?php
     include_once ("../navbar.php");
     ?>
+    <a href="">Seu Cronograma</a>
+    <a href="">Historico de Reserva</a>
     <a href="">Mudar senha</a>
 
 </body>
