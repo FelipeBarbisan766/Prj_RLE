@@ -54,6 +54,7 @@
           </a>
           <ul class="dropdown-menu">
           <li><a class="dropdown-item" href="">Configs</a></li>
+          <li><a class="dropdown-item" href="\Prj_RLE/Professor/pageProfessor.php">Perfil</a></li>
           <li><hr class="dropdown-divider"></li>
             <?php if(isset($_SESSION['admCod'])){?>
               <li><a class="dropdown-item" href="\Prj_RLE/ADM/pageControl.php">Controle Adm</a></li>
