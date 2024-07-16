@@ -37,7 +37,7 @@
             <li><a class="dropdown-item" href="#">Mês</a></li>
           </ul>
         </li>
-        <?php if(isset($_SESSION['admCod'])){?>
+        <?php if($_SESSION['cargo']=='adm'){?>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Cronograma <!-- não achei um nome melhor (depois trocar pfv) -->
@@ -56,7 +56,7 @@
           <li><a class="dropdown-item" href="">Configs</a></li>
           <li><a class="dropdown-item" href="\Prj_RLE/Professor/pageProfessor.php">Perfil</a></li>
           <li><hr class="dropdown-divider"></li>
-            <?php if(isset($_SESSION['admCod'])){?>
+            <?php if($_SESSION['cargo']=='adm'){?>
               <li><a class="dropdown-item" href="\Prj_RLE/ADM/pageControl.php">Controle Adm</a></li>
               <li><hr class="dropdown-divider"></li>
               <?php }; ?>

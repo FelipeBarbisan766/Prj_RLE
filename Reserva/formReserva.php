@@ -43,6 +43,29 @@
                     default:
                         break;
                     }
+             } while ($cronograma = mysqli_fetch_array($slq_cronograma )){
+                switch ($cronograma["cro_aula"]) {
+                    case "1":
+                        $aula1 = "disabled";
+                        break;
+                    case "2":
+                        $aula2 = "disabled";
+                        break;
+                    case "3":
+                        $aula3 = "disabled";
+                        break;
+                    case "4":
+                        $aula4 = "disabled";
+                        break;
+                    case "5":
+                        $aula5 = "disabled";
+                        break;
+                    case "6":
+                        $aula6 = "disabled";
+                        break;
+                    default:
+                        break;
+                    }
              } 
             echo '<input type="hidden" name="data" value="'.$data.'">';
             echo '<input type="hidden" name="lab" value="'.$lab.'">';

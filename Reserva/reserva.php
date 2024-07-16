@@ -10,7 +10,7 @@ $data = $_POST["data"];
 $lab = $_POST["lab"];
 $dataRes = date("Y-m-d H:i");
 $isActive = True;
-$prof = $_SESSION['cod']||$_SESSION['admCod'];
+$prof = $_SESSION['cod'];
 $sql = mysqli_query($conexao,"INSERT INTO reserva(res_desc,res_aula,res_data,res_dataRes,res_isActive,lab_cod,prof_cod) VALUES('$desc','$aula','$data','$dataRes','$isActive','$lab','$prof')");
 
 if($sql){

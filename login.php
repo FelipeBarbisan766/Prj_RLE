@@ -72,40 +72,25 @@
                     if (!isset($_SESSION)) {
                       session_start();
                     } elseif (isset($_SESSION)) {
-
                       session_destroy();
                       session_start();
                     }
                     $_SESSION['cod'] = $usuario['prof_cod'];
                     $_SESSION['nome'] = $usuario['prof_nome'];
+                    $_SESSION['cargo'] = $usuario['prof_cargo'];
 
                     header('Location: index.php');
 
-                  } else {
-                    $sql_code = "SELECT * FROM administrador WHERE adm_nome = '$nome' AND adm_senha ='$senha'";
-                    $sql_query = $conexao->query($sql_code) or die("falha na execução do codigo");
-
-                    $quantidade = $sql_query->num_rows;
-
-                    if ($quantidade == 1) {
-                      $adm = $sql_query->fetch_assoc();
-                      if (!isset($_SESSION)) {
-                        session_start();
-                      }
-                      $_SESSION['admCod'] = $adm['adm_cod'];
-                      $_SESSION['nome'] = $adm['adm_nome'];
-
-                      header('Location: index.php');
-                    } else {
+                  }else {
                       echo '<div class="alert alert-danger" role="alert">
-          <h4 class="alert-heading">Falha Ao Logar!</h4>
-          <p>E-mail ou senha incorretas tente novamente!</p></div>';
+                            <h4 class="alert-heading">Falha Ao Logar!</h4>
+                            <p>E-mail ou senha incorretas tente novamente!</p></div>';
 
                     }
                   }
 
                 }
-              }
+              
               ?>
 
 
