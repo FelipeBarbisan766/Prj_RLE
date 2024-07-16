@@ -30,6 +30,7 @@
                         <tr>
                             <td><?php echo $prof['prof_cod']; ?></td>
                             <td><?php echo $prof['prof_nome']; ?></td>
+                            <td><?php echo $prof['prof_cargo']; ?></td>
                         </tr>
                     <?php }
                 }

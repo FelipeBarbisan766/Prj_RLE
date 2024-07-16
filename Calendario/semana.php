@@ -46,7 +46,7 @@ for ($sem = 1; $sem <= 5; $sem++)  {
     
         $dia = $data->format('Y-m-d');
         $slq_reserva = mysqli_query($conexao, "SELECT r.res_aula as aula,r.res_desc as descr,r.res_isActive as active, p.prof_nome as prof FROM reserva as r INNER JOIN professor as p on r.prof_cod=p.prof_cod INNER JOIN laboratorio as l on r.lab_cod=l.lab_cod WHERE r.res_data = '$dia' ORDER BY r.res_aula ASC");
-        $slq_cronograma = mysqli_query($conexao, "SELECT c.cro_aula as aula,c.cro_desc as descr,c.cro_isActive as active, a.adm_nome as adm, p.prof_nome as prof FROM cronograma as c INNER JOIN administrador as a on c.adm_cod=a.adm_cod INNER JOIN laboratorio as l on c.lab_cod=l.lab_cod INNER JOIN professor as p on c.prof_cod=p.prof_cod WHERE c.cro_sem = '$sem' ORDER BY c.cro_aula ASC");
+        $slq_cronograma = mysqli_query($conexao, "SELECT c.cro_aula as aula,c.cro_desc as descr,c.cro_isActive as active,p.prof_nome as prof FROM cronograma as c INNER JOIN laboratorio as l on c.lab_cod=l.lab_cod INNER JOIN professor as p on c.prof_cod=p.prof_cod WHERE c.cro_sem = '$sem' ORDER BY c.cro_aula ASC");
         while ($reserva = mysqli_fetch_array($slq_reserva)) {
                 switch ($reserva["aula"]) {
                     case "1":

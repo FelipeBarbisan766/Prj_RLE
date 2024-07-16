@@ -10,9 +10,12 @@ $sem = $_POST['sem'];
 $isActive = true;
 $lab = $_POST['lab'];
 $prof = $_POST['prof'];
-$adm = $_SESSION['admCod'];
 
-$sql = mysqli_query($conexao,"INSERT INTO `cronograma` (`cro_desc`, `cro_aula`,`cro_sem`, `cro_isActive`, `adm_cod`, `lab_cod`,`prof_cod`) VALUES ('$descr', '$aula', '$sem', '$isActive', '$lab','$adm','$prof')");
+// Precisa criar uma nova coluna no banco de dados para registrar que foi que criou esse registro
+// tipo isso:
+// $adm = $_SESSION['cod'];
+
+$sql = mysqli_query($conexao,"INSERT INTO `cronograma` (`cro_desc`, `cro_aula`,`cro_sem`, `cro_isActive`, `lab_cod`,`prof_cod`) VALUES ('$descr', '$aula', '$sem', '$isActive', '$lab','$prof')");
 
 if($sql){
     header('Location:../');
