@@ -7,7 +7,7 @@ date_default_timezone_set('America/Sao_Paulo');
 <div class="container text-center">
 <div class="list-group">
     <?php
-        $cod = $_SESSION['cod'] || $_SESSION['admCod'];
+        $cod = $_SESSION['cod'];
         $slq_reserva = mysqli_query($conexao, "SELECT r.res_aula as aula,r.res_desc as descr,r.res_isActive as active, l.lab_nome as lab, r.res_data as dat FROM reserva as r INNER JOIN laboratorio as l on r.lab_cod=l.lab_cod WHERE r.prof_cod=".$cod." ORDER BY r.res_aula ASC");
         while ($reserva = mysqli_fetch_array($slq_reserva)) {
             echo '<h3>'.(new DateTime($reserva['dat']))->format('d/m/Y').'</h3>';

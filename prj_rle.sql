@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 08/07/2024 às 21:01
+-- Tempo de geração: 16/07/2024 às 22:54
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -24,26 +24,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `administrador`
---
-
-CREATE TABLE `administrador` (
-  `adm_cod` int(11) NOT NULL,
-  `adm_nome` varchar(40) NOT NULL,
-  `adm_senha` varchar(20) NOT NULL,
-  `adm_isActive` bit(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Despejando dados para a tabela `administrador`
---
-
-INSERT INTO `administrador` (`adm_cod`, `adm_nome`, `adm_senha`, `adm_isActive`) VALUES
-(1, 'Teste', '123', b'1');
-
--- --------------------------------------------------------
-
---
 -- Estrutura para tabela `cronograma`
 --
 
@@ -53,18 +33,9 @@ CREATE TABLE `cronograma` (
   `cro_aula` int(11) NOT NULL,
   `cro_sem` int(11) NOT NULL,
   `cro_isActive` bit(1) NOT NULL,
-  `adm_cod` int(11) NOT NULL,
   `lab_cod` int(11) NOT NULL,
   `prof_cod` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Despejando dados para a tabela `cronograma`
---
-
-INSERT INTO `cronograma` (`cro_cod`, `cro_desc`, `cro_aula`, `cro_sem`, `cro_isActive`, `adm_cod`, `lab_cod`, `prof_cod`) VALUES
-(1, 'IPSSI', 1, 1, b'1', 1, 1, 1),
-(3, 'BD', 3, 3, b'1', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -96,6 +67,7 @@ CREATE TABLE `professor` (
   `prof_cod` int(11) NOT NULL,
   `prof_nome` varchar(40) NOT NULL,
   `prof_senha` varchar(20) NOT NULL,
+  `prof_cargo` varchar(10) NOT NULL,
   `prof_isActive` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -103,8 +75,9 @@ CREATE TABLE `professor` (
 -- Despejando dados para a tabela `professor`
 --
 
-INSERT INTO `professor` (`prof_cod`, `prof_nome`, `prof_senha`, `prof_isActive`) VALUES
-(1, 'FELIPE', '123', b'1');
+INSERT INTO `professor` (`prof_cod`, `prof_nome`, `prof_senha`, `prof_cargo`, `prof_isActive`) VALUES
+(1, 'TESTE', '123', 'adm', b'1'),
+(2, 'FELIPE', '123', 'prof', b'1');
 
 -- --------------------------------------------------------
 
@@ -124,33 +97,14 @@ CREATE TABLE `reserva` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `reserva`
---
-
-INSERT INTO `reserva` (`res_cod`, `res_desc`, `res_aula`, `res_data`, `res_dataRes`, `res_isActive`, `lab_cod`, `prof_cod`) VALUES
-(1, 'AULA DE ADMINISTRAçãO', 1, '2024-05-28', '2024-05-26 00:26:21', b'1', 1, 1),
-(2, 'PW 2', 4, '2024-05-28', '0000-00-00 00:00:00', b'1', 1, 1),
-(3, 'PW 2', 5, '2024-05-28', '0000-00-00 00:00:00', b'1', 1, 1),
-(4, 'DS 1', 3, '2024-05-28', '2024-05-26 13:39:26', b'1', 1, 1),
-(5, 'AULA DE MATEMATICA', 4, '2024-07-24', '2024-07-05 19:54:00', b'1', 1, 1),
-(6, 'AULA DE MATEMATICA', 3, '2024-07-02', '2024-07-05 19:57:00', b'1', 1, 1);
-
---
 -- Índices para tabelas despejadas
 --
-
---
--- Índices de tabela `administrador`
---
-ALTER TABLE `administrador`
-  ADD PRIMARY KEY (`adm_cod`);
 
 --
 -- Índices de tabela `cronograma`
 --
 ALTER TABLE `cronograma`
   ADD PRIMARY KEY (`cro_cod`),
-  ADD KEY `adm_cod` (`adm_cod`),
   ADD KEY `lab_cod` (`lab_cod`),
   ADD KEY `prof_cod` (`prof_cod`) USING BTREE;
 
@@ -177,12 +131,6 @@ ALTER TABLE `reserva`
 --
 -- AUTO_INCREMENT para tabelas despejadas
 --
-
---
--- AUTO_INCREMENT de tabela `administrador`
---
-ALTER TABLE `administrador`
-  MODIFY `adm_cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `cronograma`
@@ -216,7 +164,6 @@ ALTER TABLE `reserva`
 -- Restrições para tabelas `cronograma`
 --
 ALTER TABLE `cronograma`
-  ADD CONSTRAINT `cronograma_ibfk_1` FOREIGN KEY (`adm_cod`) REFERENCES `administrador` (`adm_cod`),
   ADD CONSTRAINT `cronograma_ibfk_2` FOREIGN KEY (`lab_cod`) REFERENCES `laboratorio` (`lab_cod`);
 
 --

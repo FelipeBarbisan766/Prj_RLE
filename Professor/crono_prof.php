@@ -17,12 +17,7 @@ $translate = array(
 <div class="container text-center">
   <div class="row align-items-center">
 <?php
-if(isset($_SESSION['cod'])){
-    $cod = $_SESSION['cod'];
-}else{
-    $cod = $_SESSION['admCod'];
-}
-
+$cod = $_SESSION['cod'];
 for ($sem = 1; $sem <= 5; $sem++) {
 
         // echo $dia;
