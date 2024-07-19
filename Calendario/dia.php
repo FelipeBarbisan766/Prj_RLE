@@ -15,11 +15,17 @@ date_default_timezone_set('America/Sao_Paulo');
             include_once ("../conexao.php");
             $slq = mysqli_query($conexao, "SELECT * FROM laboratorio");
             while ($labs = mysqli_fetch_array($slq)) {
-                if ($labs['lab_isActive'] == true) { ?>
-                    <option value="<?php echo $labs['lab_cod']; ?>"><?php echo $labs['lab_nome']; ?></option>
-                <?php }
-            }
-            ; ?>
+                if ($labs['lab_isActive'] == true) { 
+                    if(isset($_GET['lab'])){
+                        if($_GET['lab'] != $labs['lab_cod']){
+                            echo '<option value='.$labs['lab_cod'].'>'.$labs['lab_nome'].'</option>';
+                        }else{
+                            echo '<option value='.$_GET['lab'].' Selected>'.$_GET['lab'].'</option>';
+                        }
+                    }else{
+                        echo '<option value='.$labs['lab_cod'].'>'.$labs['lab_nome'].'</option>';
+                    }
+                 }}; ?>
             </select>
             <input type="submit" value="Continuar">
         </form>

@@ -16,6 +16,16 @@ $translate = array(
     <form action="" method="get">
             <label for="data">Data:</label>
             <input type="date" name="data" id="data">
+            <label for="lab" >laboratorio:</label>
+            <select name="lab" id="lab" required>
+            <?php
+            include_once ("../conexao.php");
+            $slq = mysqli_query($conexao, "SELECT * FROM laboratorio");
+            while ($labs = mysqli_fetch_array($slq)) {
+                if ($labs['lab_isActive'] == true) { 
+                   echo '<option value='.$labs['lab_cod'].'>'.$labs['lab_nome'].'</option>';
+                }}; ?>
+            </select>
             <input type="submit" value="Continuar">
         </form>
 </div>
@@ -33,6 +43,14 @@ if(isset($_GET['data'])){
     $arrydata = getdate();
     $sem = $arrydata['wday'];
 }  
+if (isset($_GET['lab'])) {
+    $lab = $_GET['lab'];
+} else {
+    $labs = mysqli_fetch_array(mysqli_query($conexao, "SELECT * FROM laboratorio"));//tentar sumir com isso pq repete 
+    $lab = $labs['lab_cod'];
+}
+$labnome = mysqli_fetch_array(mysqli_query($conexao, "SELECT * FROM laboratorio WHERE lab_cod='$lab'"));
+$nomelab = $labnome["lab_nome"];
 $diaN = date("w", strtotime($data->format('Y-m-d')));
 
 $data->modify('-' . $diaN . ' day');
@@ -41,12 +59,12 @@ for ($sem = 1; $sem <= 5; $sem++)  {
     ?>
 <div class="col">
     <?php
-    echo $data->format('d/m/Y') . ' - ' . $translate[$sem] . "<br>";
+    echo $data->format('d/m/Y') . ' - ' . $translate[$sem] . ' - '.$nomelab."<br>";
     $data->modify('+1 day');
     
         $dia = $data->format('Y-m-d');
-        $slq_reserva = mysqli_query($conexao, "SELECT r.res_aula as aula,r.res_desc as descr,r.res_isActive as active, p.prof_nome as prof FROM reserva as r INNER JOIN professor as p on r.prof_cod=p.prof_cod INNER JOIN laboratorio as l on r.lab_cod=l.lab_cod WHERE r.res_data = '$dia' ORDER BY r.res_aula ASC");
-        $slq_cronograma = mysqli_query($conexao, "SELECT c.cro_aula as aula,c.cro_desc as descr,c.cro_isActive as active,p.prof_nome as prof FROM cronograma as c INNER JOIN laboratorio as l on c.lab_cod=l.lab_cod INNER JOIN professor as p on c.prof_cod=p.prof_cod WHERE c.cro_sem = '$sem' ORDER BY c.cro_aula ASC");
+        $slq_reserva = mysqli_query($conexao, "SELECT r.res_aula as aula,r.res_desc as descr,r.res_isActive as active, p.prof_nome as prof FROM reserva as r INNER JOIN professor as p on r.prof_cod=p.prof_cod INNER JOIN laboratorio as l on r.lab_cod=l.lab_cod WHERE r.res_data = '$dia' AND r.lab_cod='$lab' ORDER BY r.res_aula ASC");
+        $slq_cronograma = mysqli_query($conexao, "SELECT c.cro_aula as aula,c.cro_desc as descr,c.cro_isActive as active,p.prof_nome as prof FROM cronograma as c INNER JOIN laboratorio as l on c.lab_cod=l.lab_cod INNER JOIN professor as p on c.prof_cod=p.prof_cod WHERE c.cro_sem = '$sem' AND c.lab_cod='$lab' ORDER BY c.cro_aula ASC");
         while ($reserva = mysqli_fetch_array($slq_reserva)) {
                 switch ($reserva["aula"]) {
                     case "1":
