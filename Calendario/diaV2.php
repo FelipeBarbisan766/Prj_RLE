@@ -110,13 +110,64 @@ date_default_timezone_set('America/Sao_Paulo');
             }
 
         ; ?>
-        <h1><?php echo (new DateTime($data))->format('d/m/Y').' - '. $arrydata['weekday'].' - '.$nomelab; ?></h1> <!-- trocar para portugues o nome da semana ! -->
-        <a class="list-group-item list-group-item-action" <?php if(!isset($aula1)){echo 'href="../Reserva/formReserva.php?data='.$data.'&aula=1"';}else{echo 'disabled';}?>>1ºAula - <?php if(!isset($aula1)){echo "livre";}else{echo $aula1['desc'];}if(!isset($aula1)){echo "Nenhum";}else{echo '- Professor(a)'.$aula1['prof'];}  ?></a>
-        <a class="list-group-item list-group-item-action" <?php if(!isset($aula2)){echo 'href="../Reserva/formReserva.php?data='.$data.'&aula=2"';}else{echo 'disabled';}?>>2ºAula - <?php if(!isset($aula2)){echo "livre";}else{echo $aula2['desc'];}if(!isset($aula2)){echo "Nenhum";}else{echo '- Professor(a)'.$aula2['prof'];}  ?></a>
-        <a class="list-group-item list-group-item-action" <?php if(!isset($aula3)){echo 'href="../Reserva/formReserva.php?data='.$data.'&aula=3"';}else{echo 'disabled';}?>>3ºAula - <?php if(!isset($aula3)){echo "livre";}else{echo $aula3['desc'];}if(!isset($aula3)){echo "Nenhum";}else{echo '- Professor(a)'.$aula3['prof'];}  ?></a>
-        <a class="list-group-item list-group-item-action" <?php if(!isset($aula4)){echo 'href="../Reserva/formReserva.php?data='.$data.'&aula=4"';}else{echo 'disabled';}?>>4ºAula - <?php if(!isset($aula4)){echo "livre";}else{echo $aula4['desc'];}if(!isset($aula4)){echo "Nenhum";}else{echo '- Professor(a)'.$aula4['prof'];}  ?></a>
-        <a class="list-group-item list-group-item-action" <?php if(!isset($aula5)){echo 'href="../Reserva/formReserva.php?data='.$data.'&aula=5"';}else{echo 'disabled';}?>>5ºAula - <?php if(!isset($aula5)){echo "livre";}else{echo $aula5['desc'];}if(!isset($aula5)){echo "Nenhum";}else{echo '- Professor(a)'.$aula5['prof'];}  ?></a>
-        <a class="list-group-item list-group-item-action" <?php if(!isset($aula6)){echo 'href="../Reserva/formReserva.php?data='.$data.'&aula=6"';}else{echo 'disabled';}?>>6ºAula - <?php if(!isset($aula6)){echo "livre";}else{echo $aula6['desc'];}if(!isset($aula6)){echo "Nenhum";}else{echo '- Professor(a)'.$aula6['prof'];}  ?></a>
+        <h1><?php $d = (new DateTime($data))->format('d/m/Y');
+        echo $d.' - '. $arrydata['weekday'].' - '.$nomelab; ?></h1> <!-- trocar para portugues o nome da semana ! -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-dia="<?php echo $d; ?>" data-bs-aula="1" data-bs-lab="<?php echo $lab; ?>" <?php if(isset($aula1)){echo 'disabled';}?>>1ºAula - <?php if(!isset($aula1)){echo "livre";}else{echo $aula1['desc'];}if(!isset($aula1)){echo "Nenhum";}else{echo '- Professor(a)'.$aula1['prof'];} ?></button><a class="list-group-item list-group-item-action" <?php if(!isset($aula1)){echo 'href="../Reserva/formReserva.php?data='.$data.'&aula=2"';}else{echo 'disabled';}?>>2ºAula - <?php if(!isset($aula2)){echo "livre";}else{echo $aula2['desc'];}if(!isset($aula2)){echo "Nenhum";}else{echo '- Professor(a)'.$aula2['prof'];}  ?></a>
+        <a class="list-group-item list-group-item-action" <?php if(!isset($aula1)){echo 'href="../Reserva/formReserva.php?data='.$data.'&aula=3"';}else{echo 'disabled';}?>>3ºAula - <?php if(!isset($aula3)){echo "livre";}else{echo $aula3['desc'];}if(!isset($aula3)){echo "Nenhum";}else{echo '- Professor(a)'.$aula3['prof'];}  ?></a>
+        <a class="list-group-item list-group-item-action" <?php if(!isset($aula1)){echo 'href="../Reserva/formReserva.php?data='.$data.'&aula=4"';}else{echo 'disabled';}?>>4ºAula - <?php if(!isset($aula4)){echo "livre";}else{echo $aula4['desc'];}if(!isset($aula4)){echo "Nenhum";}else{echo '- Professor(a)'.$aula4['prof'];}  ?></a>
+        <a class="list-group-item list-group-item-action" <?php if(!isset($aula1)){echo 'href="../Reserva/formReserva.php?data='.$data.'&aula=5"';}else{echo 'disabled';}?>>5ºAula - <?php if(!isset($aula5)){echo "livre";}else{echo $aula5['desc'];}if(!isset($aula5)){echo "Nenhum";}else{echo '- Professor(a)'.$aula5['prof'];}  ?></a>
+        <a class="list-group-item list-group-item-action" <?php if(!isset($aula1)){echo 'href="../Reserva/formReserva.php?data='.$data.'&aula=6"';}else{echo 'disabled';}?>>6ºAula - <?php if(!isset($aula6)){echo "livre";}else{echo $aula6['desc'];}if(!isset($aula6)){echo "Nenhum";}else{echo '- Professor(a)'.$aula6['prof'];}  ?></a>
+        </div>
+        
+
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Reserva para </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label">Recipient:</label>
+                    <input type="text" class="form-control" id="recipient-name">
+                </div>
+                <div class="mb-3">
+                    <label for="message-text" class="col-form-label">Message:</label>
+                    <textarea class="form-control" id="message-text"></textarea>
+                </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Send message</button>
+            </div>
+            </div>
+        </div>
         </div>
     </div>
 </div>
+<script>
+const exampleModal = document.getElementById('exampleModal')
+if (exampleModal) {
+  exampleModal.addEventListener('show.bs.modal', event => {
+    // Button that triggered the modal
+    const button = event.relatedTarget
+    // Extract info from data-bs-* attributes
+    const dia = button.getAttribute('data-bs-dia')
+    const aula = button.getAttribute('data-bs-aula')
+    const lab = button.getAttribute('data-bs-lab')
+    // If necessary, you could initiate an Ajax request here
+    // and then do the updating in a callback.
+
+    // Update the modal's content.
+    const modalTitle = exampleModal.querySelector('.modal-title')
+    const modalBodyInput = exampleModal.querySelector('.modal-body input')
+
+    modalTitle.textContent = `Reserva do Dia ${dia} - Lab${lab} - Aula${aula}`
+    modalBodyInput.value = dia
+  })
+}
+</script>
