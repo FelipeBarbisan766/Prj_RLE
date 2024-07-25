@@ -87,22 +87,22 @@ date_default_timezone_set('America/Sao_Paulo');
             while ($cronograma = mysqli_fetch_array($slq_cronograma)) {
                 switch ($cronograma["aula"]) {
                     case "1":
-                        $aula1 = ['desc' => $cronograma['descr'],'prof' => $cronograma['prof']];
+                        $aula1 = ['desc' => $cronograma['descr']];
                         break;
                     case "2":
-                        $aula2 = ['desc' => $cronograma['descr'],'prof' => $cronograma['prof']];
+                        $aula2 = ['desc' => $cronograma['descr']];
                         break;
                     case "3":
-                        $aula3 = array('desc' => $cronograma['descr'],'prof' => $cronograma['prof']);
+                        $aula3 = ['desc' => $cronograma['descr']];
                         break;
                     case "4":
-                        $aula4 = array('desc' => $cronograma['descr'],'prof' => $cronograma['prof']);
+                        $aula4 = ['desc' => $cronograma['descr']];
                         break;
                     case "5":
-                        $aula5 = array('desc' => $cronograma['descr'],'prof' => $cronograma['prof']);
+                        $aula5 = ['desc' => $cronograma['descr']];
                         break;
                     case "6":
-                        $aula6 = array('desc' => $cronograma['descr'],'prof' => $cronograma['prof']);
+                        $aula6 = ['desc' => $cronograma['descr']];
                         break;
                     default:
                         break;
@@ -111,11 +111,12 @@ date_default_timezone_set('America/Sao_Paulo');
 
         ; ?>
         <h1><?php echo (new DateTime($data))->format('d/m/Y').' - '. $arrydata['weekday'].' - '.$nomelab; ?></h1> <!-- trocar para portugues o nome da semana ! -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-dia="<?php echo $data; ?>" data-bs-aula="1" data-bs-lab="<?php echo $lab; ?>" <?php if(isset($aula1)){echo 'disabled';}?>>1ºAula - <?php if(!isset($aula1)){echo "livre";}else{echo $aula1['desc'];}if(!isset($aula1)){echo "Nenhum";}else{echo '- Professor(a)'.$aula1['prof'];} ?></button><a class="list-group-item list-group-item-action" <?php if(!isset($aula1)){echo 'href="../Reserva/formReserva.php?data='.$data.'&aula=2"';}else{echo 'disabled';}?>>2ºAula - <?php if(!isset($aula2)){echo "livre";}else{echo $aula2['desc'];}if(!isset($aula2)){echo "Nenhum";}else{echo '- Professor(a)'.$aula2['prof'];}  ?></a>
-        <a class="list-group-item list-group-item-action" <?php if(!isset($aula1)){echo 'href="../Reserva/formReserva.php?data='.$data.'&aula=3"';}else{echo 'disabled';}?>>3ºAula - <?php if(!isset($aula3)){echo "livre";}else{echo $aula3['desc'];}if(!isset($aula3)){echo "Nenhum";}else{echo '- Professor(a)'.$aula3['prof'];}  ?></a>
-        <a class="list-group-item list-group-item-action" <?php if(!isset($aula1)){echo 'href="../Reserva/formReserva.php?data='.$data.'&aula=4"';}else{echo 'disabled';}?>>4ºAula - <?php if(!isset($aula4)){echo "livre";}else{echo $aula4['desc'];}if(!isset($aula4)){echo "Nenhum";}else{echo '- Professor(a)'.$aula4['prof'];}  ?></a>
-        <a class="list-group-item list-group-item-action" <?php if(!isset($aula1)){echo 'href="../Reserva/formReserva.php?data='.$data.'&aula=5"';}else{echo 'disabled';}?>>5ºAula - <?php if(!isset($aula5)){echo "livre";}else{echo $aula5['desc'];}if(!isset($aula5)){echo "Nenhum";}else{echo '- Professor(a)'.$aula5['prof'];}  ?></a>
-        <a class="list-group-item list-group-item-action" <?php if(!isset($aula1)){echo 'href="../Reserva/formReserva.php?data='.$data.'&aula=6"';}else{echo 'disabled';}?>>6ºAula - <?php if(!isset($aula6)){echo "livre";}else{echo $aula6['desc'];}if(!isset($aula6)){echo "Nenhum";}else{echo '- Professor(a)'.$aula6['prof'];}  ?></a>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-dia="<?php echo $data; ?>" data-bs-aula="1" data-bs-lab="<?php echo $lab; ?>" <?php if(isset($aula1)){echo 'disabled';}?>>1ºAula - <?php if(!isset($aula1)){echo "livre";}else{echo $aula1['desc'];}if(isset($aula1['prof'])){echo '- Professor(a) '.$aula1['prof'];} ?></button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-dia="<?php echo $data; ?>" data-bs-aula="2" data-bs-lab="<?php echo $lab; ?>" <?php if(isset($aula2)){echo 'disabled';}?>>2ºAula - <?php if(!isset($aula2)){echo "livre";}else{echo $aula2['desc'];}if(isset($aula2['prof'])){echo '- Professor(a) '.$aula2['prof'];} ?></button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-dia="<?php echo $data; ?>" data-bs-aula="3" data-bs-lab="<?php echo $lab; ?>" <?php if(isset($aula3)){echo 'disabled';}?>>3ºAula - <?php if(!isset($aula3)){echo "livre";}else{echo $aula3['desc'];}if(isset($aula3['prof'])){echo '- Professor(a) '.$aula3['prof'];} ?></button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-dia="<?php echo $data; ?>" data-bs-aula="4" data-bs-lab="<?php echo $lab; ?>" <?php if(isset($aula4)){echo 'disabled';}?>>4ºAula - <?php if(!isset($aula4)){echo "livre";}else{echo $aula4['desc'];}if(isset($aula4['prof'])){echo '- Professor(a) '.$aula4['prof'];} ?></button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-dia="<?php echo $data; ?>" data-bs-aula="5" data-bs-lab="<?php echo $lab; ?>" <?php if(isset($aula5)){echo 'disabled';}?>>5ºAula - <?php if(!isset($aula5)){echo "livre";}else{echo $aula5['desc'];}if(isset($aula5['prof'])){echo '- Professor(a) '.$aula5['prof'];} ?></button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-dia="<?php echo $data; ?>" data-bs-aula="6" data-bs-lab="<?php echo $lab; ?>" <?php if(isset($aula6)){echo 'disabled';}?>>6ºAula - <?php if(!isset($aula6)){echo "livre";}else{echo $aula6['desc'];}if(isset($aula6['prof'])){echo '- Professor(a) '.$aula6['prof'];} ?></button>
         </div>
         
 
