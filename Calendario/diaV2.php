@@ -153,6 +153,7 @@ date_default_timezone_set('America/Sao_Paulo');
         </div>
     </div>
 </div>
+<!-- Num ta aparecendo as reservas criadas por agui -->
 <script>
 const exampleModal = document.getElementById('exampleModal')
 if (exampleModal) {

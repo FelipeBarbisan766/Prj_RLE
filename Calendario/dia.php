@@ -110,6 +110,7 @@ date_default_timezone_set('America/Sao_Paulo');
             }
 
         ; ?>
+        <!-- pensar em um jeito do nome do professor aparecer somente para as reservas pois o dado professor vai ser retirado de cronograma  -->
         <h1><?php echo (new DateTime($data))->format('d/m/Y').' - '. $arrydata['weekday'].' - '.$nomelab; ?></h1> <!-- trocar para portugues o nome da semana ! -->
         <a class="list-group-item list-group-item-action" <?php if(!isset($aula1)){echo 'href="../Reserva/formReserva.php?data='.$data.'&aula=1"';}else{echo 'disabled';}?>>1ºAula - <?php if(!isset($aula1)){echo "livre";}else{echo $aula1['desc'];}if(!isset($aula1)){echo "Nenhum";}else{echo '- Professor(a)'.$aula1['prof'];}  ?></a>
         <a class="list-group-item list-group-item-action" <?php if(!isset($aula2)){echo 'href="../Reserva/formReserva.php?data='.$data.'&aula=2"';}else{echo 'disabled';}?>>2ºAula - <?php if(!isset($aula2)){echo "livre";}else{echo $aula2['desc'];}if(!isset($aula2)){echo "Nenhum";}else{echo '- Professor(a)'.$aula2['prof'];}  ?></a>
