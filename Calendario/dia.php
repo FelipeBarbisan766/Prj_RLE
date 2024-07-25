@@ -33,7 +33,7 @@ date_default_timezone_set('America/Sao_Paulo');
     <div class="col-sm-6 col-md-8">
         <div class="list-group">
         <?php
-        if (isset($_GET['data'])) {
+        if(isset($_GET['data'])&&$_GET['data']!= null) {
             $data = $_GET['data'];
             $timestamp = strtotime((new DateTime( $data))->format('d-m-Y')); //tem que converter a data pq essa merda n entende (┬┬﹏┬┬)
             $arrydata = getdate($timestamp);
