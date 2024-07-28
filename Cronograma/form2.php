@@ -19,6 +19,7 @@
             // $timestamp = strtotime((new DateTime( $data))->format('d-m-Y')); 
             // $arrydata = getdate($timestamp);
             // $sem = $arrydata['wday']; 
+            //
             $slq_cronograma = mysqli_query($conexao, "SELECT cro_aula FROM cronograma WHERE cro_sem = '$sem' AND lab_cod = '$lab' ");
 
             while ($cronograma = mysqli_fetch_array($slq_cronograma )){
