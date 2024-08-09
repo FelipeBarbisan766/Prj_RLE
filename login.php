@@ -6,38 +6,50 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../style.css">
   <title>Login</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-    crossorigin="anonymous"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body>
   <?php
   include_once ("conexao.php");
   ?>
-  <section class="vh-50 gradient-custom">
-    <div class="container py-5 h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-          <div class="card bg-dark text-white" style="border-radius: 1rem;">
-            <div class="card-body p-5 text-center">
-              <div class="mb-md-5 mt-md-4 pb-5">
-                <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
-                <p class="text-white-50 mb-5">Porfavor coloque seu Usuário e Senha</p>
-                <form action="" method="POST">
-                  <div class="form-outline form-white mb-4">
-                    <input type="text" name="txt_nome" id="typeEmailX" class="form-control form-control-lg" />
-                    <label class="form-label" for="typeEmailX">Usuário</label>
-                  </div>
-                  <div class="form-outline form-white mb-4">
-                    <input type="password" name="txt_senha" id="typePasswordX" class="form-control form-control-lg" />
-                    <label class="form-label" for="typePasswordX">Senha</label>
-                  </div>
-                  <button class="btn btn-outline-light btn-lg px-5" type="submit">Entrar</button>
-                  <br>
-              </div>
+
+<section>
+
+<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    
+    <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Entre em sua conta</h2>
+  </div>
+
+  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+    <form class="space-y-6" action="#" method="POST">
+      <div>
+        <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Usuário</label>
+        <div class="mt-2">
+          <input id="email" name="txt_nome" type="text" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+        </div>
+      </div>
+
+      <div>
+        <div class="flex items-center justify-between">
+          <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Senha</label>
+          <div class="text-sm">
+            <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Esqueceu a senha??</a>
+          </div>
+        </div>
+        <div class="mt-2">
+          <input id="password" name="txt_senha" type="password" autocomplete="current-password" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+        </div>
+      </div>
+
+      <div>
+        <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
+      </div>
+
+
+
+
 
               <?php
 
@@ -82,24 +94,20 @@
                     header('Location: index.php');
 
                   }else {
-                      echo '<div class="alert alert-danger" role="alert">
-                            <h4 class="alert-heading">Falha Ao Logar!</h4>
-                            <p>E-mail ou senha incorretas tente novamente!</p></div>';
+                      echo '<div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 " role="alert">
+                            <span class="font-medium">Danger alert!</span> Senha ou usuário incorretos! Tente novamente.
+                            </div>';
 
                     }
                   }
 
                 }
-              
-              ?>
+                ?>
+                    </form>
+                    </div>
+                </div>
 
-
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
 
 </body>
 <!-- <p>Caso não lembre a senha ou não tem certeza <br> <a href="https://i.imgflip.com/737h8a.jpg" class="alert-link">Click aqui para Alterar !</a></p> -->
