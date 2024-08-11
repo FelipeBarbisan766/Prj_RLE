@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.tailwindcss.com"></script>    
-</head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    </head>
 <body>
   
 <?php 
   include_once("protect.php");
   include_once ("conexao.php");
 ?>
+<!-- NAVBAR DEPOIS QUE LOGA -->
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Navbar</a>
@@ -68,3 +69,5 @@
 </nav>
 
 </body>
+
+            

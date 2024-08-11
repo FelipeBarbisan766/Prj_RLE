@@ -90,7 +90,4 @@ for ($sem = 1; $sem <= 5; $sem++) {
 }?>
   </div>
 </div>
-    
-
-</div>
-       
+           
