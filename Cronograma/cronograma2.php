@@ -24,21 +24,27 @@ $nomelab = $labnome["lab_nome"];
         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 1 1.3 6.326a.91.91 0 0 0 0 1.348L7 13"/>
     </svg>
     </a>
-
-    <form class="max-w-sm mx-auto mb-3 mt-2">
+    <?php
+    $slq = mysqli_query($conexao, "SELECT * FROM laboratorio");
+    ?>
+    <form class="max-w-sm mx-auto mb-3 mt-2" >  
         <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Local</label>
-        <select id="countries" name="lab" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <select id="countries" name="lab" onchange="status_update(this.options[this.selectedIndex].value)" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             <?php
             include_once ("../conexao.php");
-            $slq = mysqli_query($conexao, "SELECT * FROM laboratorio");
+            
             while ($labs = mysqli_fetch_array($slq)) {
                 if ($labs['lab_isActive'] == true) { 
                    echo '<option value='.$labs['lab_cod'].'>'.$labs['lab_nome'].'</option>';
                 }}; ?>
         </select>
-        <script>
-            // tenta fazer ai 
-        </script>
+    
+             <script type="text/javascript">  
+            function status_update(value){  
+           let url = "cronograma2.php";  
+           window.location.href= url+"?lab="+value;  
+        }  
+        </script>  
     </form>
 
 
