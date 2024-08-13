@@ -41,11 +41,6 @@
       </div>
   </div>
 </section>
-
-
-
-
-
               <?php
 
               if (!isset($_SESSION)) {
@@ -86,7 +81,7 @@
                     $_SESSION['nome'] = $usuario['prof_nome'];
                     $_SESSION['cargo'] = $usuario['prof_cargo'];
 
-                    header('Location: indexlog.php');
+                    header('Location: index.php');
 
                   }else {
                       echo '<div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 " role="alert">
