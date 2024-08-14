@@ -1,3 +1,5 @@
+<title>Cronograma</title>
+
 <?php
     include_once ("../conexao.php");
     include_once ("../navbarlog.php");
