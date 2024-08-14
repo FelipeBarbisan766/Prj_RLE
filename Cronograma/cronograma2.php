@@ -35,7 +35,15 @@ $nomelab = $labnome["lab_nome"];
             
             while ($labs = mysqli_fetch_array($slq)) {
                 if ($labs['lab_isActive'] == true) { 
-                   echo '<option value='.$labs['lab_cod'].'>'.$labs['lab_nome'].'</option>';
+                    if(isset($_GET['lab'])){
+                        if($_GET['lab'] != $labs['lab_cod']){
+                            echo '<option value='.$labs['lab_cod'].'>'.$labs['lab_nome'].'</option>';
+                        }else{
+                            echo '<option value='.$_GET['lab'].' Selected>'.$nomelab.'</option>';
+                        }
+                    }else{
+                        echo '<option value='.$labs['lab_cod'].'>'.$labs['lab_nome'].'</option>';
+                    }
                 }}; ?>
         </select>
     
@@ -81,19 +89,19 @@ $nomelab = $labnome["lab_nome"];
         while ($crono = mysqli_fetch_array($slq)) {
                 switch ($crono["sem"]) {
                     case "1":
-                        $seg = ['desc' => $crono['descr'],'prof' => $crono['prof']];
+                        $seg = $crono['descr'];
                         break;
                     case "2":
-                        $ter = ['desc' => $crono['descr'],'prof' => $crono['prof']];
+                        $ter = $crono['descr'];
                         break;
                     case "3":
-                        $qua = array('desc' => $crono['descr'],'prof' => $crono['prof']);
+                        $qua = $crono['descr'];
                         break;
                     case "4":
-                        $qui = array('desc' => $crono['descr'],'prof' => $crono['prof']);
+                        $qui = $crono['descr'];
                         break;
                     case "5":
-                        $sex = array('desc' => $crono['descr'],'prof' => $crono['prof']);
+                        $sex = $crono['descr'];
                         break;
                     default:
                         break;
@@ -106,19 +114,19 @@ $nomelab = $labnome["lab_nome"];
                     <?php echo $aula;?>ª Aula
                 </th>
                 <td class="px-6 py-4">
-                    <?php if(!isset($seg)){echo "livre ";}else{echo $seg['desc'].' - professor(a)'.$seg['prof'];}?>
+                    <?php if(!isset($seg)){echo "livre ";}else{echo $seg;}?>
                 </td>
                 <td class="px-6 py-4">
-                    <?php if(!isset($ter)){echo "livre ";}else{echo $ter['desc'].' - professor(a)'.$ter['prof'];}?>
+                    <?php if(!isset($ter)){echo "livre ";}else{echo $ter;}?>
                 </td>
                 <td class="px-6 py-4">
-                    <?php if(!isset($qua)){echo "livre ";}else{echo $qua['desc'].' - professor(a)'.$qua['prof'];}?>
+                    <?php if(!isset($qua)){echo "livre ";}else{echo $qua;}?>
                 </td>
                 <td class="px-6 py-4">
-                    <?php if(!isset($qui)){echo "livre ";}else{echo $qui['desc'].' - professor(a)'.$qui['prof'];}?>
+                    <?php if(!isset($qui)){echo "livre ";}else{echo $qui;}?>
                 </td>
                 <td class="px-6 py-4">
-                    <?php if(!isset($sex)){echo "livre ";}else{echo $sex['desc'].' - professor(a)'.$sex['prof'];}?>
+                    <?php if(!isset($sex)){echo "livre ";}else{echo $sex;}?>
                 </td>
             </tr>
             <?php
