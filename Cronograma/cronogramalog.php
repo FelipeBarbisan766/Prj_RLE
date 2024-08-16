@@ -15,18 +15,22 @@
     </svg>
     
     </a>
+    <form action="" method="get">
     <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-3">
         <div >
-        <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Local</label>
-        <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-            <option selected>Lab 01</option>
-            <option value="US">Lab 02</option>
-            <option value="CA">Lab 03</option>
-            <option value="FR">Salão Nobre</option>
-            <option value="DE">Banheiro</option>
+        <label for="lab" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Local</label>
+        <select name="lab" id="lab" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <?php
+            include_once ("../conexao.php");
+            $slq = mysqli_query($conexao, "SELECT * FROM laboratorio");
+            while ($labs = mysqli_fetch_array($slq)) {
+                if ($labs['lab_isActive'] == true) { 
+                   echo '<option value='.$labs['lab_cod'].'>'.$labs['lab_nome'].'</option>';
+                }}; ?>
         </select>
         </div>
     </div>
+    </form>
 
 <div class="relative overflow-x-auto sm:rounded-lg">
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -178,3 +182,4 @@
 
 </div>
 
+<!-- Precisamos puxar todas as funções do PHP aqui -->
