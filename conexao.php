@@ -1,4 +1,5 @@
 <?php
+
 $hostname = "localhost";
 $dbname = "prj_rle";
 $username = "root";

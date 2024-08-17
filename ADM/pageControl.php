@@ -1,6 +1,7 @@
 
   <?php
   include_once ("../navbar2.php");
+  include_once ('protectAdm.php');
   ?>
     
 <div class="px-4 mx-auto max-w-screen-xl ">

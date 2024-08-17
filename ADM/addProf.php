@@ -1,5 +1,7 @@
 <?php
 include('../conexao.php');
+include_once ('../protectCode.php');
+
 $nome = strtoupper($_POST['nome']);
 $senha = strtolower($_POST['senha']);
 $cargo = strtolower($_POST['cargo']);

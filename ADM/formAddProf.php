@@ -1,5 +1,6 @@
 <?php
 include_once ("../navbar2.php");
+include_once ('protectAdm.php');
 ?>
 
 <div class="container mx-auto px-4">

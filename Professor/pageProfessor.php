@@ -9,6 +9,7 @@
 
 <?php
     include_once ("../navbar2.php");
+    include_once ("../protect.php");
 ?>
 <body>
     <div class="px-4 mx-auto max-w-screen-xl ">

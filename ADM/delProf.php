@@ -1,5 +1,6 @@
 <?php
 include('../conexao.php');
+include_once ('../protectCode.php');
 $cod = $_POST["cod"];
 $isActive = false;
 

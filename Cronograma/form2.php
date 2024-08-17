@@ -1,4 +1,6 @@
-<?php include_once ('../navbar.php'); ?>
+<?php include_once ('../navbar.php');
+include_once ("../protect.php"); ?>
+
 <style>
 .form-label{
     font-size:45px;
