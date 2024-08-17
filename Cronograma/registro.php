@@ -19,8 +19,4 @@ if($sql){
 }else{
     echo "Erro no Insert";
 }
-
-
-
-
 ?>
