@@ -10,16 +10,12 @@ $aula = $_POST['aula'];
 $sem = $_POST['sem'];
 $isActive = true;
 $lab = $_POST['lab'];
-$prof = $_POST['prof'];
-
-// Precisa criar uma nova coluna no banco de dados para registrar que foi que criou esse registro
-// tipo isso:
-// $adm = $_SESSION['cod'];
+$prof = $_SESSION['cod'];//é o codigo do administrador que criou o registro
 
 $sql = mysqli_query($conexao,"INSERT INTO `cronograma` (`cro_desc`, `cro_aula`,`cro_sem`, `cro_isActive`, `lab_cod`,`prof_cod`) VALUES ('$descr', '$aula', '$sem', '$isActive', '$lab','$prof')");
 
 if($sql){
-    header('Location:../');
+    header('Location:cronograma2.php');
 }else{
     echo "Erro no Insert";
 }
