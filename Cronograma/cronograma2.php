@@ -57,94 +57,96 @@ $nomelab = $labnome["lab_nome"];
     </form>
     
 
-<div class="relative overflow-x-auto sm:rounded-lg">
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-                <th scope="col" class="px-6 py-3"></th>
+    <div class="relative overflow-x-auto sm:rounded-lg">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3"></th>
 
-                <th scope="col" class="px-6 py-3">
-                    Segunda
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Terça
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Quarta
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Quinta
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Sexta
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-        <?php
-
-        for ($aula = 1; $aula <= 6; $aula++) {
- 
-        // echo $dia;
-        $slq = mysqli_query($conexao, "SELECT c.cro_aula as aula,c.cro_desc as descr,c.cro_sem as sem,c.cro_isActive as active, p.prof_nome as prof FROM cronograma as c INNER JOIN laboratorio as l on c.lab_cod=l.lab_cod INNER JOIN professor as p on c.prof_cod=p.prof_cod WHERE c.cro_aula = '$aula' AND c.lab_cod='$lab' ORDER BY c.cro_aula ASC");
-        while ($crono = mysqli_fetch_array($slq)) {
-                switch ($crono["sem"]) {
-                    case "1":
-                        $seg = $crono['descr'];
-                        break;
-                    case "2":
-                        $ter = $crono['descr'];
-                        break;
-                    case "3":
-                        $qua = $crono['descr'];
-                        break;
-                    case "4":
-                        $qui = $crono['descr'];
-                        break;
-                    case "5":
-                        $sex = $crono['descr'];
-                        break;
-                    default:
-                        break;
-                    }
-            }
-
-            ; ?>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400" >
-                    <?php echo $aula;?>ª Aula
-                </th>
-                <td class="px-6 py-4">
-                    <?php if(!isset($seg)){echo "livre ";}else{echo $seg;}?>
-                </td>
-                <td class="px-6 py-4">
-                    <?php if(!isset($ter)){echo "livre ";}else{echo $ter;}?>
-                </td>
-                <td class="px-6 py-4">
-                    <?php if(!isset($qua)){echo "livre ";}else{echo $qua;}?>
-                </td>
-                <td class="px-6 py-4">
-                    <?php if(!isset($qui)){echo "livre ";}else{echo $qui;}?>
-                </td>
-                <td class="px-6 py-4">
-                    <?php if(!isset($sex)){echo "livre ";}else{echo $sex;}?>
-                </td>
-            </tr>
+                    <th scope="col" class="px-6 py-3">
+                        Segunda
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Terça
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Quarta
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Quinta
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Sexta
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
             <?php
-            $seg = null;
-            $ter = null;
-            $qua = null;
-            $qui = null;
-            $sex = null;
-             }?> 
-            
-        </tbody>
-    </table>
+
+            for ($aula = 1; $aula <= 6; $aula++) {
+    
+            // echo $dia;
+            $slq = mysqli_query($conexao, "SELECT c.cro_aula as aula,c.cro_desc as descr,c.cro_sem as sem,c.cro_isActive as active, p.prof_nome as prof FROM cronograma as c INNER JOIN laboratorio as l on c.lab_cod=l.lab_cod INNER JOIN professor as p on c.prof_cod=p.prof_cod WHERE c.cro_aula = '$aula' AND c.lab_cod='$lab' ORDER BY c.cro_aula ASC");
+            while ($crono = mysqli_fetch_array($slq)) {
+                    switch ($crono["sem"]) {
+                        case "1":
+                            $seg = $crono['descr'];
+                            break;
+                        case "2":
+                            $ter = $crono['descr'];
+                            break;
+                        case "3":
+                            $qua = $crono['descr'];
+                            break;
+                        case "4":
+                            $qui = $crono['descr'];
+                            break;
+                        case "5":
+                            $sex = $crono['descr'];
+                            break;
+                        default:
+                            break;
+                        }
+                }
+
+                ; ?>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400" >
+                        <?php echo $aula;?>ª Aula
+                    </th>
+                    <td class="px-6 py-4">
+                        <?php if(!isset($seg)){echo "Livre ";}else{echo $seg;}?>
+                    </td>
+                    <td class="px-6 py-4">
+                        <?php if(!isset($ter)){echo "Livre ";}else{echo $ter;}?>
+                    </td>
+                    <td class="px-6 py-4">
+                        <?php if(!isset($qua)){echo "Livre ";}else{echo $qua;}?>
+                    </td>
+                    <td class="px-6 py-4">
+                        <?php if(!isset($qui)){echo "Livre ";}else{echo $qui;}?>
+                    </td>
+                    <td class="px-6 py-4">
+                        <?php if(!isset($sex)){echo "Livre ";}else{echo $sex;}?>
+                    </td>
+                </tr>
+                <?php
+                $seg = null;
+                $ter = null;
+                $qua = null;
+                $qui = null;
+                $sex = null;
+                }?> 
+                
+            </tbody>
+        </table>
+    </div>
+    <div>
     <?php
     if($_SESSION['cargo']=='adm'){
-    echo '<br><br><a href="form2.php" class="my-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Adicionar novo Cronograma</a>';
+        echo '<a href="form2.php" class="my-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Adicionar novo Cronograma</a>';
     }
     ?>
-</div>
+    </div>
 
 </div>
