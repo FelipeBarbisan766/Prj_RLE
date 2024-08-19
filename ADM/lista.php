@@ -37,7 +37,7 @@
                             <td class="px-6 py-4"><?php echo $prof['prof_cod']; ?></td>
                             <td class="px-6 py-4"><?php echo $prof['prof_nome']; ?></td>
                             <td class="px-6 py-4"><?php echo $prof['prof_cargo']; ?></td>
-                            <td class="px-6 py-4"><button type="button" data-modal-target="popup-modal" data-modal-toggle="popup-modal" data-modal-codeProf="<?php echo $prof['prof_cod'];?>" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Deletar</button></td> 
+                            <td class="px-6 py-4"><button type="button" id="botao_del" data-modal-target="popup-modal" data-modal-toggle="popup-modal" data-modal-codeProf="<?php echo $prof['prof_cod'];?>" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Deletar</button></td> 
                         </tr>
                     <?php }
                 }
@@ -62,7 +62,7 @@
                 </svg>
                 <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400" id="modal-title">Deseja deletar ...</h3>
                 <form action="delProf.php" method="post">
-                    <input type="hidden" name="cod" id="prof_form">
+                <input type="hidden" name="cod" id="prof_form">
                 
                 <button type="submit" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
                     Deletar
@@ -75,7 +75,8 @@
 </div>
 <script>
 
-    const prof = document.querySelector('button data-modal-codeProf')
+    const button = document.querySelector('#botao_del')
+    const prof = button.getAttribute('data-modal-codeProf')
     const modalTitle = document.querySelector('#modal-title')
     const inputhiddenProf= document.querySelector('#prof_form')
 
