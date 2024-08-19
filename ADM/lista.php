@@ -25,9 +25,7 @@
                 <th scope="col" class="px-6 py-3">
                     Cargo
                 </th>
-                <th scope="col" class="px-6 py-3">
-                   
-                </th>
+               <th scope="col" class="px-6 py-3"></th>
             </tr>
         </thead>
         <tbody>
@@ -39,7 +37,7 @@
                             <td class="px-6 py-4"><?php echo $prof['prof_cod']; ?></td>
                             <td class="px-6 py-4"><?php echo $prof['prof_nome']; ?></td>
                             <td class="px-6 py-4"><?php echo $prof['prof_cargo']; ?></td>
-                            <td class="px-6 py-4"><button type="button" data-modal-target="popup-modal" data-modal-toggle="popup-modal" data-modal-codeProf="<?php echo $prof['prof_cod'];?>" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Deletar</button></td>
+                            <td class="px-6 py-4"><button type="button" data-modal-target="popup-modal" data-modal-toggle="popup-modal" data-modal-codeProf="<?php echo $prof['prof_cod'];?>" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Deletar</button></td> 
                         </tr>
                     <?php }
                 }
@@ -77,20 +75,14 @@
 </div>
 <script>
 
-const popup_modal = document.getElementById('popup-modal')
-if (popup_modal) {
-    popup_modal.addEventListener('data-modal-show', event => {
-    const button = event.relatedTarget
-    const prof = button.getAttribute('data-modal-codeProf')
-
-    const modalTitle = popup_modal.querySelector('#modal-title')
-    const inputhiddenProf= popup_modal.querySelector('#prof_form')
+    const prof = document.querySelector('button data-modal-codeProf')
+    const modalTitle = document.querySelector('#modal-title')
+    const inputhiddenProf= document.querySelector('#prof_form')
 
     
     modalTitle.textContent = `Deseja deletar ${prof} ?`
     inputhiddenProf.value = prof
-  })
-}
+ 
 </script>
 
 </body>
