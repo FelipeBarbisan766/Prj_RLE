@@ -14,9 +14,9 @@ document.addEventListener('DOMContentLoaded', function() {
       selectable: true,
       selectMirror: true,
       editable: true,
-      dayMaxEvents: true, // allow "more" link when too many events
+      dayMaxEvents: true,
       events: {
-        url: 'listarEvento.php', // Caminho para o seu script PHP
+        url: 'listarEvento.php',
         method: 'GET',
         failure: function() {
             alert('Falha ao carregar eventos!');
