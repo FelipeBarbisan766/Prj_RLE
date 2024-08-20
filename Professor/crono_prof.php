@@ -1,6 +1,6 @@
 <?php
 include_once ("../conexao.php");
-include_once ("../navbar.php");
+include_once ("../navbar2.php");
 include_once ("../protect.php");
 date_default_timezone_set('America/Sao_Paulo');
 
@@ -14,8 +14,17 @@ $translate = array(
     6 => "Sab",
 );
 ?>
-<a class="btn btn-primary" href="pageProfessor.php"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-circle" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/></svg> voltar</a>
-<div class="container text-center">
+
+<div class="px-4 mx-auto max-w-screen-xl ">
+
+<a href="pageProfessor.php" class="my-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 8 14">
+<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 1 1.3 6.326a.91.91 0 0 0 0 1.348L7 13"/>
+</svg>
+</a>
+</div>
+
+<div class="container mx-auto px-3">
   <div class="row align-items-center">
 <?php
 $cod = $_SESSION['cod'];
