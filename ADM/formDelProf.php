@@ -66,18 +66,7 @@ include_once ('protectAdm.php');
   $.ajax({
     type: 'POST',
     url: 'delProf.php',
-    data: { cod: profId },
-    success: function(response) {
-      if (response === 'success') {
-        $('#prof').find('option[value="' + profId + '"]').remove();
-        $('#popup-modal').hide();
-      } else {
-        alert('Erro ao deletar professor: ' + response);
-      }
-    },
-    error: function(xhr, status, error) {
-      alert('Erro: ' + error);
-    }
+    data: { cod: profId },    
   });
 }
 </script>
