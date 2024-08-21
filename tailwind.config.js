@@ -5,7 +5,7 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [require('flowbite/plugin','daisyui','@tailwindcss/forms')],
+  plugins: [require('flowbite/plugin','daisyui','@tailwindcss/forms', 'flowbite-typography')],
 }
 
 tailwind.config = {
