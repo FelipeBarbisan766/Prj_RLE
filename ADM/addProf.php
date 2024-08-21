@@ -10,7 +10,7 @@ $isActive = true;
 $sql = mysqli_query($conexao,"INSERT INTO professor(prof_nome,prof_senha,prof_cargo,prof_isActive) VALUES('$nome','$senha','$cargo','$isActive')");
 
 if($sql){
-    header('Location:pageControl.php');//decidir um lugar melhor para redirecionar!
+    header('Location:pageControl.php');
 }else{
     echo "Erro no Insert";
 }

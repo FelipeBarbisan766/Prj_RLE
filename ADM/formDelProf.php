@@ -31,7 +31,7 @@ include_once ('protectAdm.php');
         </div>
     </form>
     <div class="max-w-sm mx-auto">
-        <button onclick="deletarProfessor()" data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Deletar</button>
+        <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Deletar</button>
     </div>
 
 <div id="popup-modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -48,25 +48,30 @@ include_once ('protectAdm.php');
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                 </svg>
                 <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400" id="modalTitle">Deseja deletar</h3>
-                <form action="delProf.php" method="post">
+                
                     <input type="hidden" name="cod" id="prof-form">
                 
-                <button type="submit" id="deactivate-btn" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                <button onclick="deletarProfessor()" id="deactivate-btn" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
                     Deletar
                 </button>
                 <button data-modal-hide="popup-modal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Cancelar</button>
-            </form>
             </div>
         </div>
     </div>
 </div>
 <script>
+    //ESTÁ FUNCIONANDO, NÃO MEXER
     function deletarProfessor() {
   var profId = $('#prof').val().split('codeProf=')[1];
   $.ajax({
     type: 'POST',
     url: 'delProf.php',
-    data: { cod: profId },    
+    data: { cod: profId },
+    success: function() {
+        $('[data-modal-hide="popup-modal"]').click();
+        console.log('deu certo');
+        window.location.href = 'pageControl.php';
+    }
   });
 }
 </script>
