@@ -37,7 +37,7 @@
                             <td class="px-6 py-4"><?php echo $prof['prof_cod']; ?></td>
                             <td class="px-6 py-4"><?php echo $prof['prof_nome']; ?></td>
                             <td class="px-6 py-4"><?php echo $prof['prof_cargo']; ?></td>
-                            <td class="px-6 py-4"><button type="button" id="botao_del" data-modal-target="popup-modal" data-modal-toggle="popup-modal" data-modal-codeProf="<?php echo $prof['prof_cod'];?>" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Deletar</button></td> 
+                            <td class="px-6 py-4"><button type="button" data-modal-target="popup-modal" data-modal-toggle="popup-modal" data-modal-codeProf="<?php echo $prof['prof_cod'];?>" data-modal-name="<?php echo $prof['prof_nome'];?>" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Deletar</button></td> 
                         </tr>
                     <?php }
                 }
@@ -60,11 +60,11 @@
                 <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                 </svg>
-                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400" id="modal-title">Deseja deletar ...</h3>
+                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400" id="modal-title">Deseja deletar ?</h3>
                 <form action="delProf.php" method="post">
                 <input type="hidden" name="cod" id="prof_form">
                 
-                <button type="submit" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                <button class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
                     Deletar
                 </button>
                 <button data-modal-hide="popup-modal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Cancelar</button>
@@ -74,16 +74,24 @@
     </div>
 </div>
 <script>
+const buttons = document.querySelectorAll('[data-modal-toggle="popup-modal"]');
 
-    const button = document.querySelector('#botao_del')
-    const prof = button.getAttribute('data-modal-codeProf')
-    const modalTitle = document.querySelector('#modal-title')
-    const inputhiddenProf= document.querySelector('#prof_form')
 
-    
-    modalTitle.textContent = `Deseja deletar ${prof} ?`
-    inputhiddenProf.value = prof
- 
+buttons.forEach(button => {
+
+  button.addEventListener('click', () => {
+
+    const cod = button.getAttribute('data-modal-codeProf');
+
+    const name = button.getAttribute('data-modal-name');
+
+    document.getElementById('prof_form').value = cod;
+
+    document.getElementById('modal-title').textContent = `Deseja deletar ${name}?`;
+
+  });
+
+});
 </script>
 
 </body>
