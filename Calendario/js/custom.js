@@ -29,9 +29,8 @@ eventClick: function(info) {
   
   const event = info.event;
   const description = `
-    <p>Título: ${event.extendedProps.titulo}</p>
-    <p>Início: ${event.extendedProps.comeco}</p>
-    <p>Fim: ${event.extendedProps.fim}</p>
+    <p>Início: ${info.event.start}</p>
+    <p>Fim: ${info.event.end}</p>
   `;
   
   document.getElementById('eventDetails').innerHTML = description;
