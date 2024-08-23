@@ -99,7 +99,7 @@ $.ajax({
 
   success: function(data) {
     window.location.reload();
-  }
+  } 
 
 });
 
