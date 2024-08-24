@@ -1,7 +1,6 @@
 <?php
 include_once ("../conexao.php");
 include_once ("../navbar2.php");
-include_once ("../protect.php");
 date_default_timezone_set('America/Sao_Paulo');
 $translate = array(
     0 => "Dom",

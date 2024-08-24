@@ -52,10 +52,10 @@ $nomelab = $labnome["lab_nome"];
       </a>
       <a type="button" class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" disabled>
         Mês
-      </a>
-    </div><br>
+    </a>
+</div><br>
 <div class="row g-0 text-center">
-    <div class="col-6 col-md-4">
+<div class="col-6 col-md-4">
 <form class="max-w-sm mx-auto mb-3 mt-2" >  
     <label for="data" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data:</label>
     <input name="data" id="data" type="date" <?php echo 'value="' . $data . '"'; ?> class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date">
@@ -139,8 +139,8 @@ $nomelab = $labnome["lab_nome"];
            
             
         ?>
-        <hr><br>
-<div class="relative overflow-x-auto sm:rounded-lg ">
+        <br>
+<div class="relative overflow-x-auto sm:rounded-lg | max-w-2xl mx-auto mb-3 mt-2">
 <table class="w-full text-sm text-center rtl:text-right text-gray-500 dark:text-gray-400">
     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
