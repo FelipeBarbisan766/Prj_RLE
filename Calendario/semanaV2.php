@@ -35,7 +35,7 @@ $translate = array(
         Mês
       </a>
     </div>
-<div class="row g-0 text-center">
+<divv class="row g-0 text-center">
     <div class="col-6 col-md-4">
 <form class="max-w-sm mx-auto mb-3 mt-2" >  
     <label for="data" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data:</label>
@@ -60,8 +60,9 @@ $translate = array(
             <input type="submit" class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900" value="Buscar">
         </form>
     </div>
+    
     <div class="relative overflow-x-auto sm:rounded-lg">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <table id="table-semana" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-6 py-3"></th>
@@ -188,7 +189,7 @@ for ($aula = 1; $aula <= 6; $aula++)  {
                         <?php if(!isset($qui['desc'])){echo "Livre ";}else{echo $qui['desc'];if(isset($qui['prof'])){echo ' - '.$qui['prof'];}}?>
                     </td>
                     <td class="px-6 py-4">
-                        <?php if(!isset($sex)){echo "Livre ";}else{echo $sex;}?>
+                        <?php if(!isset($sex['desc'])){echo "Livre ";}else{echo $sex['desc'];if(isset($sex['prof'])){echo ' - '.$sex['prof'];}}?>
                     </td>
                 </tr>
         
@@ -202,6 +203,19 @@ for ($aula = 1; $aula <= 6; $aula++)  {
 }?>
 
 </tbody>
-  </div>
+</div>
+</table>
+</div>
+
+<br>
+<script src="js/table2excel.js"></script>
+<button id="excel-button" class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">Baixar</button>
+<script>
+    document.getElementById("excel-button").addEventListener('click',function() {
+        var excel = new Table2Excel();
+        excel.export(document.querySelectorAll("#table-semana"),"Tabela-Semana");  
+    });
+    //? https://github.com/rusty1s/table2excel/tree/master
+</script>
 </div>
        
