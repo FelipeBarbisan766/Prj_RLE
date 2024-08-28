@@ -1,7 +1,6 @@
 <?php
 include_once ("../conexao.php");
 include_once ("../navbar2.php");
-include_once ("../protect.php");
 date_default_timezone_set('America/Sao_Paulo');
 $translate = array(
     0 => "Dom",
@@ -16,9 +15,9 @@ $translate = array(
 ?>
 <div class="px-4 mx-auto max-w-screen-xl ">
     <a href="../" class="my-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">         
-        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 8 14">    
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 1 1.3 6.326a.91.91 0 0 0 0 1.348L7 13"/>
-        </svg>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+    </svg>
     </a>
 </div>
 
@@ -61,8 +60,9 @@ $translate = array(
             <input type="submit" class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900" value="Buscar">
         </form>
     </div>
+    
     <div class="relative overflow-x-auto sm:rounded-lg">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <table id="table-semana" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-6 py-3"></th>
@@ -189,7 +189,7 @@ for ($aula = 1; $aula <= 6; $aula++)  {
                         <?php if(!isset($qui['desc'])){echo "Livre ";}else{echo $qui['desc'];if(isset($qui['prof'])){echo ' - '.$qui['prof'];}}?>
                     </td>
                     <td class="px-6 py-4">
-                        <?php if(!isset($sex)){echo "Livre ";}else{echo $sex;}?>
+                        <?php if(!isset($sex['desc'])){echo "Livre ";}else{echo $sex['desc'];if(isset($sex['prof'])){echo ' - '.$sex['prof'];}}?>
                     </td>
                 </tr>
         
@@ -203,6 +203,25 @@ for ($aula = 1; $aula <= 6; $aula++)  {
 }?>
 
 </tbody>
-  </div>
 </div>
+</table>
+</div>
+
+<br>
+<script src="js/table2excel.js"></script>
+
+<button id="excel-button" class="flex flex-row gap-1 place-content-center text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"">Baixar XLSS
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5">
+  <path fill-rule="evenodd" d="M1.5 5.625c0-1.036.84-1.875 1.875-1.875h17.25c1.035 0 1.875.84 1.875 1.875v12.75c0 1.035-.84 1.875-1.875 1.875H3.375A1.875 1.875 0 0 1 1.5 18.375V5.625ZM21 9.375A.375.375 0 0 0 20.625 9h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h7.5a.375.375 0 0 0 .375-.375v-1.5Zm0 3.75a.375.375 0 0 0-.375-.375h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h7.5a.375.375 0 0 0 .375-.375v-1.5Zm0 3.75a.375.375 0 0 0-.375-.375h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h7.5a.375.375 0 0 0 .375-.375v-1.5ZM10.875 18.75a.375.375 0 0 0 .375-.375v-1.5a.375.375 0 0 0-.375-.375h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h7.5ZM3.375 15h7.5a.375.375 0 0 0 .375-.375v-1.5a.375.375 0 0 0-.375-.375h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375Zm0-3.75h7.5a.375.375 0 0 0 .375-.375v-1.5A.375.375 0 0 0 10.875 9h-7.5A.375.375 0 0 0 3 9.375v1.5c0 .207.168.375.375.375Z" clip-rule="evenodd" />
+</svg>
+</button>
+
+<script>
+    document.getElementById("excel-button").addEventListener('click',function() {
+        var excel = new Table2Excel();
+        excel.export(document.querySelectorAll("#table-semana"),"Tabela-Semana");  
+    });
+    //? https://github.com/rusty1s/table2excel/tree/master
+</script>
+    </div>
        

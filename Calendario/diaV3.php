@@ -33,9 +33,10 @@ $nomelab = $labnome["lab_nome"];
 ?>
 <div class="px-4 mx-auto max-w-screen-xl ">
     <a href="../" class="my-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">         
-        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 8 14">    
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 1 1.3 6.326a.91.91 0 0 0 0 1.348L7 13"/>
-        </svg>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+</svg>
+
     </a>
 </div>
 
@@ -51,10 +52,10 @@ $nomelab = $labnome["lab_nome"];
       </a>
       <a type="button" class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" disabled>
         Mês
-      </a>
-    </div><br>
+    </a>
+</div><br>
 <div class="row g-0 text-center">
-    <div class="col-6 col-md-4">
+<div class="col-6 col-md-4">
 <form class="max-w-sm mx-auto mb-3 mt-2" >  
     <label for="data" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data:</label>
     <input name="data" id="data" type="date" <?php echo 'value="' . $data . '"'; ?> class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date">
@@ -138,8 +139,8 @@ $nomelab = $labnome["lab_nome"];
            
             
         ?>
-        <hr><br>
-<div class="relative overflow-x-auto sm:rounded-lg ">
+        <br>
+<div class="relative overflow-x-auto sm:rounded-lg | max-w-2xl mx-auto mb-3 mt-2">
 <table class="w-full text-sm text-center rtl:text-right text-gray-500 dark:text-gray-400">
     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
