@@ -88,7 +88,7 @@
 
                 }
                 ?>
-<!-- <p>Caso não lembre a senha ou não tem certeza <br> <a href="https://i.imgflip.com/737h8a.jpg" class="alert-link">Click aqui para Alterar !</a></p> -->
+                <a href="" class="alert-link">Esqueceu a senha ?</a>
             </form>
           </div>
         </div>
