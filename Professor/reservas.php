@@ -11,7 +11,18 @@ date_default_timezone_set('America/Sao_Paulo');
     </a>
 </div>
 <div class=" py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
-<div class="">
+<div class="relative overflow-x-auto">
+    <table class="w-full text-sm text-center rtl:text-right text-gray-500 dark:text-gray-400">
+    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th colspan=2 scope="col" class="px-6 py-3">
+                    Minhas reservas
+                </th>
+            </tr>
+    </thead>
+    <tbody>
+            
+ 
     <?php
         $cod = $_SESSION['cod'];
         $slq_reserva = mysqli_query($conexao, "SELECT r.res_aula as aula,r.res_desc as descr,r.res_isActive as active, l.lab_nome as lab, r.res_data as dat FROM reserva as r INNER JOIN laboratorio as l on r.lab_cod=l.lab_cod WHERE r.prof_cod='$cod' ORDER BY r.res_aula ASC");
@@ -19,18 +30,23 @@ date_default_timezone_set('America/Sao_Paulo');
         if ($quantidade >= 1){
             while ($reserva = mysqli_fetch_array($slq_reserva)) {
                 if($reserva['dat']< (new DateTime)->format('Y-m-d')){
-                    echo '<h2>Reservas Antigas</h2>';
-                    echo '<hr>';
+
                 }
-                echo '<h3>'.(new DateTime($reserva['dat']))->format('d/m/Y').'</h3>';
-                echo '<a class="block w-full px-4 py-2 border-b border-gray-200 cursor-pointer hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white"> '.$reserva['aula'].'ºAula - '.$reserva['descr'].' - '.$reserva['lab'].'</a>';
-                echo '<br><hr>';
+               echo '<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <td scope="row" class="px-6 py-4 ">';
+                    echo (new DateTime($reserva['dat']))->format('d/m/Y  ');
+                '</td>
+                <td class="px-6 py-4">';
+                    echo $reserva['aula'].'ºAula - '.$reserva['descr'].' - '.$reserva['lab'];
+                '</td>
+                </tr>';
                 }
         }else{
             echo '<h2 class="mb-4 text-3xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Você ainda não possui reservas</h2>';
         }
          ?>
-    
+       </tbody>
+       </table>
 </div>
 </div>
 </div>
