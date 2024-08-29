@@ -88,7 +88,7 @@
 
                 }
                 ?>
-                <a href="" class="alert-link">Esqueceu a senha ?</a>
+                <p>Esqueceu sua senha ?</p><a href="./Esqueci-Senha/forgot-password.php" class="alert-link font-medium text-blue-600 underline dark:text-blue-500 hover:no-underline">Clique aqui!</a>
             </form>
           </div>
         </div>
