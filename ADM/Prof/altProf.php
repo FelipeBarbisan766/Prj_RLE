@@ -1,5 +1,5 @@
 <?php
-include('../conexao.php');
+include('../../conexao.php');
 $cod = $_POST["cod"];
 $nome = $_POST['nome'];
 $cargo = $_POST['cargo'];
