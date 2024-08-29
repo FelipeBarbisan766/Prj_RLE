@@ -8,7 +8,7 @@ $senha = $_POST['senha'];
 $sql = mysqli_query($conexao,"UPDATE professor SET prof_nome='$nome', prof_senha='$senha',prof_cargo='$cargo' WHERE prof_cod='$cod'");
 
 if($sql){
-    header('Location:pageControl.php');
+    header('Location:pageProf.php');
 }else{
     echo "Erro no alter";
 }
