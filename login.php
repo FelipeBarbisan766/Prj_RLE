@@ -41,7 +41,9 @@
               if (!isset($_SESSION)) {
                 session_start();
                 if (isset($_SESSION['cod'])) {
-                  header('Location:');
+                  echo '<script>alert("Você já está logado!"); window.location.href = "index.php";</script>';
+                  
+                  exit;
                 }
               }
 
