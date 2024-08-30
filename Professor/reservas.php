@@ -29,9 +29,6 @@ date_default_timezone_set('America/Sao_Paulo');
             </thead>
             <tbody>';
             while ($reserva = mysqli_fetch_array($slq_reserva)) {
-                if($reserva['dat']< (new DateTime)->format('Y-m-d')){
-
-                }
                echo '<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                 <td scope="row" class="px-6 py-4 ">';
                     echo (new DateTime($reserva['dat']))->format('d/m/Y  ');
