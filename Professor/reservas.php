@@ -13,22 +13,21 @@ date_default_timezone_set('America/Sao_Paulo');
 </div>
 <div class=" py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
 <div class="relative overflow-x-auto">
-    <table class="w-full text-sm text-center rtl:text-right text-gray-500 dark:text-gray-400">
-    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-                <th colspan=2 scope="col" class="px-6 py-3">
-                    Minhas reservas
-                </th>
-            </tr>
-    </thead>
-    <tbody>
-            
  
     <?php
         $cod = $_SESSION['cod'];
         $slq_reserva = mysqli_query($conexao, "SELECT r.res_aula as aula,r.res_desc as descr,r.res_isActive as active, l.lab_nome as lab, r.res_data as dat FROM reserva as r INNER JOIN laboratorio as l on r.lab_cod=l.lab_cod WHERE r.prof_cod='$cod' ORDER BY r.res_data DESC");
         $quantidade = $slq_reserva->num_rows;
         if ($quantidade >= 1){
+         echo '<table class="w-full text-sm text-center rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th colspan=2 scope="col" class="px-6 py-3">
+                            Minhas reservas
+                        </th>
+                    </tr>
+            </thead>
+            <tbody>';
             while ($reserva = mysqli_fetch_array($slq_reserva)) {
                 if($reserva['dat']< (new DateTime)->format('Y-m-d')){
 
@@ -52,4 +51,5 @@ date_default_timezone_set('America/Sao_Paulo');
 </div>
 </div>
 
-<!-- Tá cheio de Erros, tentar achar uma solução para aparecer somente uma vez a frase 'reservas antigas', alem de consertar a ordem cronologica(colocar as datas mais recentes primeiro) -->
+</body>
+</html>
