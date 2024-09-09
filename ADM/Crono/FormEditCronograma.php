@@ -7,7 +7,9 @@
 </head>
 <body>
 <?php
-include_once ("../navbar2.php");
+include_once ("../../navbar2.php");
+include_once ("../../navbar2.php");
+date_default_timezone_set('America/Sao_Paulo');
 ?>
 <div class="">
     
@@ -20,13 +22,6 @@ include_once ("../navbar2.php");
     </div>
 
     <h1 class="mb-4 text-3xl text-center mt-2 font-extrabold tracking-tight leading-none text-gray-900 md:text-3xl lg:text-4xl dark:text-white">Editar Cronograma</h1>
-
-    <?php
-    include_once ("../conexao.php");
-    include_once ("../navbar2.php");
-    date_default_timezone_set('America/Sao_Paulo');
-?>
-
 <!-- TABELA 2 -->
 <?php
 if (isset($_GET['lab'])) {
