@@ -3,47 +3,56 @@ require_once '../conexao.php';
 
 $prof_nome = $_POST["email"];
 
-$token = bin2hex(random_bytes(16));
+////////////////////////
+// PHPMailer example
+// heiko@hostinger.com
+////////////////////////
 
-$token_hash = hash("sha256", $token);
+// Login credentials
+$server_smtp = "smtp.hostinger.com";
+$server_imap = "imap.hostinger.com";
+$email_account = "contato@varejaopagleve.com.br";
+$email_password = "Projeto_rle10";
 
-$expiry = date("Y-m-d H:i:s", time() + 60 * 30);
+// Recipient
+$recipient = $prof_nome;
 
-$sql = "SHOW TABLES LIKE 'professor'";
-    $result = $conexao->query($sql);
+// Stop making changes below this line
 
-    if ($result->num_rows > 0) {
+use PHPMailer\PHPMailer\PHPMailer;
+require "./phpmailer/autoload.php";
+$mail = new PHPMailer;
+$mail->isSMTP();
+$mail->SMTPDebug = 2;
+
+$mail->Host = $server_smtp;
+$mail->Port = 587;
+$mail->SMTPAuth = true;
+$mail->SMTPSecure = "tls";
+$mail->Username = $email_account;
+$mail->Password = $email_password;
+
+$mail->setFrom($email_account, "");
+$mail->addReplyTo($email_account, "");
+$mail->addAddress($recipient, "");
+$mail->Subject = "Recuperar senha";
+$mail->msgHTML("<h1>Para redefinir sua senha clique no link abaixo</h1><br>
+                        <a href=''>Clique aqui</a><br>
+                        <p>Caso você não tenha pedido para redefinir a senha, ignore esta mensagem</p>
+");
+
+if (!$mail->send()) {
+	echo "error: ".$mail->ErrorInfo;
+} else {
+	echo "email enviado";
+    echo "<script> window.location.href='../index.php'</script>";
+    
+	if(!empty($server_imap)) {
+		// Add the message to the IMAP.Sent mailbox
+		$mail_string = $mail->getSentMIMEMessage();
+		$imap_stream = imap_open("{".$server_imap."}", $email_account, $email_password);
+		imap_append($imap_stream, "{".$server_imap."}INBOX.Sent", $mail_string);
+
         
-        $sql = "UPDATE professor SET reset_token_hash = ?, reset_token_expires_at = ? WHERE prof_nome = ?";
-
-        $stmt = $conexao->prepare($sql);
-        $stmt->bind_param("sss", $token_hash, $expiry, $prof_nome);
-
-        if ($stmt->execute()) {
-            echo "E-mail enviado com sucesso!";
-        } else {
-            echo "Erro ao enviar e-mail.";
-        }
-    } else {
-        echo "A tabela professor não existe.";
-    }
-
-if($conexao->affected_rows){
-    require __DIR__ . "/mailer.php";
-
-    $mail->setFrom("fgatechtest@gmail.com");
-    $mail->addAddress($prof_nome);
-    $mail->Subject = "Password Reset";
-    $mail->Body = <<<END
-        Click <a href="http:/example.com/reset-password.php?token=">here</a>
-        to reset your password.
-    END;
-    try{
-        $mail->send();
-    }
-    catch (Exception $e){
-        echo "A mensagem não foi enviada. Mailer error {$mail->ErrorInfo}";
-    }
+	}
 }
-
-echo "A Mensagem foi enviada, verifique seu email";
