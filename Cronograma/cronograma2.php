@@ -57,7 +57,7 @@ $nomelab = $labnome["lab_nome"];
     </form>
     
 
-    <div class="relative overflow-x-auto sm:rounded-lg">
+    <div class="relative overflow-x-auto sm:rounded-lg mb-2">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400" id="table-crono">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
@@ -140,8 +140,6 @@ $nomelab = $labnome["lab_nome"];
                 
             </tbody>
         </table>
-    </div>
-    <div>
     </div>
     <script src="\Prj_RLE/Calendario/js/table2excel.js"></script>
     
