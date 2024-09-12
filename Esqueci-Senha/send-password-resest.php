@@ -30,7 +30,7 @@ $mail->setFrom($email_account, "");
 $mail->addReplyTo($email_account, "");
 $mail->addAddress($recipient, "");
 $mail->Subject = "Recuperar senha";
-$mail->msgHTML("<h1>Para redefinir sua senha clique no link abaixo</h1><br>
+$mail->msgHTML("<h1>Para redefinir sua senha clique no link abaixo</h1>
                         <a href=''>Clique aqui</a><br>
                         <p>Caso você não tenha pedido para redefinir a senha, ignore esta mensagem</p>
 ");
