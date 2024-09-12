@@ -84,18 +84,12 @@ include_once ('../protect.php');
 
             <label for="aula" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-3xl px-40">Aula</label>
             <select name="aula" id="aula" class="form-select block mb-2 font-medium dark:text-white bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option value="1" <?php if(isset($aula1)){echo $aula1;} ?>>1º Aula -
-                    7h00/7h50</option>
-                <option value="2" <?php if(isset($aula2)){echo $aula2;} ?>>2º Aula -
-                    --/--</option>
-                <option value="3" <?php if(isset($aula3)){echo $aula3;} ?>>3º Aula -
-                    --/--</option>
-                <option value="4" <?php if(isset($aula4)){echo $aula4;} ?>>4º Aula -
-                    --/--</option>
-                <option value="5" <?php if(isset($aula5)){echo $aula5;} ?>>5º Aula -
-                    --/--</option>
-                <option value="6" <?php if(isset($aula6)){echo $aula6;} ?>>6º Aula -
-                    --/--</option>
+                <option value="1" <?php if(isset($aula1)){echo $aula1;} ?>>1º Aula</option>
+                <option value="2" <?php if(isset($aula2)){echo $aula2;} ?>>2º Aula</option>
+                <option value="3" <?php if(isset($aula3)){echo $aula3;} ?>>3º Aula</option>
+                <option value="4" <?php if(isset($aula4)){echo $aula4;} ?>>4º Aula</option>
+                <option value="5" <?php if(isset($aula5)){echo $aula5;} ?>>5º Aula</option>
+                <option value="6" <?php if(isset($aula6)){echo $aula6;} ?>>6º Aula</option>
             </select><br>
             
             <input type="submit" value="Reservar" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
