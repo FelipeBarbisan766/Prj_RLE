@@ -35,7 +35,7 @@ $mail->msgHTML("<h1>Para redefinir sua senha clique no link abaixo</h1>
                         <p>Caso você não tenha pedido para redefinir a senha, ignore esta mensagem</p>
 ");
 
-
+$mail->send();
 echo '<div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
 
 	<div class="flex items-center p-4 mb-4 text-sm text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800" role="alert">
@@ -54,7 +54,7 @@ echo '<div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
 	</div>
       ';  
 
-    
+ }   
 	if(!empty($server_imap)) {
 		// Add the message to the IMAP.Sent mailbox
 		$mail_string = $mail->getSentMIMEMessage();
