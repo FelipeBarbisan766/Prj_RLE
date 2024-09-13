@@ -17,7 +17,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 require "./phpmailer/autoload.php";
 $mail = new PHPMailer;
 $mail->isSMTP();
-$mail->SMTPDebug = 2;
+$mail->SMTPDebug = 0;
 
 $mail->Host = $server_smtp;
 $mail->Port = 587;
