@@ -3,9 +3,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   var calendar = new FullCalendar.Calendar(calendarEl, {
     headerToolbar: {
-      left: 'prev,next today',
+      left:'',
       center: 'title',
-      right: 'dayGridMonth,timeGridWeek,timeGridDay'
     },
     locale: 'pt-br',
     navLinks: true,
@@ -17,21 +16,20 @@ document.addEventListener('DOMContentLoaded', function() {
       url: 'listarEvento.php',
       method: 'GET',
       failure: function() {
-        alert('Falha ao carregar eventos!');
+          alert('Falha ao carregar eventos!');
       },
       eventDataTransform: function(eventData) {
-        return {
-          title: eventData.title,
-          start: eventData.start,
-          extendedProps: {
-            prof: eventData.prof,
-            lab: eventData.lab,
-            aula: eventData.aula
-          }
-        };
+          return {
+              title: eventData.title,
+              start: eventData.start,
+              extendedProps: {
+                  prof: eventData.prof,
+                  lab: eventData.lab,
+                  aula: eventData.aula
+              }
+          };
       }
-    },
-
+},
   //? TA FUNCIONANDO MAS PRECISA PUXAR OS VALORES DO BANCO E ALINHAR ELE CERTINHO
   eventClick: function(info) {  
 
