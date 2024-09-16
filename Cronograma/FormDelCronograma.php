@@ -1,3 +1,5 @@
+//! PRECISA ARRUMAR O AJAX
+
 <?php
 include_once ("../navbar2.php");
 include_once ('../ADM/protectAdm.php');

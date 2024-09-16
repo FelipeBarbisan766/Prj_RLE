@@ -1,3 +1,5 @@
+//! PRECISA ADICIONAR O SELECT PARA TROCAR AS AULAS E PUXAR A cro_desc DO BANCO
+
 <?php
 include_once ("../navbar2.php");
 include_once ('../ADM/protectAdm.php');
