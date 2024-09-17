@@ -70,7 +70,8 @@ include_once ('../protectAdm.php');
     success: function() {
         $('[data-modal-hide="popup-modal"]').click();
         console.log('deu certo');
-        window.location.href = 'pageControl.php';
+        console.log(profId); 
+        //window.location.href = 'pageProf.php';
     }
   });
 }

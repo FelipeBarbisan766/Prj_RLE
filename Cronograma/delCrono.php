@@ -1,9 +1,10 @@
 <?php 
 include('../conexao.php');
-include_once ('../protectCode.php');
+// include_once ('../protectCode.php');
 
+$cod = $_POST['cod'];
 $isActive = false;
-$sql = mysqli_query($conexao,"UPDATE cronograma SET cro_isActive='$isActive' WHERE cro_cod='$cod'");
+$sql = mysqli_query($conexao,"UPDATE `cronograma` SET `cro_isActive` = '$isActive' WHERE `cro_cod` = '$cod';");
 
 if($sql){
     //  header('Location:lista.php');
