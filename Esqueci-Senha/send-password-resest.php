@@ -3,7 +3,7 @@
 include_once('../navbar2.php'); 
 require_once '../conexao.php';
 
-$prof_email = $_POST["email"];
+$prof_email = $_GET["email"];
 
 $token = bin2hex(random_bytes(16));
 $token_hash = hash("sha256", $token);
@@ -21,6 +21,7 @@ require "./phpmailer/autoload.php";
 
 $sql = "SHOW TABLES LIKE 'professor'";
 $result = $conexao->query($sql);
+// $sqlinto = mysqli_query($conexao,"UPDATE professor SET reset_token_hash = '$token_hash', reset_token_expires_at = $expiry WHERE prof_email = '$prof_email'");//!Provisorio
 
 if ($result->num_rows > 0) {
 
@@ -45,7 +46,7 @@ if ($result->num_rows > 0) {
         $mail->addReplyTo($email_account, "");
         $mail->addAddress($recipient, "");
         $mail->Subject = "Recuperar senha";
-        $reset_link = "redefinir_senha.php?token=$token";
+        $reset_link = "https://varejaopagleve.com.br/rle/Esqueci-Senha/redefinir_senha.php?token=$token_hash";
         $mail->msgHTML("<h1>Para redefinir sua senha, clique no link abaixo</h1>
                         <a href='$reset_link'>Clique aqui</a><br>");
 
