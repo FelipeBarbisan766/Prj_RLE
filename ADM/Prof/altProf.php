@@ -2,6 +2,7 @@
 include('../../conexao.php');
 $cod = $_POST["cod"];
 $nome = $_POST['nome'];
+$email = $_POST['email'];
 $cargo = $_POST['cargo'];
 $senha = $_POST['senha'];
 
