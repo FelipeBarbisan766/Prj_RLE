@@ -3,7 +3,7 @@
 include_once('../navbar2.php'); 
 require_once '../conexao.php';
 
-$prof_nome = $_POST["email"];
+$prof_email = $_POST["email"];
 
 $token = bin2hex(random_bytes(16));
 $token_hash = hash("sha256", $token);
@@ -14,7 +14,7 @@ $server_imap = "imap.hostinger.com";
 $email_account = "contato@varejaopagleve.com.br";
 $email_password = "Projeto_rle10";
 
-$recipient = $prof_nome;
+$recipient = $prof_email;
 
 use PHPMailer\PHPMailer\PHPMailer;
 require "./phpmailer/autoload.php";
@@ -24,9 +24,9 @@ $result = $conexao->query($sql);
 
 if ($result->num_rows > 0) {
 
-    $sql = "UPDATE professor SET reset_token_hash = ?, reset_token_expires_at = ? WHERE prof_nome = ?";
+    $sql = "UPDATE professor SET reset_token_hash = ?, reset_token_expires_at = ? WHERE prof_email = ?";
     $stmt = $conexao->prepare($sql);
-    $stmt->bind_param("sss", $token_hash, $expiry, $prof_nome);
+    $stmt->bind_param("sss", $token_hash, $expiry, $prof_email);
 
     if ($stmt->execute()) {
 
@@ -45,7 +45,7 @@ if ($result->num_rows > 0) {
         $mail->addReplyTo($email_account, "");
         $mail->addAddress($recipient, "");
         $mail->Subject = "Recuperar senha";
-        // $reset_link = "https://seusite.com/redefinir_senha.php?token=$token"; COLOCAR O LINK DO RESET AQUI DEPOIS
+        $reset_link = "redefinir_senha.php?token=$token";
         $mail->msgHTML("<h1>Para redefinir sua senha, clique no link abaixo</h1>
                         <a href='$reset_link'>Clique aqui</a><br>");
 
