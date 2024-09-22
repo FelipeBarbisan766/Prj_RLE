@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 29/08/2024 às 17:13
+-- Tempo de geração: 18/09/2024 às 18:42
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -42,19 +42,8 @@ CREATE TABLE `cronograma` (
 --
 
 INSERT INTO `cronograma` (`cro_cod`, `cro_desc`, `cro_aula`, `cro_sem`, `cro_isActive`, `lab_cod`, `prof_cod`) VALUES
-(5, 'PW - RO - TURMA B - 3ºAMS', 1, 1, b'1', 1, 1),
-(6, 'PW - RO - TURMA A - 3ºAMS', 2, 1, b'1', 1, 1),
-(7, 'BD - CARLA - TURMA A - 2ºAMS', 5, 1, b'1', 1, 1),
-(8, 'IC - JOSE - 1ºRH', 2, 2, b'1', 1, 1),
-(9, 'PR - JAO - 3ºADM', 6, 2, b'1', 1, 1),
-(10, 'BD -  CARLA - 2ª INFO', 1, 4, b'1', 1, 1),
-(11, 'TCC - LUCIANA - 3º AMS', 1, 3, b'1', 1, 1),
-(12, 'DESIGN DIGITAL - DEL VECCHIO - 1º AMS', 3, 3, b'1', 1, 1),
-(13, 'PW III - CARLOS - 3º AMS ', 1, 5, b'1', 1, 1),
-(14, 'PW III - DOUGLAS - 2º AMS', 2, 5, b'1', 1, 1),
-(15, 'TCC - DUNHA - 3º AMS', 3, 1, b'1', 1, 1),
-(16, 'SE - NEI - 2º AMS', 2, 4, b'1', 1, 1),
-(17, 'TCC - LUCIANA - 3º AMS', 4, 1, b'1', 1, 1);
+(5, 'Eduardo FI', 5, 5, b'1', 1, 1),
+(6, 'EDUARDO FI', 5, 1, b'1', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -74,12 +63,7 @@ CREATE TABLE `laboratorio` (
 --
 
 INSERT INTO `laboratorio` (`lab_cod`, `lab_nome`, `lab_desc`, `lab_isActive`) VALUES
-(1, 'Lab 01', 'Laboratorio 1', b'1'),
-(2, 'Lab 02', 'Laboratório 2', b'1'),
-(3, 'Lab 03', 'Laboratório 3', b'1'),
-(4, 'Lab 04', 'Laboratório 4', b'1'),
-(5, 'Lab 05', 'Laboratório 5', b'1'),
-(6, 'Lab 06', 'Laboratório 6', b'1');
+(1, 'Lab 01', 'Laboratorio 1', b'1');
 
 -- --------------------------------------------------------
 
@@ -90,22 +74,22 @@ INSERT INTO `laboratorio` (`lab_cod`, `lab_nome`, `lab_desc`, `lab_isActive`) VA
 CREATE TABLE `professor` (
   `prof_cod` int(11) NOT NULL,
   `prof_nome` varchar(40) NOT NULL,
+  `prof_email` varchar(320) NOT NULL,
   `prof_senha` varchar(20) NOT NULL,
   `prof_cargo` varchar(10) NOT NULL,
-  `prof_isActive` bit(1) NOT NULL
+  `prof_isActive` bit(1) NOT NULL,
+  `reset_token_hash` varchar(64) DEFAULT NULL,
+  `reset_token_expires_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `professor`
 --
 
-INSERT INTO `professor` (`prof_cod`, `prof_nome`, `prof_senha`, `prof_cargo`, `prof_isActive`) VALUES
-(1, 'TESTE', '124', 'adm', b'1'),
-(2, 'FELIPE', '123', 'prof', b'1'),
-(3, 'EDUARDO', '123', 'prof', b'1'),
-(4, 'CARLA GALASSI', '123', 'prof', b'1'),
-(5, 'ROSANA', '123', 'prof', b'0'),
-(6, 'JOAO', '123', 'prof', b'0');
+INSERT INTO `professor` (`prof_cod`, `prof_nome`, `prof_email`, `prof_senha`, `prof_cargo`, `prof_isActive`, `reset_token_hash`, `reset_token_expires_at`) VALUES
+(1, 'TESTE', '', '123', 'adm', b'1', NULL, NULL),
+(2, 'FELIPE', '', '123', 'prof', b'1', NULL, NULL),
+(3, 'EDUARDOVIZICATO@GMAIL.COM', '', '123', 'prof', b'1', '3d45a5f3780ea6f1499e8d5d2aaa2e5de9a91f9c3c66b4a7dab6367a374d8ebc', '2024-09-16 20:49:19');
 
 -- --------------------------------------------------------
 
@@ -129,10 +113,8 @@ CREATE TABLE `reserva` (
 --
 
 INSERT INTO `reserva` (`res_cod`, `res_desc`, `res_aula`, `res_data`, `res_dataRes`, `res_isActive`, `lab_cod`, `prof_cod`) VALUES
-(11, 'TESTE RESERVA', 4, '2024-08-23', '2024-08-23 09:44:00', b'1', 2, 1),
-(12, 'TESTE', 6, '2024-08-23', '2024-08-23 09:45:00', b'1', 1, 1),
-(14, 'BANCO DE DADOS ', 2, '2024-08-28', '2024-08-23 11:37:00', b'1', 1, 4),
-(15, 'TCC 3º AMS - TURMA B', 3, '2024-08-23', '2024-08-23 11:56:00', b'1', 1, 5);
+(8, 'EDUARDO FI', 2, '0000-00-00', '2024-08-19 14:35:00', b'1', 1, 1),
+(9, 'FELIPE', 1, '2024-08-22', '2024-08-19 14:35:00', b'1', 1, 1);
 
 --
 -- Índices para tabelas despejadas
@@ -156,7 +138,8 @@ ALTER TABLE `laboratorio`
 -- Índices de tabela `professor`
 --
 ALTER TABLE `professor`
-  ADD PRIMARY KEY (`prof_cod`);
+  ADD PRIMARY KEY (`prof_cod`),
+  ADD UNIQUE KEY `reset_token_hash` (`reset_token_hash`);
 
 --
 -- Índices de tabela `reserva`
@@ -174,25 +157,25 @@ ALTER TABLE `reserva`
 -- AUTO_INCREMENT de tabela `cronograma`
 --
 ALTER TABLE `cronograma`
-  MODIFY `cro_cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `cro_cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `laboratorio`
 --
 ALTER TABLE `laboratorio`
-  MODIFY `lab_cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `lab_cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `professor`
 --
 ALTER TABLE `professor`
-  MODIFY `prof_cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `prof_cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `reserva`
 --
 ALTER TABLE `reserva`
-  MODIFY `res_cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `res_cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Restrições para tabelas despejadas

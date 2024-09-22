@@ -43,7 +43,20 @@ date_default_timezone_set('America/Sao_Paulo');
                 ';
                 }
         }else{
-            echo '<h2 class="mb-4 text-3xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Você ainda não possui reservas</h2>';
+            echo '<table class="w-full text-sm text-center rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th colspan=2 scope="col" class="px-6 py-3">
+                            Proximas Reservas
+                        </th>
+                    </tr>
+            </thead>
+            <tbody
+               <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <td class="px-6 py-4">
+                    Você ainda não possui reservas Futuras
+                </td>
+                </tr>';
         }
         $slq_res_ant = mysqli_query($conexao, "SELECT r.res_aula as aula,r.res_desc as descr,r.res_isActive as active, l.lab_nome as lab, r.res_data as dat FROM reserva as r INNER JOIN laboratorio as l on r.lab_cod=l.lab_cod WHERE r.prof_cod='$cod' AND r.res_data < '".$dia_atual."' ORDER BY r.res_data DESC");
         $quantidade = $slq_res_ant->num_rows;
@@ -68,7 +81,20 @@ date_default_timezone_set('America/Sao_Paulo');
                 </tr>';
                 }
         }else{
-            echo '<h2 class="mb-4 text-3xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Você ainda não possui reservas</h2>';
+            echo '<table class="w-full text-sm text-center rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th colspan=2 scope="col" class="px-6 py-3">
+                            Proximas Reservas
+                        </th>
+                    </tr>
+            </thead>
+            <tbody
+               <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <td class="px-6 py-4">
+                    Você não possui reservas antigas
+                </td>
+                </tr>';
         }
          ?>
        </tbody>

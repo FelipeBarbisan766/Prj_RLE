@@ -25,10 +25,10 @@ include_once ("../protect.php");
             <form class="mt-3 max-w-sm mx-auto" action="altSenha.php" method="post">
                 
                 <label for="nova_senha" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nova senha:</label>
-                <input type="text" name="nova_senha" id="nova_senha" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                <input type="password" name="nova_senha" id="nova_senha" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                 <br>
                 <label for="nova_senha2" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirme a Nova senha:</label>
-                <input type="text" name="nova_senha2" id="nova_senha2" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                <input type="password" name="nova_senha2" id="nova_senha2" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                 <br>
                 <a type="button" href="pageProfessor.php" class="mb-2 text-white bg-danger-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Cancelar</a>
                 <input type="submit" value="Registrar" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
@@ -54,8 +54,8 @@ include_once ("../protect.php");
         }
     }elseif(isset($_POST['nova_senha'])){
         $cod = $_SESSION['cod'];
-        $senha_nova = $_POST['nova_senha'];
-        $senha_nova2 = $_POST['nova_senha2'];
+        $senha_nova = strtolower($_POST['nova_senha']);
+        $senha_nova2 = strtolower($_POST['nova_senha2']);
         if($senha_nova == $senha_nova2){
             $sql = mysqli_query($conexao,"UPDATE professor SET prof_senha='$senha_nova' WHERE prof_cod='$cod'");
             if($sql){
@@ -69,10 +69,10 @@ include_once ("../protect.php");
             <form class="mt-3 max-w-sm mx-auto" action="altSenha.php" method="post">
                 
                 <label for="nova_senha" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nova senha:</label>
-                <input type="text" name="nova_senha" id="nova_senha" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                <input type="password" name="nova_senha" id="nova_senha" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                 <br>
                 <label for="nova_senha2" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirme a Nova senha:</label>
-                <input type="text" name="nova_senha2" id="nova_senha2" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                <input type="password" name="nova_senha2" id="nova_senha2" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                 <br>
                 <a type="button" href="pageProfessor.php" class="mb-2 text-white bg-danger-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Cancelar</a>
                 <input type="submit" value="Registrar" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
