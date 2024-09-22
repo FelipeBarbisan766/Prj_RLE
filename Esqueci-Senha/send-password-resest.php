@@ -1,8 +1,7 @@
 <?php
-
 include_once('../navbar2.php'); 
 require_once '../conexao.php';
-
+date_default_timezone_set('America/Sao_Paulo');
 $prof_email = $_GET["email"];
 
 $token = bin2hex(random_bytes(16));
