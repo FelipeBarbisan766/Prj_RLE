@@ -9,6 +9,7 @@
 </head>
 <body>
 <?php include_once('../navbar2.php');
+include_once('../button_back.php');
 if(!isset($_GET['email'])){
 ?>
 <form class="max-w-sm mx-auto m-3" method="get" action="">
