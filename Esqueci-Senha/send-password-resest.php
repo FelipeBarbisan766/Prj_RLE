@@ -47,7 +47,7 @@ if ($result->num_rows > 0) {
         $mail->Subject = "Recuperar senha";
         $reset_link = "https://varejaopagleve.com.br/rle/Esqueci-Senha/redefinir_senha.php?token=$token_hash";
         $mail->msgHTML('
-        <!DOCTYPE html>
+		<!DOCTYPE html>
 <html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" lang="en">
 
 <head>
@@ -156,7 +156,7 @@ if ($result->num_rows > 0) {
 														<tr>
 															<td class="pad" style="width:100%;">
 																<div class="alignment" align="center" style="line-height:10px">
-																	<div style="max-width: 200px;"><img src="https://f6514ce0b6.imgdist.com/pub/bfra/ahrpqfnk/nsa/l3c/vjc/d0a5fde3-e3cc-412d-a744-a83231b24325.png" style="display: block; height: auto; border: 0; width: 100%;" width="200" height="auto"></div>
+																	<div style="max-width: 500px;"><img src="https://f6514ce0b6.imgdist.com/pub/bfra/ahrpqfnk/9aj/3h6/kib/b662d099-a5a6-4d37-a989-766eaccf009b.png" style="display: block; height: auto; border: 0; width: 100%;" width="500" height="auto"></div>
 																</div>
 															</td>
 														</tr>
@@ -177,7 +177,7 @@ if ($result->num_rows > 0) {
 													<table class="heading_block block-3" width="100%" border="0" cellpadding="10" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 														<tr>
 															<td class="pad">
-																<h1 style="margin: 0; color: #1e0e4b; direction: ltr; font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; font-size: 38px; font-weight: 700; letter-spacing: normal; line-height: 120%; text-align: left; margin-top: 0; margin-bottom: 0; mso-line-height-alt: 45.6px;"><span class="tinyMce-placeholder" style="word-break: break-word;">Pedido de Redefinição de Senha</span></h1>
+																<h1 style="margin: 0; color: #14b1ff; direction: ltr; font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; font-size: 38px; font-weight: 700; letter-spacing: normal; line-height: 120%; text-align: center; margin-top: 0; margin-bottom: 0; mso-line-height-alt: 45.6px;"><span class="tinyMce-placeholder" style="word-break: break-word;">Pedido de Redefinição de Senha</span></h1>
 															</td>
 														</tr>
 													</table>
@@ -234,11 +234,11 @@ if ($result->num_rows > 0) {
 														<tr>
 															<td class="pad">
 																<div class="alignment" align="center"><!--[if mso]>
-                                                                <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="'.$reset_link.'" style="height:48px;width:146px;v-text-anchor:middle;" arcsize="9%" stroke="false" fillcolor="#4785ff">
-                                                                <w:anchorlock/>
-                                                                <v:textbox inset="0px,0px,0px,0px">
-                                                                <center dir="false" style="color:#ffffff;font-family:Arial, sans-serif;font-size:16px">
-                                                                <![endif]--><a href="'.$reset_link.'" target="_blank" style="background-color:#4785ff;border-bottom:0px solid transparent;border-left:0px solid transparent;border-radius:4px;border-right:0px solid transparent;border-top:0px solid transparent;color:#ffffff;display:inline-block;font-family:Arial, "Helvetica Neue", Helvetica, sans-serif;font-size:16px;font-weight:700;mso-border-alt:none;padding-bottom:5px;padding-top:5px;text-align:center;text-decoration:none;width:auto;word-break:keep-all;"><span style="word-break: break-word; padding-left: 20px; padding-right: 20px; font-size: 16px; display: inline-block; letter-spacing: normal;"><span style="word-break: break-word; line-height: 19.2px;">Redefinir senha</span></span></a><!--[if mso]></center></v:textbox></v:roundrect><![endif]--></div>
+<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="'.$reset_link.'" style="height:48px;width:146px;v-text-anchor:middle;" arcsize="9%" stroke="false" fillcolor="#14a1ff">
+<w:anchorlock/>
+<v:textbox inset="0px,0px,0px,0px">
+<center dir="false" style="color:#ffffff;font-family:Arial, sans-serif;font-size:16px">
+<![endif]--><a href="'.$reset_link.'" target="_blank" style="background-color:#14a1ff;border-bottom:0px solid transparent;border-left:0px solid transparent;border-radius:4px;border-right:0px solid transparent;border-top:0px solid transparent;color:#ffffff;display:inline-block;font-family:Arial, "Helvetica Neue", Helvetica, sans-serif;font-size:16px;font-weight:700;mso-border-alt:none;padding-bottom:5px;padding-top:5px;text-align:center;text-decoration:none;width:auto;word-break:keep-all;"><span style="word-break: break-word; padding-left: 20px; padding-right: 20px; font-size: 16px; display: inline-block; letter-spacing: normal;"><span style="word-break: break-word; line-height: 19.2px;">Redefinir senha</span></span></a><!--[if mso]></center></v:textbox></v:roundrect><![endif]--></div>
 															</td>
 														</tr>
 													</table>

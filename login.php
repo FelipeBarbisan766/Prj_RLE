@@ -62,7 +62,6 @@
                   $senha = $conexao->real_escape_string($_POST['txt_senha']);
 
                   $nome = strtoupper($nome);
-                  $senha = strtolower($senha);
 
                   $sql_code = "SELECT * FROM professor WHERE prof_nome = '$nome' AND prof_senha ='$senha'";
                   $sql_query = $conexao->query($sql_code) or die("falha na execução do codigo");

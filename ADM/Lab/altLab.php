@@ -61,7 +61,7 @@ include_once('../../button_back.php');
 if(isset($_POST['cod'])){
 include('../../conexao.php');
 $cod = $_POST["cod"];
-$nome = $_POST['nome'];
+$nome = strtoupper($_POST['nome']) ;
 $desc = $_POST['desc'];
 
 $sql = mysqli_query($conexao,"UPDATE laboratorio SET lab_nome='$nome', lab_desc='$desc' WHERE lab_cod='$cod'");

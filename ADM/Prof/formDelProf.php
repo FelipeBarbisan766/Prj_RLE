@@ -80,7 +80,7 @@ include_once('../../button_back.php');
                     $('[data-modal-hide="popup-modal"]').click();
                     console.log('deu certo');
                     console.log(profId);
-                    //window.location.href = 'pageProf.php';
+                    window.location.href = 'pageProf.php';
                 }
             });
         }

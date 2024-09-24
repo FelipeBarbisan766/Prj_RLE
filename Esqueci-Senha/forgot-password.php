@@ -22,7 +22,7 @@ if(!isset($_GET['email'])){
 <?php
 }
 if(isset($_GET['email'])){
-  $email = $_GET['email'];
+  $email = strtolower($_GET['email']);
   $slq = mysqli_query($conexao,'SELECT * FROM professor WHERE prof_email="'.$email.'" ');
   $quant = mysqli_num_rows($slq);
   if($quant == 1){

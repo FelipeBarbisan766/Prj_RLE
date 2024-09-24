@@ -3,7 +3,7 @@ include('../../conexao.php');
 include_once ('../../protectCode.php');
 
 $nome = strtoupper($_POST['nome']);
-$senha = strtolower($_POST['senha']);
+$senha = $_POST['senha'];
 $cargo = strtolower($_POST['cargo']);
 $email = strtolower($_POST['email']);
 $isActive = true;

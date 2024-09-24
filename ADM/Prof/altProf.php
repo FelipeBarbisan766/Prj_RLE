@@ -4,7 +4,7 @@ $cod = $_POST["cod"];
 $nome = strtoupper($_POST['nome']);
 $email = strtolower($_POST['email']);
 $cargo = strtolower($_POST['cargo']);
-$senha = strtolower($_POST['senha']);
+$senha = $_POST['senha'];
 
 $sql = mysqli_query($conexao,"UPDATE professor SET prof_nome='$nome', prof_senha='$senha', prof_email='$email' ,prof_cargo='$cargo' WHERE prof_cod='$cod'");
 

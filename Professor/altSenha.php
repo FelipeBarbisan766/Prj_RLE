@@ -50,8 +50,8 @@ include_once('../button_back.php');
         }
     }elseif(isset($_POST['nova_senha'])){
         $cod = $_SESSION['cod'];
-        $senha_nova = strtolower($_POST['nova_senha']);
-        $senha_nova2 = strtolower($_POST['nova_senha2']);
+        $senha_nova = $_POST['nova_senha'];
+        $senha_nova2 = $_POST['nova_senha2'];
         if($senha_nova == $senha_nova2){
             $sql = mysqli_query($conexao,"UPDATE professor SET prof_senha='$senha_nova' WHERE prof_cod='$cod'");
             if($sql){
