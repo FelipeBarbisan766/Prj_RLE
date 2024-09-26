@@ -11,7 +11,7 @@ if(isset($_GET['noti'])){
 }
 $noti = $_SESSION['noti'];
 if($noti !== false){
-    $sql = mysqli_query($conexao,'SELECT * FROM reserva WHERE prof_cod = '.$user.' AND res_data > "'.$dia_atual.'" '); //! Arrumar a verificação da data 
+    $sql = mysqli_query($conexao,'SELECT * FROM reserva WHERE prof_cod = '.$user.' AND res_data > "'.$dia_atual.'" ');
     $quant_rows = mysqli_num_rows($sql);
     if($quant_rows >= 1){
 ?>

@@ -23,7 +23,10 @@
                 </a> 
                 <a href="altSenha.php" class="py-3 px-5 sm:ms-4 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
                     Alterar Senha 
-                </a>  
+                </a> 
+                <a href="altDados.php" class="py-3 px-5 sm:ms-4 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
+                    Alterar Dados 
+                </a>   
                 
             </div>
         </div>
