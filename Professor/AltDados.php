@@ -18,6 +18,10 @@ include_once('../button_back.php');
             <input value="<?php echo $prof['prof_nome']; ?>" type="text" id="nome" name="nome" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nome" required />
         </div>
         <div class="mb-5">
+            <label for="user" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome de Usuario</label>
+            <input value="<?php echo $prof['prof_user']; ?>" type="text" id="user" name="user" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+        </div>
+        <div class="mb-5">
             <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
             <input value="<?php echo $prof['prof_email']; ?>" type="email" id="email" name="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
         </div>
@@ -35,8 +39,8 @@ if(isset($_POST['cod'])){
 $cod = $_POST["cod"];
 $nome = strtoupper($_POST['nome']);
 $email = strtolower($_POST['email']);
-
-$sql = mysqli_query($conexao,"UPDATE professor SET prof_nome='$nome', prof_email='$email' WHERE prof_cod='$cod'");
+$user = strtolower($_POST['user']);
+$sql = mysqli_query($conexao,"UPDATE professor SET prof_nome='$nome', prof_user='$user', prof_email='$email' WHERE prof_cod='$cod'");
 
 if($sql){
     echo "<script> window.location.href='$link_back'</script>";

@@ -17,6 +17,13 @@ include_once('../../button_back.php');
                 placeholder="Nome" required />
         </div>
         <div class="mb-5">
+            <label for="user" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome de Usuário
+                professor</label>
+            <input type="text" id="user" name="user"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Nome usado para entrar no site" required />
+        </div>
+        <div class="mb-5">
             <label for="senha" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Senha para
                 professor</label>
             <input type="password" id="senha" name="senha"
@@ -49,19 +56,20 @@ $nome = strtoupper($_POST['nome']);
 $senha = $_POST['senha'];
 $cargo = strtolower($_POST['cargo']);
 $email = strtolower($_POST['email']);
+$user = strtolower($_POST['user']);
 $isActive = true;
 $sql_verify = mysqli_query($conexao,"SELECT prof_nome,prof_email FROM professor ");
 $verify = false;
 while ($prof = mysqli_fetch_array($sql_verify)){
-    if($nome == $prof['prof_nome'] || $email == $prof['prof_email']){
+    if($user == $prof['prof_user'] || $email == $prof['prof_email']){
         $verify = true;
     }
 }
 if($verify == false){
 
-    $sql = mysqli_query($conexao,"INSERT INTO professor(prof_nome,prof_senha,prof_email,prof_cargo,prof_isActive) VALUES('$nome','$senha','$email','$cargo','$isActive')");
+    $sql = mysqli_query($conexao,"INSERT INTO professor(prof_nome,prof_senha,prof_user,prof_email,prof_cargo,prof_isActive) VALUES('$nome','$senha','$user','$email','$cargo','$isActive')");
     if($sql){
-        header('Location:pageProf.php');
+        echo "<script> window.location.href='pageProf.php'</script>";
     }else{
         echo "Erro no Insert";
     }
@@ -73,7 +81,7 @@ if($verify == false){
         </svg>
         <span class="sr-only">Info</span>
         <div>
-            <div><span class="font-medium">O Nome Ou Email </span> Já Estão em Uso, Porfavor Tente Outro Nome ou Email.</div>
+            <div><span class="font-medium">O Nome de Usuario Ou Email </span> Já Estão em Uso, Porfavor Tente Outro Usuario ou Email.</div>
         </div>
         </div>
         ';

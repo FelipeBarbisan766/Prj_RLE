@@ -30,11 +30,11 @@
               <form class="space-y-4 md:space-y-6" method="POST">
                   <div>
                       <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Usuário</label>
-                      <input type="text" name="txt_nome" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Digite seu usuário" required="">
+                      <input type="text" name="txt_user" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Digite seu Usuário ou Email" required>
                   </div>
                   <div>
                       <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Senha</label>
-                      <input type="password" name="txt_senha" id="password" placeholder="Digite sua senha" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
+                      <input type="password" name="txt_senha" id="password" placeholder="Digite sua senha" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                   </div>
                   <button type="submit" class="flex w-full justify-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Entrar</button>
 
@@ -50,26 +50,31 @@
                 }
               }
 
-              if (isset($_POST['txt_nome']) || isset($_POST['txt_senha'])) // verifica se existe as variaveis email e senha
+              if (isset($_POST['txt_user']) || isset($_POST['txt_senha'])) // verifica se existe as variaveis email e senha
               {
-                if (strlen($_POST['txt_nome']) == 0) // o "strlen" conta quantas letras existe na variavel então se for = a 0 nada foi escrito
+                if (strlen($_POST['txt_user']) == 0) // o "strlen" conta quantas letras existe na variavel então se for = a 0 nada foi escrito
                 {
                   echo '<div class="alert alert-danger" role="alert">Preencha seu E-mail!</div>';
                 } else if (strlen($_POST['txt_senha']) == 0) {
                   echo '<div class="alert alert-danger" role="alert">Preencha sua Senha!</div>';
                 } else {
-                  $nome = $conexao->real_escape_string($_POST['txt_nome']);//codigo para evitar invasão (pode ser retirado se quiser)
+                  $user = $conexao->real_escape_string($_POST['txt_user']);//codigo para evitar invasão (pode ser retirado se quiser)
                   $senha = $conexao->real_escape_string($_POST['txt_senha']);
 
-                  $nome = strtoupper($nome);
+                  $user = strtolower($user);
 
-                  $sql_code = "SELECT * FROM professor WHERE prof_nome = '$nome' AND prof_senha ='$senha'";
-                  $sql_query = $conexao->query($sql_code) or die("falha na execução do codigo");
+                  $sql_user = mysqli_query($conexao,"SELECT * FROM professor WHERE prof_user = '$user' AND prof_senha ='$senha'");
+                  $quantUser = $sql_user->num_rows;
+                  $sql_email = mysqli_query($conexao,"SELECT * FROM professor WHERE prof_email = '$user' AND prof_senha ='$senha'");
+                  $quantEmail = $sql_email->num_rows;
 
-                  $quantidade = $sql_query->num_rows;
-
-                  if ($quantidade == 1) {
-                    $usuario = $sql_query->fetch_assoc();
+                  if ($quantUser == 1 || $quantEmail == 1) {
+                    if($quantUser == 1){
+                      $usuario = $sql_user->fetch_assoc();
+                    }
+                    if($quantEmail == 1){
+                      $usuario = $sql_email->fetch_assoc();
+                    }
                     if (!isset($_SESSION)) {
                       session_start();
                     } elseif (isset($_SESSION)) {
