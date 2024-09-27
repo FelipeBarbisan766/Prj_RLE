@@ -12,11 +12,12 @@ $translate = array(
     6 => "Sab",
 );
 include_once('../button_back.php');
+if (isset($_GET['data'])) {
+    $data = $_GET['data'];
+} else {
+    $data = date("Y-m-d");
+}
 ?>
-
-
-
-
 <div class="container mx-auto px-3">
     <div class="inline-flex rounded-md shadow-sm float-right" role="group">
       <a href="diaV3.php" type="button" class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white" selected>
@@ -30,10 +31,10 @@ include_once('../button_back.php');
       </a>
     </div>
 <div class="row g-0 text-center">
-    <div class="col-6 col-md-4">
+<div class="col-6 col-md-4">
 <form class="max-w-sm mx-auto mb-3 mt-2" >  
     <label for="data" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data:</label>
-    <input name="data" id="data" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date">
+    <input name="data" id="data" type="date" <?php echo 'value="' . $data . '"'; ?> class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date">
     <label for="lab" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Local</label>
     <select id="lab" name="lab" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
     <?php
@@ -44,7 +45,8 @@ include_once('../button_back.php');
                 if($_GET['lab'] != $labs['lab_cod']){
                     echo '<option value='.$labs['lab_cod'].'>'.$labs['lab_nome'].'</option>';
                 }else{
-                    echo '<option value='.$_GET['lab'].' Selected>'.$nomelab.'</option>';
+                    $labnome = mysqli_fetch_array(mysqli_query($conexao, "SELECT * FROM laboratorio WHERE lab_cod=".$_GET['lab'].""));
+                    echo '<option value='.$_GET['lab'].' Selected>'.$labnome['lab_nome'].'</option>';
                 }
             }else{
                 echo '<option value='.$labs['lab_cod'].'>'.$labs['lab_nome'].'</option>';

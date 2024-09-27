@@ -4,16 +4,11 @@ include_once('../protectAdm.php');
 $link_back = 'pageProf.php';
 include_once('../../button_back.php');
 ?>
-
 <div class="container mx-auto px-4">
-
-
-
-    <h1
-        class="mb-4 text-3xl text-center mt-2 font-extrabold tracking-tight leading-none text-gray-900 md:text-3xl lg:text-4xl dark:text-white">
-        Adicionar Professor</h1>
-
-    <form class="max-w-sm mx-auto" action="addProf.php" method="POST">
+    <h1 class="mb-4 text-3xl text-center mt-2 font-extrabold tracking-tight leading-none text-gray-900 md:text-3xl lg:text-4xl dark:text-white">
+        Adicionar Professor
+    </h1>
+    <form class="max-w-sm mx-auto" method="POST">
         <div class="mb-5">
             <label for="nome" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nome do
                 professor</label>
@@ -45,29 +40,48 @@ include_once('../../button_back.php');
         </div>
         <button type="submit"
             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Adicionar</button>
-    </form>
+        <br><br>
+<?php
+if(isset($_POST['nome'])){
+include('../../conexao.php');
 
+$nome = strtoupper($_POST['nome']);
+$senha = $_POST['senha'];
+$cargo = strtolower($_POST['cargo']);
+$email = strtolower($_POST['email']);
+$isActive = true;
+$sql_verify = mysqli_query($conexao,"SELECT prof_nome,prof_email FROM professor ");
+$verify = false;
+while ($prof = mysqli_fetch_array($sql_verify)){
+    if($nome == $prof['prof_nome'] || $email == $prof['prof_email']){
+        $verify = true;
+    }
+}
+if($verify == false){
+
+    $sql = mysqli_query($conexao,"INSERT INTO professor(prof_nome,prof_senha,prof_email,prof_cargo,prof_isActive) VALUES('$nome','$senha','$email','$cargo','$isActive')");
+    if($sql){
+        header('Location:pageProf.php');
+    }else{
+        echo "Erro no Insert";
+    }
+}else{
+    echo'
+        <div class="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+        </svg>
+        <span class="sr-only">Info</span>
+        <div>
+            <div><span class="font-medium">O Nome Ou Email </span> Já Estão em Uso, Porfavor Tente Outro Nome ou Email.</div>
+        </div>
+        </div>
+        ';
+}
+    
+}
+?>
+</form>
 </div>
-
 </body>
-
 </html>
-<!-- <form action="addProf.php" method="post">
-            <div class="mb-3">
-                <label for="nome" class="col-form-label">Nome:</label>
-                <input type="text" class="form-control" id="nome" name="nome">
-            </div>
-            <div class="mb-3">
-                <label for="senha" class="col-form-label">Senha:</label>
-                <input type="text" class="form-control" id="senha" name="senha">
-            </div>
-            <div class="mb-3">
-                <label for="cargo" class="col-form-label">Cargo:</label>
-                <select name="cargo" id="cargo" class="form-select">
-                    <option value="prof">Professor</option>
-                    <option value="adm">Coordenador / Administrador</option>
-                </select><br>
-            </div>
-            
-            <input type="submit" class="btn btn-primary">
-        </form> -->
