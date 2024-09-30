@@ -58,7 +58,7 @@ $cargo = strtolower($_POST['cargo']);
 $email = strtolower($_POST['email']);
 $user = strtolower($_POST['user']);
 $isActive = true;
-$sql_verify = mysqli_query($conexao,"SELECT prof_nome,prof_email FROM professor ");
+$sql_verify = mysqli_query($conexao,"SELECT prof_user,prof_email FROM professor ");
 $verify = false;
 while ($prof = mysqli_fetch_array($sql_verify)){
     if($user == $prof['prof_user'] || $email == $prof['prof_email']){

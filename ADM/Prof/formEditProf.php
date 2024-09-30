@@ -31,7 +31,7 @@ include_once('../../button_back.php');
     
     <?php }else{?>
         
-        <form class="max-w-sm mx-auto" action="altProf.php" method="POST">
+        <form class="max-w-sm mx-auto" method="POST">
         <div class="mb-5 mt-2">
                 <?php
                 $cod = $_GET['prof'];
@@ -69,10 +69,52 @@ include_once('../../button_back.php');
                     <button href="pageControl.php" class="mb-2 text-white bg-danger-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Cancelar</button>
                     <button type="submit" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Confirmar</button>
             </div>
-        </div>
-        </form>
+        
 
-    <?php } ?>    
+    <?php }
+
+if(isset($_POST['nome']))  {  
+include('../../conexao.php');
+$cod = $_POST["cod"];
+$nome = strtoupper($_POST['nome']);
+$email = strtolower($_POST['email']);
+$user = strtolower($_POST['user']);
+$cargo = strtolower($_POST['cargo']);
+$senha = $_POST['senha'];
+
+$old_user = mysqli_fetch_array(mysqli_query($conexao,"SELECT prof_user,prof_email FROM professor WHERE prof_cod='$cod' "));
+$sql_verify = mysqli_query($conexao,"SELECT prof_user,prof_email FROM professor");//? confirmar se proibe apenas para contas ativas
+$verify = false;
+while ($prof = mysqli_fetch_array($sql_verify)){
+    if($user == $prof['prof_user'] && $user != $old_user['prof_user'] || $email == $prof['prof_email'] && $email != $old_user['prof_email']){
+        $verify = true;
+    }
+}
+if($verify == false){
+$sql = mysqli_query($conexao,"UPDATE professor SET prof_nome='$nome', prof_user='$user', prof_senha='$senha', prof_email='$email' ,prof_cargo='$cargo' WHERE prof_cod='$cod'");
+
+if($sql){
+    echo "<script> window.location.href='pageProf.php'</script>";
+}else{
+    echo "Erro no alter";
+}
+}else{
+    echo'
+        <div class="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+        </svg>
+        <span class="sr-only">Info</span>
+        <div>
+            <div><span class="font-medium">O Nome de Usuario Ou Email </span> Já Estão em Uso, Porfavor Tente Outro Usuario ou Email.</div>
+        </div>
+        </div>
+        ';
+}
+}
+?>
+</div>
+</form>
 </div>
 
 </body>
