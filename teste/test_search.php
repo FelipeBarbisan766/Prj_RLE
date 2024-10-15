@@ -1,7 +1,7 @@
 
 <?php  
-include_once ("conexao.php");
-include_once ("navbar.php");
+include_once ("../conexao.php");
+include_once ("../navbar2.php");
 if(isset($_GET['busca'])){
 
     $busca=strtoupper($_GET['busca']);
