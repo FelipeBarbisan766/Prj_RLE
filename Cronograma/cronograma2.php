@@ -111,23 +111,23 @@ $nomelab = $labnome["lab_nome"];
                 }
 
                 ; ?>
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" onclick="OpenModal()">
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                     <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400" >
                         <?php echo $aula;?>ª Aula
                     </th>
-                    <td class="px-6 py-4">
+                    <td class="px-6 py-4" onclick="OpenModal()">
                         <?php if(!isset($seg)){echo "Livre ";}else{echo $seg;}?>
                     </td>
-                    <td class="px-6 py-4">
+                    <td class="px-6 py-4" onclick="OpenModal()">
                         <?php if(!isset($ter)){echo "Livre ";}else{echo $ter;}?>
                     </td>
-                    <td class="px-6 py-4">
+                    <td class="px-6 py-4" onclick="OpenModal()">
                         <?php if(!isset($qua)){echo "Livre ";}else{echo $qua;}?>
                     </td>
-                    <td class="px-6 py-4">
+                    <td class="px-6 py-4" onclick="OpenModal()">
                         <?php if(!isset($qui)){echo "Livre ";}else{echo $qui;}?>
                     </td>
-                    <td class="px-6 py-4">
+                    <td class="px-6 py-4" onclick="OpenModal()">
                         <?php if(!isset($sex)){echo "Livre ";}else{echo $sex;}?>
                     </td>
                 </tr>
@@ -162,7 +162,7 @@ $nomelab = $labnome["lab_nome"];
 
 
 <!-- Main modal -->
-<div id="modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+<div id="modal-first" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative p-4 w-full max-w-2xl max-h-full">
         <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -201,7 +201,7 @@ $nomelab = $labnome["lab_nome"];
     }
     ?>
 <script>
-    const $target = document.getElementById('modal');
+    const $target = document.getElementById('modal-first');
 
 // options with default values
     const options = {
@@ -223,13 +223,13 @@ $nomelab = $labnome["lab_nome"];
 
     // instance options object
     const instanceOptions = {
-    id: 'modal',
+    id: 'modal-first',
     override: true
     };
     function OpenModal() {
         const modal = new Modal($target, options, instanceOptions);
         modal.show();
-    }
+    };
     document.getElementById("excel-button").addEventListener('click',function() {
         var excel = new Table2Excel();
         excel.export(document.querySelectorAll("#table-crono"),"Cronograma");  

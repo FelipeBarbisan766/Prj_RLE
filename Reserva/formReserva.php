@@ -2,6 +2,7 @@
 
 
 <?php 
+include_once ("../conexao.php");
 include_once ('../navbar2.php'); 
 include_once ('../protect.php');
 include_once('../button_back.php');
@@ -10,13 +11,30 @@ include_once('../button_back.php');
 <body>
 
 <div class="">
-<?php if(isset($_GET['data'])&&isset($_GET['lab'])) {?>
+<?php if(isset($_GET['data'])&& isset($_GET['lab'])) {?>
 
         <form action="reserva.php" method="post" class="max-w-sm mx-auto">
 
             <label for="description" class="flex px-28 mb-2 text-sm font-medium text-gray-900 dark:text-white text-4xl">Descrição</label>
             <input name="desc" id="description" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-            
+            <label for="curso" class="flex px-28 mb-2 text-sm font-medium text-gray-900 dark:text-white text-4xl">Curso</label>
+            <select name="curso" id="curso" class="form-select block mb-2 font-medium dark:text-white bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <?php
+                
+                $slq = mysqli_query($conexao, "SELECT * FROM curso");
+                while ($cur = mysqli_fetch_array($slq)) {
+                    if ($cur['cur_isActive'] == true) { ?>
+                        <option value="<?php echo $cur['cur_cod']; ?>"><?php echo $cur['cur_nome']; ?></option>
+                    <?php }
+                }
+                ; ?>            
+            </select>
+            <label for="Turma" class="flex px-28 mb-2 text-sm font-medium text-gray-900 dark:text-white text-4xl">Turma</label>
+            <select name="turma" id="Turma" class="form-select block mb-2 font-medium dark:text-white bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option value="TURMA A E B">Turma A e B</option>
+                <option value="TURMA A">Turma A</option>
+                <option value="TURMA B">Turma B</option>
+            </select>
             <?php
             $lab = $_GET['lab'];
             $data = $_GET['data'];
@@ -106,7 +124,7 @@ include_once('../button_back.php');
     <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-3xl px-28">Laboratorios</label>
     <select name="lab" id="lab" class="form-select bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
             <?php
-            include_once ("../conexao.php");
+            
             $slq = mysqli_query($conexao, "SELECT * FROM laboratorio");
             while ($labs = mysqli_fetch_array($slq)) {
                 if ($labs['lab_isActive'] == true) { ?>
@@ -128,7 +146,7 @@ include_once('../button_back.php');
         <label for="lab" class="text-3xl">Laboratorio</label>
         <select name="lab" id="lab" class="form-select" required>
             <?php
-            include_once ("../conexao.php");
+            
             $slq = mysqli_query($conexao, "SELECT * FROM laboratorio");
             while ($labs = mysqli_fetch_array($slq)) {
                 if ($labs['lab_isActive'] == true) { ?>
