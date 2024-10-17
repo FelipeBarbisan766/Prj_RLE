@@ -115,8 +115,8 @@ $nomelab = $labnome["lab_nome"];
                     <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400" >
                         <?php echo $aula;?>ª Aula
                     </th>
-                    <td class="px-6 py-4" onclick="OpenModal()">
-                        <?php if(!isset($seg)){echo "Livre ";}else{echo $seg;}?>
+                    <?php echo '<td class="px-6 py-4" id="tabela" onclick="OpenModal()">';
+                         if(!isset($seg)){echo "Livre ";}else{echo $seg;}?>
                     </td>
                     <td class="px-6 py-4" onclick="OpenModal()">
                         <?php if(!isset($ter)){echo "Livre ";}else{echo $ter;}?>
@@ -157,8 +157,9 @@ $nomelab = $labnome["lab_nome"];
         <a href="form2.php" class="focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Adicionar aula ao Cronograma</a>
         <a href="FormDelCronograma.php" type="button" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Deletar Cronograma</a>
         <!-- <a href="FormEditCrono.php" type="button" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">Editar aula do cronograma</a> -->
+        <?php }}    ?>
     </div>
-    
+
 
 
 <!-- Main modal -->
@@ -196,10 +197,7 @@ $nomelab = $labnome["lab_nome"];
     </div>
 </div>
 
-    <?php
-        }   
-    }
-    ?>
+    
 <script>
     const $target = document.getElementById('modal-first');
 
@@ -227,6 +225,18 @@ $nomelab = $labnome["lab_nome"];
     override: true
     };
     function OpenModal() {
+        // var val = $('#tabela').val().split('value=')[1];
+        //     $.ajax({
+        //         type: 'POST',
+        //         url: 'cronograma2.php',
+        //         data: { cod: val },
+        //         success: function () {
+        //             $('[data-modal-show="modal-first"]').click();
+        //             console.log('deu certo');
+        //             console.log(val);
+        //             // window.location.href = 'cronograma2.php';
+        //         }
+        //     });
         const modal = new Modal($target, options, instanceOptions);
         modal.show();
     };
