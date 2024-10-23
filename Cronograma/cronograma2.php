@@ -87,23 +87,23 @@ $nomelab = $labnome["lab_nome"];
             for ($aula = 1; $aula <= 6; $aula++) {
     
             // echo $dia;
-            $slq = mysqli_query($conexao, "SELECT c.cro_aula as aula,c.cro_desc as descr,c.cro_sem as sem,c.cro_isActive as active, p.prof_nome as prof FROM cronograma as c INNER JOIN laboratorio as l on c.lab_cod=l.lab_cod INNER JOIN professor as p on c.prof_cod=p.prof_cod WHERE c.cro_aula = '$aula' AND c.lab_cod='$lab' AND c.cro_isActive IS TRUE ORDER BY c.cro_aula ASC");
+            $slq = mysqli_query($conexao, "SELECT c.cro_cod as cod,c.cro_aula as aula,c.cro_desc as descr,c.cro_sem as sem,c.cro_isActive as active, p.prof_nome as prof FROM cronograma as c INNER JOIN laboratorio as l on c.lab_cod=l.lab_cod INNER JOIN professor as p on c.prof_cod=p.prof_cod WHERE c.cro_aula = '$aula' AND c.lab_cod='$lab' AND c.cro_isActive IS TRUE ORDER BY c.cro_aula ASC");
             while ($crono = mysqli_fetch_array($slq)) {
                     switch ($crono["sem"]) {
                         case "1":
-                            $seg = $crono['descr'];
+                            $seg = [$crono['cod'],$crono['descr']];
                             break;
                         case "2":
-                            $ter = $crono['descr'];
+                            $ter = [$crono['cod'],$crono['descr']];
                             break;
                         case "3":
-                            $qua = $crono['descr'];
+                            $qua = [$crono['cod'],$crono['descr']];
                             break;
                         case "4":
-                            $qui = $crono['descr'];
+                            $qui = [$crono['cod'],$crono['descr']];
                             break;
                         case "5":
-                            $sex = $crono['descr'];
+                            $sex = [$crono['cod'],$crono['descr']];
                             break;
                         default:
                             break;
@@ -115,20 +115,20 @@ $nomelab = $labnome["lab_nome"];
                     <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400" >
                         <?php echo $aula;?>ª Aula
                     </th>
-                    <?php echo '<td class="px-6 py-4" id="tabela" onclick="OpenModal()">';
-                         if(!isset($seg)){echo "Livre ";}else{echo $seg;}?>
+                    <?php echo '<td class="px-6 py-4" data-modal-target="modal-first" data-modal-toggle="modal-first" onclick="OpenModal(';
+                        if(!isset($seg[1])){echo ')"> Livre';}else{echo ''.$seg[0].')">'.$seg[1];}?>
                     </td>
-                    <td class="px-6 py-4" onclick="OpenModal()">
-                        <?php if(!isset($ter)){echo "Livre ";}else{echo $ter;}?>
+                    <?php echo '<td class="px-6 py-4" data-modal-target="modal-first" data-modal-toggle="modal-first" onclick="OpenModal(';
+                        if(!isset($ter[1])){echo ')"> Livre';}else{echo ''.$ter[0].')">'.$ter[1];}?>
                     </td>
-                    <td class="px-6 py-4" onclick="OpenModal()">
-                        <?php if(!isset($qua)){echo "Livre ";}else{echo $qua;}?>
+                    <?php echo '<td class="px-6 py-4" data-modal-target="modal-first" data-modal-toggle="modal-first" onclick="OpenModal(';
+                        if(!isset($qua[1])){echo ')"> Livre';}else{echo ''.$qua[0].')">'.$qua[1];}?>
                     </td>
-                    <td class="px-6 py-4" onclick="OpenModal()">
-                        <?php if(!isset($qui)){echo "Livre ";}else{echo $qui;}?>
+                    <?php echo '<td class="px-6 py-4" data-modal-target="modal-first" data-modal-toggle="modal-first" onclick="OpenModal(';
+                        if(!isset($qui[1])){echo ')"> Livre';}else{echo ''.$qui[0].')">'.$qui[1];}?>
                     </td>
-                    <td class="px-6 py-4" onclick="OpenModal()">
-                        <?php if(!isset($sex)){echo "Livre ";}else{echo $sex;}?>
+                    <?php echo '<td class="px-6 py-4" data-modal-target="modal-first" data-modal-toggle="modal-first" onclick="OpenModal(';
+                        if(!isset($sex[1])){echo ')"> Livre';}else{echo ''.$sex[0].')">'.$sex[1];}?>
                     </td>
                 </tr>
                 <?php
@@ -172,9 +172,9 @@ $nomelab = $labnome["lab_nome"];
             <!-- Modal header -->
             <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                    Static modal
+                    Informações do Cronograma
                 </h3>
-                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="static-modal">
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="modal-first">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                     </svg>
@@ -182,55 +182,35 @@ $nomelab = $labnome["lab_nome"];
                 </button>
             </div>
             <!-- Modal body -->
-            <div class="p-4 md:p-5 space-y-4">
-                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                    teste
-                </p>
-                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                    teste
-                </p>
+            <div class="p-4 md:p-5 space-y-4" id="resultado">
             </div>
             <!-- Modal footer -->
             <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-                <button data-modal-hide="static-modal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">I accept</button>
-                <button data-modal-hide="static-modal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Decline</button>
+                <button data-modal-hide="modal-first" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Fechar</button>
+                <!-- <button data-modal-hide="modal-first" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Decline</button> -->
             </div>
         </div>
     </div>
 </div>
 
-    
 <script>
-    const $target = document.getElementById('modal-first');
+    function OpenModal(cod){
+        $.ajax({
+            url: 'search.php',  // O script PHP que irá processar o valor
+            type: 'POST',
+            data: {cod_search: cod},  // Enviando o valor 'cod' para o PHP
+            success: function(response){
+                // Lida com a resposta do PHP se necessário
+                document.getElementById('resultado').innerHTML = response;
+            },
+            error: function() {
+            // Caso ocorra um erro na requisição
+            document.getElementById('resultado').innerHTML = "Erro ao processar a requisição.";
+            }
+        });
 
-// options with default values
-    const options = {
-    placement: 'bottom-right',
-    backdrop: 'dynamic',
-    backdropClasses:
-        'bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-40',
-    closable: true,
-    onHide: () => {
-        console.log('modal is hidden');
-    },
-    onShow: () => {
-        console.log('modal is shown');
-    },
-    onToggle: () => {
-        console.log('modal has been toggled');
-    },
     };
-
-    // instance options object
-    const instanceOptions = {
-    id: 'modal-first',
-    override: true
-    };
-    function OpenModal() {
-       
-        const modal = new Modal($target, options, instanceOptions);
-        modal.show();
-    };
+    
     document.getElementById("excel-button").addEventListener('click',function() {
         var excel = new Table2Excel();
         excel.export(document.querySelectorAll("#table-crono"),"Cronograma");  
