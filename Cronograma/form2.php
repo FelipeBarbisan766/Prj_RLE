@@ -51,7 +51,7 @@ include_once ("../protect.php"); ?>
             // $arrydata = getdate($timestamp);
             // $sem = $arrydata['wday']; 
             //
-            $slq_cronograma = mysqli_query($conexao, "SELECT cro_aula FROM cronograma WHERE cro_sem = '$sem' AND lab_cod = '$lab' ");
+            $slq_cronograma = mysqli_query($conexao, "SELECT cro_aula FROM cronograma WHERE cro_sem = '$sem' AND lab_cod = '$lab' AND cro_isActive IS TRUE  ");
 
             while ($cronograma = mysqli_fetch_array($slq_cronograma )){
                 switch ($cronograma["cro_aula"]) {

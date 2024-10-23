@@ -41,8 +41,8 @@ include_once('../button_back.php');
             $timestamp = strtotime((new DateTime( $data))->format('d-m-Y')); 
             $arrydata = getdate($timestamp);
             $sem = $arrydata['wday']; 
-            $slq_reserva = mysqli_query($conexao, "SELECT res_aula FROM reserva WHERE res_data = '$data' AND lab_cod = '$lab' ");
-            $slq_cronograma = mysqli_query($conexao, "SELECT cro_aula FROM cronograma WHERE cro_sem = '$sem' AND lab_cod = '$lab' ");
+            $slq_reserva = mysqli_query($conexao, "SELECT res_aula FROM reserva WHERE res_data = '$data' AND lab_cod = '$lab' AND res_isActive IS TRUE ");
+            $slq_cronograma = mysqli_query($conexao, "SELECT cro_aula FROM cronograma WHERE cro_sem = '$sem' AND lab_cod = '$lab' AND cro_isActive IS TRUE ");
             while ($reserva = mysqli_fetch_array($slq_reserva)){
                 switch ($reserva["res_aula"]) {
                     case "1":
