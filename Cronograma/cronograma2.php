@@ -115,20 +115,20 @@ $nomelab = $labnome["lab_nome"];
                     <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400" >
                         <?php echo $aula;?>ª Aula
                     </th>
-                    <?php echo '<td class="px-6 py-4" data-modal-target="modal-first" data-modal-toggle="modal-first" onclick="OpenModal(';
-                        if(!isset($seg[1])){echo '1,'.$lab.')"> Livre';}else{echo ''.$seg[0].')">'.$seg[1];}?>
+                    <?php echo '<td class="px-6 py-4" data-modal-target="modal-first" data-modal-toggle="modal-first" onclick="';
+                        if(!isset($seg[1])){echo 'ModalLivre(1,'.$lab.')"> Livre';}else{echo 'OpenModal('.$seg[0].')">'.$seg[1];}?>
                     </td>
-                    <?php echo '<td class="px-6 py-4" data-modal-target="modal-first" data-modal-toggle="modal-first" onclick="OpenModal(';
-                        if(!isset($ter[1])){echo '2,'.$lab.')"> Livre';}else{echo ''.$ter[0].')">'.$ter[1];}?>
+                    <?php echo '<td class="px-6 py-4" data-modal-target="modal-first" data-modal-toggle="modal-first" onclick="';
+                        if(!isset($ter[1])){echo 'ModalLivre(2,'.$lab.')"> Livre';}else{echo 'OpenModal('.$ter[0].')">'.$ter[1];}?>
                     </td>
-                    <?php echo '<td class="px-6 py-4" data-modal-target="modal-first" data-modal-toggle="modal-first" onclick="OpenModal(';
-                        if(!isset($qua[1])){echo '3,'.$lab.')"> Livre';}else{echo ''.$qua[0].')">'.$qua[1];}?>
+                    <?php echo '<td class="px-6 py-4" data-modal-target="modal-first" data-modal-toggle="modal-first" onclick="';
+                        if(!isset($qua[1])){echo 'ModalLivre(3,'.$lab.')"> Livre';}else{echo 'OpenModal('.$qua[0].')">'.$qua[1];}?>
                     </td>
-                    <?php echo '<td class="px-6 py-4" data-modal-target="modal-first" data-modal-toggle="modal-first" onclick="OpenModal(';
-                        if(!isset($qui[1])){echo '4,'.$lab.')"> Livre';}else{echo ''.$qui[0].')">'.$qui[1];}?>
+                    <?php echo '<td class="px-6 py-4" data-modal-target="modal-first" data-modal-toggle="modal-first" onclick="';
+                        if(!isset($qui[1])){echo 'ModalLivre(4,'.$lab.')">Livre';}else{echo 'OpenModal('.$qui[0].')">'.$qui[1];}?>
                     </td>
-                    <?php echo '<td class="px-6 py-4" data-modal-target="modal-first" data-modal-toggle="modal-first" onclick="OpenModal(';
-                        if(!isset($sex[1])){echo '5,'.$lab.')"> Livre';}else{echo ''.$sex[0].')">'.$sex[1];}?>
+                    <?php echo '<td class="px-6 py-4" data-modal-target="modal-first" data-modal-toggle="modal-first" onclick="';
+                        if(!isset($sex[1])){echo 'ModalLivre(5,'.$lab.')"> Livre';}else{echo 'OpenModal('.$sex[0].')">'.$sex[1];}?>
                     </td>
                 </tr>
                 <?php
@@ -210,25 +210,9 @@ $nomelab = $labnome["lab_nome"];
         });
 
     };
-    function OpenModal(sem,lab){
+    function ModalLivre(sem,lab){
         $.ajax({
-            url: 'search.php',  // O script PHP que irá processar o valor
-            type: 'GET',
-            data: {cod_search: sem,lab},  // Enviando o valor 'cod' para o PHP
-            success: function(response){
-                // Lida com a resposta do PHP se necessário
-                document.getElementById('resultado').innerHTML = response;
-            },
-            error: function() {
-            // Caso ocorra um erro na requisição
-            document.getElementById('resultado').innerHTML = "Erro ao processar a requisição.";
-            }
-        });
-
-    };
-    function OpenModal(sem,lab,test){
-        $.ajax({
-            url: 'search.php',  // O script PHP que irá processar o valor
+            url: 'modalAdicionar.php',  // O script PHP que irá processar o valor
             type: 'POST',
             data: {cod_search: sem,lab},  // Enviando o valor 'cod' para o PHP
             success: function(response){
@@ -242,6 +226,7 @@ $nomelab = $labnome["lab_nome"];
         });
 
     };
+    
     
     document.getElementById("excel-button").addEventListener('click',function() {
         var excel = new Table2Excel();
