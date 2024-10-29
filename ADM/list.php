@@ -3,8 +3,6 @@ include_once ('../navbar2.php');
 include_once ('protectAdm.php');
 $link_back = 'pageControl.php';
 include_once('../button_back.php');
-
-
 ?>
 
 
@@ -51,12 +49,20 @@ include_once('../button_back.php');
                 if(isset($_GET['search'])&& $_GET['search'] != null){
                     $search = strtoupper($_GET['search']);
                     $sql = mysqli_query($conexao, "SELECT * FROM professor WHERE prof_nome LIKE '%".$search."%'");
+                }elseif(isset($_GET['start'])){
+                    $sql = mysqli_query($conexao, "SELECT * FROM professor WHERE prof_cod = ".$_GET['start']."");
+                }elseif(isset($_GET['last'])){
+                    $sql = mysqli_query($conexao, "SELECT * FROM professor WHERE prof_cod >= ".$_GET['last']."");
                 }else{
                     $sql = mysqli_query($conexao, "SELECT * FROM professor");
                 }
-                $row = mysqli_num_rows($sql);
+                // $row = mysqli_num_rows($sql);
+                $first = mysqli_fetch_array($sql);
+                $first = $first['prof_cod'];
+                $line = 0;
                 while ($prof = mysqli_fetch_array($sql)) {
-                    if ($prof['prof_isActive'] == true) { ?>
+                    if ($prof['prof_isActive'] == true) { 
+                        $line ++;?>
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                     <td class="px-6 py-4"><?php echo $prof['prof_cod']; ?></td>
                     <td class="px-6 py-4"><?php echo $prof['prof_nome']; ?></td>
@@ -76,7 +82,7 @@ include_once('../button_back.php');
                 </tr>
                 <?php 
                 }
-                if($row >= 2){
+                if($line >= 6){
                     $last = $prof['prof_cod'];
                     break;
                 }
@@ -87,43 +93,22 @@ include_once('../button_back.php');
     </div>
 
 
-
-<div>
-  <ul class="flex items-center -space-x-px h-10 text-base fixed bottom-5 max-w-sm ">
-    <li>
-      <a href="#" class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-        <span class="sr-only">Previous</span>
-        <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
-        </svg>
-      </a>
-    </li>
-    <li>
-      <a href="#" aria-current="page" class="z-10 flex items-center justify-center px-4 h-10 leading-tight text-blue-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">1</a>
-    </li>
-    <li>
-      <a href="#" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
-    </li>
-    <li>
-      <a href="#" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">3</a>
-    </li>
-    <li>
-      <a href="#" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">4</a>
-    </li>
-    <li>
-      <a href="#" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">5</a>
-    </li>
-    <li>
-      <a href="#" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-        <span class="sr-only">Next</span>
-        <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-        </svg>
-      </a>
-    </li>
-  </ul>
-  </div>
+    <div class="flex">
+  <!-- Previous Button -->
+  <a href="list.php?start=<?php echo $start;?>" class="flex items-center justify-center px-3 h-8 me-3 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+    <svg class="w-3.5 h-3.5 me-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0 4 4M1 5l4-4"/>
+    </svg>
+    Previous
+  </a>
+  <a href="list.php?last=<?php echo $last;?>&start=<?php echo $first ?>" class="flex items-center justify-center px-3 h-8 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+    Next
+    <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+    </svg>
+  </a>
 </div>
+<div class="flex">
 
 
 
