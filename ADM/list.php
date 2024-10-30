@@ -3,6 +3,17 @@ include_once ('../navbar2.php');
 include_once ('protectAdm.php');
 $link_back = 'pageControl.php';
 include_once('../button_back.php');
+$total_reg = "5";
+if(isset($_GET['pagina'])){
+$pagina=$_GET['pagina'];
+}
+  if (!isset($pagina)) {
+  $pc = "1";
+  } else {
+  $pc = $pagina;
+  }
+  $inicio = $pc - 1;
+  $inicio = $inicio * $total_reg;
 ?>
 
 
@@ -48,21 +59,17 @@ include_once('../button_back.php');
                 <?php
                 if(isset($_GET['search'])&& $_GET['search'] != null){
                     $search = strtoupper($_GET['search']);
-                    $sql = mysqli_query($conexao, "SELECT * FROM professor WHERE prof_nome LIKE '%".$search."%'");
-                }elseif(isset($_GET['start'])){
-                    $sql = mysqli_query($conexao, "SELECT * FROM professor WHERE prof_cod = ".$_GET['start']."");
-                }elseif(isset($_GET['last'])){
-                    $sql = mysqli_query($conexao, "SELECT * FROM professor WHERE prof_cod >= ".$_GET['last']."");
+                    $sql = "SELECT * FROM professor WHERE prof_isActive IS TRUE AND prof_nome LIKE '%".$search."%'";
                 }else{
-                    $sql = mysqli_query($conexao, "SELECT * FROM professor");
+                    $sql = "SELECT * FROM professor WHERE prof_isActive IS TRUE";
                 }
-                // $row = mysqli_num_rows($sql);
-                $first = mysqli_fetch_array($sql);
-                $first = $first['prof_cod'];
-                $line = 0;
-                while ($prof = mysqli_fetch_array($sql)) {
-                    if ($prof['prof_isActive'] == true) { 
-                        $line ++;?>
+                $limite = mysqli_query($conexao,"$sql LIMIT $inicio,$total_reg");
+                $todos = mysqli_query($conexao, "$sql");
+                $tr = mysqli_num_rows($todos); // verifica o número total de registros
+                $tp = $tr / $total_reg; // verifica o número total de páginas
+                
+                while ($prof = mysqli_fetch_array($limite)) {
+                        ?>
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                     <td class="px-6 py-4"><?php echo $prof['prof_cod']; ?></td>
                     <td class="px-6 py-4"><?php echo $prof['prof_nome']; ?></td>
@@ -82,11 +89,6 @@ include_once('../button_back.php');
                 </tr>
                 <?php 
                 }
-                if($line >= 6){
-                    $last = $prof['prof_cod'];
-                    break;
-                }
-                }
                 ; ?>
             </tbody>
         </table>
@@ -95,31 +97,27 @@ include_once('../button_back.php');
 
     <div class="flex">
   <!-- Previous Button -->
-  <a href="list.php?start=<?php echo $start;?>" class="flex items-center justify-center px-3 h-8 me-3 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-    <svg class="w-3.5 h-3.5 me-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0 4 4M1 5l4-4"/>
-    </svg>
-    Previous
-  </a>
-  <a href="list.php?last=<?php echo $last;?>&start=<?php echo $first ?>" class="flex items-center justify-center px-3 h-8 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-    Next
-    <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-    </svg>
-  </a>
+   <?php 
+   $anterior = $pc -1;
+   $proximo = $pc +1;
+   ?>
+    <?php if ($pc>1) { 
+        echo '<a href="list.php?pagina='.$anterior.'" class="flex items-center justify-center px-3 h-8 me-3 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">';
+    echo '<svg class="w-3.5 h-3.5 me-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">';
+     echo '<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0 4 4M1 5l4-4"/>';
+    echo '</svg>';
+   echo  'Previous';
+   echo '</a>';
+    } 
+    if ($pc<$tp) {echo '<a href="list.php?pagina='.$proximo.'" class="flex items-center justify-center px-3 h-8 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">';
+    echo 'Next';
+    echo '<svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">';
+      echo '<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>';
+    echo '</svg>';
+  echo '</a>';
+}?>
 </div>
 <div class="flex">
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -143,8 +141,7 @@ include_once('../button_back.php');
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                 </svg>
-                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400" id="modal-title">Deseja deletar ?
-                </h3>
+                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400" id="modal-title">Deseja deletar ?</h3>
 
                 <input type="hidden" name="cod" id="prof_form">
 
@@ -180,7 +177,7 @@ $('#delete-btn').on('click', function() {
 
     $.ajax({
         type: 'POST',
-        url: 'delProf.php',
+        url: 'Prof/delProf.php',
         data: {
             cod: cod
         },
