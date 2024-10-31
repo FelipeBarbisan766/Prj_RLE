@@ -7,13 +7,13 @@ $total_reg = "5";
 if(isset($_GET['pagina'])){
 $pagina=$_GET['pagina'];
 }
-  if (!isset($pagina)) {
-  $pc = "1";
-  } else {
-  $pc = $pagina;
-  }
-  $inicio = $pc - 1;
-  $inicio = $inicio * $total_reg;
+    if (!isset($pagina)) {
+        $pc = "1";
+    } else {
+        $pc = $pagina;
+}
+$inicio = $pc - 1;
+$inicio = $inicio * $total_reg;
 ?>
 
 
@@ -35,6 +35,27 @@ $pagina=$_GET['pagina'];
         <span class="sr-only">Search</span>
     </button>
 </form>
+<br><br>
+<form class="flex items-center max-w-sm mx-auto">   
+<label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Filtros</label>
+  <select id="countries" name="filtro" onchange="status_update(this.options[this.selectedIndex].value)" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+  <?php  
+    echo '<option value="N"';if(!isset($_GET['filtro'])){echo 'SELECTED';} echo '>Nenhum</option>';
+    echo '<option value="NC"';if(isset($_GET['filtro'])&& $_GET['filtro'] == "NC"){echo 'SELECTED';} echo '>Nome Crescente</option>';
+    echo '<option value="ND"';if(isset($_GET['filtro'])&& $_GET['filtro'] == "ND"){echo 'SELECTED';} echo '>Nome Decrescente</option>';
+    echo '<option value="CA"';if(isset($_GET['filtro'])&& $_GET['filtro'] == "CA"){echo 'SELECTED';} echo '>Cargo</option>';
+    echo '<option value="CO"';if(isset($_GET['filtro'])&& $_GET['filtro'] == "CO"){echo 'SELECTED';} echo '>Codigo</option>';
+    ?> 
+  </select>
+</form>
+</select>
+    
+<script type="text/javascript">  
+function status_update(value){  
+let url = "list.php";  
+window.location.href= url+"?filtro="+value;  
+}  
+</script>  
 <br><br>
 
 
@@ -60,7 +81,26 @@ $pagina=$_GET['pagina'];
                 if(isset($_GET['search'])&& $_GET['search'] != null){
                     $search = strtoupper($_GET['search']);
                     $sql = "SELECT * FROM professor WHERE prof_isActive IS TRUE AND prof_nome LIKE '%".$search."%'";
-                }else{
+                }elseif(isset($_GET['filtro'])){
+                    switch($_GET['filtro']){
+                        case "NC":
+                            $sql = "SELECT * FROM professor WHERE prof_isActive IS TRUE ORDER BY prof_nome ASC";
+                            break;
+                        case "ND":
+                            $sql = "SELECT * FROM professor WHERE prof_isActive IS TRUE ORDER BY prof_nome DESC";
+                            break;
+                        case "CA":
+                            $sql = "SELECT * FROM professor WHERE prof_isActive IS TRUE ORDER BY prof_cargo ASC";
+                            break;
+                        case "CO":
+                            $sql = "SELECT * FROM professor WHERE prof_isActive IS TRUE ORDER BY prof_cod ASC";
+                            break;
+                        default:
+                            $sql = "SELECT * FROM professor WHERE prof_isActive IS TRUE";
+                            break;
+                    }
+                }
+                else{
                     $sql = "SELECT * FROM professor WHERE prof_isActive IS TRUE";
                 }
                 $limite = mysqli_query($conexao,"$sql LIMIT $inicio,$total_reg");
@@ -103,18 +143,19 @@ $pagina=$_GET['pagina'];
    ?>
     <?php if ($pc>1) { 
         echo '<a href="list.php?pagina='.$anterior.'" class="flex items-center justify-center px-3 h-8 me-3 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">';
-    echo '<svg class="w-3.5 h-3.5 me-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">';
-     echo '<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0 4 4M1 5l4-4"/>';
-    echo '</svg>';
-   echo  'Previous';
-   echo '</a>';
+        echo '<svg class="w-3.5 h-3.5 me-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">';
+        echo '<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0 4 4M1 5l4-4"/>';
+        echo '</svg>';
+        echo  'Previous';
+        echo '</a>';
     } 
-    if ($pc<$tp) {echo '<a href="list.php?pagina='.$proximo.'" class="flex items-center justify-center px-3 h-8 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">';
-    echo 'Next';
-    echo '<svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">';
-      echo '<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>';
-    echo '</svg>';
-  echo '</a>';
+    if ($pc<$tp) {
+        echo '<a href="list.php?pagina='.$proximo.'" class="flex items-center justify-center px-3 h-8 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">';
+        echo 'Next';
+        echo '<svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">';
+        echo '<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>';
+        echo '</svg>';
+        echo '</a>';
 }?>
 </div>
 <div class="flex">
