@@ -9,7 +9,11 @@ include_once('../button_back.php');
 ?>
 
 <body>
-
+<style>
+option:disabled {
+    color: light-dark(graytext, rgb(255, 0, 0)); !important
+}
+</style>
 <div class="">
 <?php if(isset($_GET['data'])&& isset($_GET['lab'])) {?>
 
@@ -38,30 +42,31 @@ include_once('../button_back.php');
             <?php
             $lab = $_GET['lab'];
             $data = $_GET['data'];
+            $per = $_GET['per'];
             $timestamp = strtotime((new DateTime( $data))->format('d-m-Y')); 
             $arrydata = getdate($timestamp);
             $sem = $arrydata['wday']; 
-            $slq_reserva = mysqli_query($conexao, "SELECT res_aula FROM reserva WHERE res_data = '$data' AND lab_cod = '$lab' AND res_isActive IS TRUE ");
-            $slq_cronograma = mysqli_query($conexao, "SELECT cro_aula FROM cronograma WHERE cro_sem = '$sem' AND lab_cod = '$lab' AND cro_isActive IS TRUE ");
+            $slq_reserva = mysqli_query($conexao, "SELECT res_aula FROM reserva WHERE res_data = '$data' AND lab_cod = '$lab' AND res_periodo = '$per' AND res_isActive IS TRUE ");
+            $slq_cronograma = mysqli_query($conexao, "SELECT cro_aula FROM cronograma WHERE cro_sem = '$sem' AND lab_cod = '$lab' AND cro_periodo = '$per' AND cro_isActive IS TRUE ");
             while ($reserva = mysqli_fetch_array($slq_reserva)){
                 switch ($reserva["res_aula"]) {
                     case "1":
-                        $aula1 = "disabled";
+                        $aula1 = "disabled ";
                         break;
                     case "2":
-                        $aula2 = "disabled";
+                        $aula2 = "disabled ";
                         break;
                     case "3":
-                        $aula3 = "disabled";
+                        $aula3 = "disabled ";
                         break;
                     case "4":
-                        $aula4 = "disabled";
+                        $aula4 = "disabled ";
                         break;
                     case "5":
-                        $aula5 = "disabled";
+                        $aula5 = "disabled ";
                         break;
                     case "6":
-                        $aula6 = "disabled";
+                        $aula6 = "disabled ";
                         break;
                     default:
                         break;
@@ -69,22 +74,22 @@ include_once('../button_back.php');
              } while ($cronograma = mysqli_fetch_array($slq_cronograma )){
                 switch ($cronograma["cro_aula"]) {
                     case "1":
-                        $aula1 = "disabled";
+                        $aula1 = "disabled ";
                         break;
                     case "2":
-                        $aula2 = "disabled";
+                        $aula2 = "disabled ";
                         break;
                     case "3":
-                        $aula3 = "disabled";
+                        $aula3 = "disabled ";
                         break;
                     case "4":
-                        $aula4 = "disabled";
+                        $aula4 = "disabled ";
                         break;
                     case "5":
-                        $aula5 = "disabled";
+                        $aula5 = "disabled ";
                         break;
                     case "6":
-                        $aula6 = "disabled";
+                        $aula6 = "disabled ";
                         break;
                     default:
                         break;
@@ -92,17 +97,31 @@ include_once('../button_back.php');
              } 
             echo '<input type="hidden" name="data" value="'.$data.'">';
             echo '<input type="hidden" name="lab" value="'.$lab.'">';
+            echo '<input type="hidden" name="per" value="'.$per.'">';
             ?>
 
 
             <label for="aula" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-3xl px-40">Aula</label>
             <select name="aula" id="aula" class="form-select block mb-2 font-medium dark:text-white bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option value="1" <?php if(isset($aula1)){echo $aula1;} ?>>1º Aula</option>
-                <option value="2" <?php if(isset($aula2)){echo $aula2;} ?>>2º Aula</option>
-                <option value="3" <?php if(isset($aula3)){echo $aula3;} ?>>3º Aula</option>
-                <option value="4" <?php if(isset($aula4)){echo $aula4;} ?>>4º Aula</option>
-                <option value="5" <?php if(isset($aula5)){echo $aula5;} ?>>5º Aula</option>
-                <option value="6" <?php if(isset($aula6)){echo $aula6;} ?>>6º Aula</option>
+            <?php if($per == 1){?>
+                    <option value="1" <?php if(isset($aula1)){echo $aula1;} ?>>1º Aula</option>
+                    <option value="2" <?php if(isset($aula2)){echo $aula2;} ?>>2º Aula</option>
+                    <option value="3" <?php if(isset($aula3)){echo $aula3;} ?>>3º Aula</option>
+                    <option value="4" <?php if(isset($aula4)){echo $aula4;} ?>>4º Aula</option>
+                    <option value="5" <?php if(isset($aula5)){echo $aula5;} ?>>5º Aula</option>
+                    <option value="6" <?php if(isset($aula6)){echo $aula6;} ?>>6º Aula</option>
+                <?php
+                }elseif($per == 2){?>
+                    <option value="1" <?php if(isset($aula1)){echo $aula1;} ?>>1º Aula</option>
+                    <option value="2" <?php if(isset($aula2)){echo $aula2;} ?>>2º Aula</option>
+                <?php
+                }elseif($per == 3){?>
+                    <option value="1" <?php if(isset($aula1)){echo $aula1;} ?>>1º Aula</option>
+                    <option value="2" <?php if(isset($aula2)){echo $aula2;} ?>>2º Aula</option>
+                    <option value="3" <?php if(isset($aula3)){echo $aula3;} ?>>3º Aula</option>
+                    <option value="4" <?php if(isset($aula4)){echo $aula4;} ?>>4º Aula</option>
+                <?php
+                } ?>
             </select><br>
             
             <input type="submit" value="Reservar" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -117,9 +136,8 @@ include_once('../button_back.php');
   <div class="mb-5">
     <label for="data" class="flex px-36 mb-2 text-sm font-medium text-gray-900 dark:text-white text-4xl">Data</label>
   <input name="data" id="data" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date" required min="<?php echo date('Y-m-d'); ?>" onchange="checkDate(this)">
-
-
   </div>
+  
   <div class="mb-5">
     <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-3xl px-28">Laboratorios</label>
     <select name="lab" id="lab" class="form-select bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
@@ -135,28 +153,17 @@ include_once('../button_back.php');
             </select><br>
 
   </div>
+  
+  <div class="mb-5">
+        <label for="sem" class="block mb-2 text-3xl font-medium text-gray-900 dark:text-white">Periodo</label>
+        <select name="per" id="per" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option value="1">Manhã</option>
+            <option value="2">Tarde</option>
+            <option value="3">Noite</option>
+        </select>
+    </div>
   <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Continuar</button>
 </form>
-
-    <!-- <form action="" method="" class="container gap-8 grid-rows-1">
-        <label for="data" class="text-4xl">Data</label><br><br>
-
-        <input type="date" name="data" id="data" class="form-control" <?php if (isset($_GET['data'])) {echo 'value="' . $_GET['data'] . '"';} ?> required><br>
-
-        <label for="lab" class="text-3xl">Laboratorio</label>
-        <select name="lab" id="lab" class="form-select" required>
-            <?php
-            
-            $slq = mysqli_query($conexao, "SELECT * FROM laboratorio");
-            while ($labs = mysqli_fetch_array($slq)) {
-                if ($labs['lab_isActive'] == true) { ?>
-                    <option value="<?php echo $labs['lab_cod']; ?>"><?php echo $labs['lab_nome']; ?></option>
-                <?php }
-            }
-            ; ?>
-            </select><br>
-            <input type="submit" value="Continuar" class="btn btn-primary">
-    </form> -->
 <?php }; ?>
     </div>
 

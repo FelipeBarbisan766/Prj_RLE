@@ -106,8 +106,16 @@ $nomelab = $labnome["lab_nome"];
             </thead>
             <tbody>
             <?php
-
-            for ($aula = 1; $aula <= 6; $aula++) {
+            if($per == 1){
+                $quant = 6;
+            }elseif($per == 2){
+                $quant = 2;
+            }elseif($per = 3){
+                $quant = 4;
+            }else{
+                $quant = 6; 
+            }
+            for ($aula = 1; $aula <= $quant; $aula++) {
     
             // echo $dia;
             $slq = mysqli_query($conexao, "SELECT c.cro_cod as cod,c.cro_aula as aula,c.cro_desc as descr,c.cro_sem as sem,c.cro_isActive as active, p.prof_nome as prof FROM cronograma as c INNER JOIN laboratorio as l on c.lab_cod=l.lab_cod INNER JOIN professor as p on c.prof_cod=p.prof_cod WHERE c.cro_aula = '$aula' AND c.lab_cod='$lab' AND c.cro_periodo='$per' AND c.cro_isActive IS TRUE ORDER BY c.cro_aula ASC");

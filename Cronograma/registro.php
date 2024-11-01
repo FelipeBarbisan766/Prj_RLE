@@ -12,9 +12,10 @@ $isActive = true;
 $lab = $_POST['lab'];
 $curso = $_POST["curso"];
 $turma = $_POST["turma"];
+$per = $_POST["per"];
 $prof = $_SESSION['cod'];//é o codigo do administrador que criou o registro
 
-$sql = mysqli_query($conexao,"INSERT INTO `cronograma` (`cro_desc`, `cro_aula`,`cro_turma`,`cro_sem`, `cro_isActive`, `lab_cod`,`prof_cod`,`cur_cod`) VALUES ('$descr', '$aula','$turma', '$sem', '$isActive', '$lab','$prof','$curso')");
+$sql = mysqli_query($conexao,"INSERT INTO `cronograma` (`cro_desc`, `cro_aula`,`cro_turma`,`cro_periodo`,`cro_sem`, `cro_isActive`, `lab_cod`,`prof_cod`,`cur_cod`) VALUES ('$descr', '$aula','$turma','$per', '$sem', '$isActive', '$lab','$prof','$curso')");
 
 if($sql){
     header('Location:cronograma2.php');

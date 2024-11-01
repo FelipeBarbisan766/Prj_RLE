@@ -5,6 +5,9 @@ include_once ("../protect.php"); ?>
 .form-label{
     font-size:45px;
 }
+option:disabled {
+    color: light-dark(graytext, rgb(255, 0, 0)); !important
+}
 </style>
 <body>
     <div class="px-4 mx-auto max-w-screen-xl">
@@ -22,7 +25,7 @@ include_once ("../protect.php"); ?>
             <div class="mb-5">
 
                 <label for="desc" class="block mb-2 text-3xl font-medium text-gray-900 dark:text-white">Descrição</label>
-                <input type="text" name="desc" id="desc" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"><br>
+                <input type="text" name="desc" id="desc" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required><br>
                 <label for="curso" class="flex px-28 mb-2 text-sm font-medium text-gray-900 dark:text-white text-4xl">Curso</label>
             <select name="curso" id="curso" class="form-select block mb-2 font-medium dark:text-white bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 <?php
@@ -46,15 +49,17 @@ include_once ("../protect.php"); ?>
             <?php
             $lab = $_GET['lab'];
             $sem = $_GET['sem'];
+            $per = $_GET['per'];
             // $data = $_GET['data'];
             // $timestamp = strtotime((new DateTime( $data))->format('d-m-Y')); 
             // $arrydata = getdate($timestamp);
             // $sem = $arrydata['wday']; 
             //
-            $slq_cronograma = mysqli_query($conexao, "SELECT cro_aula FROM cronograma WHERE cro_sem = '$sem' AND lab_cod = '$lab' AND cro_isActive IS TRUE  ");
+
+            $slq_cronograma = mysqli_query($conexao, "SELECT cro_aula FROM cronograma WHERE cro_sem = '$sem' AND lab_cod = '$lab' AND cro_periodo = '$per' AND cro_isActive IS TRUE  ");
 
             while ($cronograma = mysqli_fetch_array($slq_cronograma )){
-                switch ($cronograma["cro_aula"]) {
+                switch ($cronograma["cro_aula"]){
                     case "1":
                         $aula1 = "disabled";
                         break;
@@ -79,16 +84,30 @@ include_once ("../protect.php"); ?>
              } 
             echo '<input type="hidden" name="sem" value="'.$sem.'">';
             echo '<input type="hidden" name="lab" value="'.$lab.'">';
+            echo '<input type="hidden" name="per" value="'.$per.'">';
             ?>
             <div class="mb-5">
                 <label for="aula" class="block mb-2 text-3xl font-medium text-gray-900 dark:text-white">Aula</label>
                 <select name="aula" id="aula" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <?php if($per == 1){?>
                     <option value="1" <?php if(isset($aula1)){echo $aula1;} ?>>1º Aula</option>
                     <option value="2" <?php if(isset($aula2)){echo $aula2;} ?>>2º Aula</option>
                     <option value="3" <?php if(isset($aula3)){echo $aula3;} ?>>3º Aula</option>
                     <option value="4" <?php if(isset($aula4)){echo $aula4;} ?>>4º Aula</option>
                     <option value="5" <?php if(isset($aula5)){echo $aula5;} ?>>5º Aula</option>
                     <option value="6" <?php if(isset($aula6)){echo $aula6;} ?>>6º Aula</option>
+                <?php
+                }elseif($per == 2){?>
+                    <option value="1" <?php if(isset($aula1)){echo $aula1;} ?>>1º Aula</option>
+                    <option value="2" <?php if(isset($aula2)){echo $aula2;} ?>>2º Aula</option>
+                <?php
+                }elseif($per == 3){?>
+                    <option value="1" <?php if(isset($aula1)){echo $aula1;} ?>>1º Aula</option>
+                    <option value="2" <?php if(isset($aula2)){echo $aula2;} ?>>2º Aula</option>
+                    <option value="3" <?php if(isset($aula3)){echo $aula3;} ?>>3º Aula</option>
+                    <option value="4" <?php if(isset($aula4)){echo $aula4;} ?>>4º Aula</option>
+                <?php
+                } ?>
                 </select>
             </div>
             <div class="mb-5">    
@@ -121,6 +140,14 @@ include_once ("../protect.php"); ?>
                 <option value="3">Quarta</option>
                 <option value="4">Quinta</option>
                 <option value="5">Sexta</option>
+            </select>
+        </div>
+        <div class="mb-5">
+            <label for="sem" class="block mb-2 text-3xl font-medium text-gray-900 dark:text-white">Periodo</label>
+            <select name="per" id="per" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option value="1">Manhã</option>
+                <option value="2">Tarde</option>
+                <option value="3">Noite</option>
             </select>
         </div>
         <div class="mb-5">

@@ -11,10 +11,11 @@ $curso = $_POST["curso"];
 $turma = $_POST["turma"];
 $data = $_POST["data"];
 $lab = $_POST["lab"];
+$per = $_POST["per"];
 $dataRes = date("Y-m-d H:i");
 $isActive = True;
 $prof = $_SESSION['cod'];
-$sql = mysqli_query($conexao,"INSERT INTO reserva(res_desc,res_aula,res_turma,res_data,res_dataRes,res_isActive,lab_cod,prof_cod,cur_cod) VALUES('$desc','$aula','$turma','$data','$dataRes','$isActive','$lab','$prof','$curso')");
+$sql = mysqli_query($conexao,"INSERT INTO reserva(res_desc,res_aula,res_turma,res_periodo,res_data,res_dataRes,res_isActive,lab_cod,prof_cod,cur_cod) VALUES('$desc','$aula','$turma','$per','$data','$dataRes','$isActive','$lab','$prof','$curso')");
 
 if($sql){
     header('Location:../');

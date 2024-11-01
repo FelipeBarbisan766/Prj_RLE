@@ -16,6 +16,18 @@ if (isset($_GET['data'])) {
     $data = $_GET['data'];
 } else {
     $data = date("Y-m-d");
+}if (isset($_GET['lab'])) {
+    $lab = $_GET['lab'];
+} else {
+    $labs = mysqli_fetch_array(mysqli_query($conexao, "SELECT * FROM laboratorio"));//* tentar sumir com isso pq repete 
+    $lab = $labs['lab_cod'];
+}
+$labnome = mysqli_fetch_array(mysqli_query($conexao, "SELECT * FROM laboratorio WHERE lab_cod='$lab'"));
+$nomelab = $labnome["lab_nome"];
+if (isset($_GET['per'])) {
+    $per = $_GET['per'];
+} else {
+    $per = 1;
 }
 ?>
 <div class="container mx-auto px-3">
@@ -33,28 +45,37 @@ if (isset($_GET['data'])) {
 <div class="row g-0 text-center">
 <div class="col-6 col-md-4">
 <form class="max-w-sm mx-auto mb-3 mt-2" >  
-    <label for="data" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data:</label>
+<label for="data" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data:</label>
     <input name="data" id="data" type="date" <?php echo 'value="' . $data . '"'; ?> class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date">
-    <label for="lab" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Local</label>
-    <select id="lab" name="lab" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-    <?php
-    $slq = mysqli_query($conexao, "SELECT * FROM laboratorio");
-    while ($labs = mysqli_fetch_array($slq)) {
-        if ($labs['lab_isActive'] == true) { 
-            if(isset($_GET['lab'])){
-                if($_GET['lab'] != $labs['lab_cod']){
-                    echo '<option value='.$labs['lab_cod'].'>'.$labs['lab_nome'].'</option>';
+    <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Local</label>
+    <select id="countries" name="lab" onchange="status_update(this.options[this.selectedIndex].value)" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <?php
+        $sql = mysqli_query($conexao, "SELECT * FROM laboratorio");
+        while ($labs = mysqli_fetch_array($sql)) {
+            if ($labs['lab_isActive'] == true) { 
+                if(isset($_GET['lab'])){
+                    if($_GET['lab'] != $labs['lab_cod']){
+                        echo '<option value='.$labs['lab_cod'].'>'.$labs['lab_nome'].'</option>';
+                    }else{
+                        echo '<option value='.$_GET['lab'].' Selected>'.$nomelab.'</option>';
+                    }
                 }else{
-                    $labnome = mysqli_fetch_array(mysqli_query($conexao, "SELECT * FROM laboratorio WHERE lab_cod=".$_GET['lab'].""));
-                    echo '<option value='.$_GET['lab'].' Selected>'.$labnome['lab_nome'].'</option>';
+                    echo '<option value='.$labs['lab_cod'].'>'.$labs['lab_nome'].'</option>';
                 }
-            }else{
-                echo '<option value='.$labs['lab_cod'].'>'.$labs['lab_nome'].'</option>';
-            }
-        }}; ?>
-            </select><br>
-            <input type="submit" class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900" value="Buscar">
-        </form>
+            }}; ?>
+    </select>
+      
+        <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Periodo</label>
+        <select id="countries" name="per" onchange="update_per(this.options[this.selectedIndex].value)" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <?php  
+             echo '<option value="1"';if(!isset($_GET['per'])|| $_GET['per'] == "1"){echo 'SELECTED';} echo '>Manhã</option>';
+             echo '<option value="2"';if(isset($_GET['per'])&& $_GET['per'] == "2"){echo 'SELECTED';} echo '>Tarde</option>';
+             echo '<option value="3"';if(isset($_GET['per'])&& $_GET['per'] == "3"){echo 'SELECTED';} echo '>Noite</option>';
+             ?> 
+        </select>
+            <br>
+        <input type="submit" class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900" value="Buscar">
+    </form>
     </div>
     
     <div class="relative overflow-x-auto sm:rounded-lg">
@@ -92,14 +113,7 @@ if(isset($_GET['data'])){
     $arrydata = getdate();
     $sem = $arrydata['wday'];
 }  
-if (isset($_GET['lab'])) {
-    $lab = $_GET['lab'];
-} else {
-    $labs = mysqli_fetch_array(mysqli_query($conexao, "SELECT * FROM laboratorio"));//* tentar sumir com isso pq repete 
-    $lab = $labs['lab_cod'];
-}
-$labnome = mysqli_fetch_array(mysqli_query($conexao, "SELECT * FROM laboratorio WHERE lab_cod='$lab'"));
-$nomelab = $labnome["lab_nome"];
+
 $diaN = date("w", strtotime($data->format('Y-m-d')));
 
 $data->modify('-' . $diaN . ' day');
@@ -111,12 +125,21 @@ array_push($dia,$data->format('Y-m-d'));
 $data->modify('+1 day');
 // echo var_dump($dia);
 }
-for ($aula = 1; $aula <= 6; $aula++)  {
+if($per == 1){
+    $quant = 6;
+}elseif($per == 2){
+    $quant = 2;
+}elseif($per = 3){
+    $quant = 4;
+}else{
+    $quant = 6; 
+}
+for ($aula = 1; $aula <= $quant; $aula++)  {
         
         
-        $slq_reserva = mysqli_query($conexao, "SELECT r.res_aula as aula,r.res_desc as descr,r.res_isActive as active, p.prof_nome as prof, r.res_data as dia FROM reserva as r INNER JOIN professor as p on r.prof_cod=p.prof_cod INNER JOIN laboratorio as l on r.lab_cod=l.lab_cod WHERE r.res_aula = '$aula' AND r.lab_cod='$lab' ORDER BY r.res_aula ASC");
+        $slq_reserva = mysqli_query($conexao, "SELECT r.res_aula as aula,r.res_desc as descr,r.res_isActive as active, p.prof_nome as prof, r.res_data as dia FROM reserva as r INNER JOIN professor as p on r.prof_cod=p.prof_cod INNER JOIN laboratorio as l on r.lab_cod=l.lab_cod WHERE r.res_aula = '$aula' AND r.lab_cod='$lab' AND r.res_periodo AND r.res_isActive IS TRUE ORDER BY r.res_aula ASC");
         
-        $slq_cronograma = mysqli_query($conexao, "SELECT c.cro_aula as aula,c.cro_desc as descr,c.cro_isActive as active,p.prof_nome as prof,c.cro_sem as sem FROM cronograma as c INNER JOIN laboratorio as l on c.lab_cod=l.lab_cod INNER JOIN professor as p on c.prof_cod=p.prof_cod WHERE c.cro_aula = '$aula' AND c.lab_cod='$lab' ORDER BY c.cro_aula ASC");
+        $slq_cronograma = mysqli_query($conexao, "SELECT c.cro_aula as aula,c.cro_desc as descr,c.cro_isActive as active,p.prof_nome as prof,c.cro_sem as sem FROM cronograma as c INNER JOIN laboratorio as l on c.lab_cod=l.lab_cod INNER JOIN professor as p on c.prof_cod=p.prof_cod WHERE c.cro_aula = '$aula' AND c.lab_cod='$lab' AND c.cro_periodo AND c.cro_isActive IS TRUE ORDER BY c.cro_aula ASC");
 
         // echo $dia;
         while ($reserva = mysqli_fetch_array($slq_reserva)) {
