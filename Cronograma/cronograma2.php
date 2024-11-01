@@ -9,8 +9,13 @@
 if (isset($_GET['lab'])) {
     $lab = $_GET['lab'];
 } else {
-    $labs = mysqli_fetch_array(mysqli_query($conexao, "SELECT * FROM laboratorio"));//tentar sumir com isso pq repete 
+    $labs = mysqli_fetch_array(mysqli_query($conexao, "SELECT * FROM laboratorio WHERE lab_isActive IS TRUE"));//tentar sumir com isso pq repete 
     $lab = $labs['lab_cod'];
+}
+if (isset($_GET['per'])) {
+    $per = $_GET['per'];
+} else {
+    $per = 1;
 }
 $labnome = mysqli_fetch_array(mysqli_query($conexao, "SELECT * FROM laboratorio WHERE lab_cod='$lab'"));
 $nomelab = $labnome["lab_nome"];
@@ -32,7 +37,6 @@ $nomelab = $labnome["lab_nome"];
         <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Local</label>
         <select id="countries" name="lab" onchange="status_update(this.options[this.selectedIndex].value)" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             <?php
-            include_once ("../conexao.php");
             
             while ($labs = mysqli_fetch_array($slq)) {
                 if ($labs['lab_isActive'] == true) { 
@@ -48,10 +52,29 @@ $nomelab = $labnome["lab_nome"];
                 }}; ?>
         </select>
     
-             <script type="text/javascript">  
-            function status_update(value){  
-           let url = "cronograma2.php";  
-           window.location.href= url+"?lab="+value;  
+        <script type="text/javascript">  
+        function status_update(value){ 
+            var per = <?= $per ?>;
+            let url = "cronograma2.php";  
+            window.location.href= url+"?lab="+value+"&per="+per;   
+        }  
+        </script>  
+    </form>
+    <form class="max-w-sm mx-auto mb-3 mt-2" >  
+        <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Periodo</label>
+        <select id="countries" name="per" onchange="update_per(this.options[this.selectedIndex].value)" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <?php  
+             echo '<option value="1"';if(!isset($_GET['per'])|| $_GET['per'] == "1"){echo 'SELECTED';} echo '>Manhã</option>';
+             echo '<option value="2"';if(isset($_GET['per'])&& $_GET['per'] == "2"){echo 'SELECTED';} echo '>Tarde</option>';
+             echo '<option value="3"';if(isset($_GET['per'])&& $_GET['per'] == "3"){echo 'SELECTED';} echo '>Noite</option>';
+             ?> 
+        </select>
+    
+        <script type="text/javascript">  
+        function update_per(value){  
+            var lab =  <?= $lab ?>;
+            let url = "cronograma2.php";  
+            window.location.href= url+"?lab="+lab+"&per="+value;  
         }  
         </script>  
     </form>
@@ -87,7 +110,7 @@ $nomelab = $labnome["lab_nome"];
             for ($aula = 1; $aula <= 6; $aula++) {
     
             // echo $dia;
-            $slq = mysqli_query($conexao, "SELECT c.cro_cod as cod,c.cro_aula as aula,c.cro_desc as descr,c.cro_sem as sem,c.cro_isActive as active, p.prof_nome as prof FROM cronograma as c INNER JOIN laboratorio as l on c.lab_cod=l.lab_cod INNER JOIN professor as p on c.prof_cod=p.prof_cod WHERE c.cro_aula = '$aula' AND c.lab_cod='$lab' AND c.cro_isActive IS TRUE ORDER BY c.cro_aula ASC");
+            $slq = mysqli_query($conexao, "SELECT c.cro_cod as cod,c.cro_aula as aula,c.cro_desc as descr,c.cro_sem as sem,c.cro_isActive as active, p.prof_nome as prof FROM cronograma as c INNER JOIN laboratorio as l on c.lab_cod=l.lab_cod INNER JOIN professor as p on c.prof_cod=p.prof_cod WHERE c.cro_aula = '$aula' AND c.lab_cod='$lab' AND c.cro_periodo='$per' AND c.cro_isActive IS TRUE ORDER BY c.cro_aula ASC");
             while ($crono = mysqli_fetch_array($slq)) {
                     switch ($crono["sem"]) {
                         case "1":
