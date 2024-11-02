@@ -8,15 +8,29 @@ include_once ('../protect.php');
 include_once('../button_back.php');
 ?>
 <head>
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+<!-- esse script está bugando o visual do select -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 </head>
 <body>
+
 <style>
 option:disabled {
-    color: light-dark(graytext, rgb(255, 0, 0)); !important
+    color: light-dark(graytext, rgb(255, 0, 0)) !important;
 }
+.select2-dropdown {
+  @apply !form-select !block !mb-2 !font-medium !dark:text-white !bg-gray-50 !border !border-gray-300 !text-gray-900 !mb-6 !text-sm !rounded-lg !focus:ring-blue-500 !focus:border-blue-500 !block !w-full !p-2.5 !dark:bg-gray-700 !dark:border-gray-600 !dark:placeholder-gray-400 !dark:text-white !dark:focus:ring-blue-500 !dark:focus:border-blue-500 !important;
+  }
+  span.selection > span {
+    @apply !bg-transparent !border-0 !important; /* adding ! make the class important */
+}
+.select2-container {
+    @apply !w-full z-10  !bg-white !divide-y !divide-gray-100 !rounded-lg !shadow !w-44 !dark:bg-gray-700 !important;
+}
+.select2-dropdown {
+  @apply absolute block w-auto box-border bg-white border-solid border-2 border-gray-600 z-50 float-left;
+  }
 </style>
 <div class="">
 <?php if(isset($_GET['data'])&& isset($_GET['lab'])) {?>
@@ -37,7 +51,7 @@ option:disabled {
                 }
                 ; ?>            
             </select>
-            <!-- esse script está bugando o visual do select -->
+            
             <script>
                 $(document).ready(function() {
                     $('#prof').select2();
@@ -124,7 +138,7 @@ option:disabled {
             ?>
 
 
-            <label for="aula" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-3xl px-40">Aula</label>
+            <label for="aula" class="flex px-28 mb-2 text-sm font-medium text-gray-900 dark:text-white text-4xl">Aula</label>
             <select name="aula" id="aula" class="form-select block mb-2 font-medium dark:text-white bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 <option value="1" <?php if(isset($aula1)){echo $aula1;} ?>>1º Aula</option>
                 <option value="2" <?php if(isset($aula2)){echo $aula2;} ?>>2º Aula</option>
@@ -163,12 +177,12 @@ option:disabled {
                 <?php }
             }
             ; ?>
-            </select><br>
+            </select>
 
   </div>
   
   <div class="mb-5">
-        <label for="sem" class="block mb-2 text-3xl font-medium text-gray-900 dark:text-white">Periodo</label>
+        <label for="sem" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-3xl px-28">Periodo</label>
         <select name="per" id="per" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             <option value="1">Manhã</option>
             <option value="2">Tarde</option>
