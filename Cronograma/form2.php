@@ -6,7 +6,7 @@ include_once ("../protect.php"); ?>
     font-size:45px;
 }
 option:disabled {
-    color: light-dark(graytext, rgb(255, 0, 0)); !important
+    color: light-dark(graytext, rgb(255, 0, 0)) !important;
 }
 </style>
 <body>
