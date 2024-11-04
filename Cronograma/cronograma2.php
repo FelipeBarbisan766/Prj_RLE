@@ -149,19 +149,19 @@ $nomelab = $labnome["lab_nome"];
                         <?php echo $aula;?>ª Aula
                     </th>
                     <?php echo '<td class="px-6 py-4" data-modal-target="modal-first" data-modal-toggle="modal-first" onclick="';
-                        if(!isset($seg[1])){echo 'ModalLivre(1,'.$lab.')"> Livre';}else{echo 'OpenModal('.$seg[0].')">'.$seg[1];}?>
+                        if(!isset($seg[1])){echo 'ModalLivre(1,'.$lab.','.$per.')"> Livre';}else{echo 'OpenModal('.$seg[0].')">'.$seg[1];}?>
                     </td>
                     <?php echo '<td class="px-6 py-4" data-modal-target="modal-first" data-modal-toggle="modal-first" onclick="';
-                        if(!isset($ter[1])){echo 'ModalLivre(2,'.$lab.')"> Livre';}else{echo 'OpenModal('.$ter[0].')">'.$ter[1];}?>
+                        if(!isset($ter[1])){echo 'ModalLivre(2,'.$lab.','.$per.')"> Livre';}else{echo 'OpenModal('.$ter[0].')">'.$ter[1];}?>
                     </td>
                     <?php echo '<td class="px-6 py-4" data-modal-target="modal-first" data-modal-toggle="modal-first" onclick="';
-                        if(!isset($qua[1])){echo 'ModalLivre(3,'.$lab.')"> Livre';}else{echo 'OpenModal('.$qua[0].')">'.$qua[1];}?>
+                        if(!isset($qua[1])){echo 'ModalLivre(3,'.$lab.','.$per.')"> Livre';}else{echo 'OpenModal('.$qua[0].')">'.$qua[1];}?>
                     </td>
                     <?php echo '<td class="px-6 py-4" data-modal-target="modal-first" data-modal-toggle="modal-first" onclick="';
-                        if(!isset($qui[1])){echo 'ModalLivre(4,'.$lab.')">Livre';}else{echo 'OpenModal('.$qui[0].')">'.$qui[1];}?>
+                        if(!isset($qui[1])){echo 'ModalLivre(4,'.$lab.','.$per.')">Livre';}else{echo 'OpenModal('.$qui[0].')">'.$qui[1];}?>
                     </td>
                     <?php echo '<td class="px-6 py-4" data-modal-target="modal-first" data-modal-toggle="modal-first" onclick="';
-                        if(!isset($sex[1])){echo 'ModalLivre(5,'.$lab.')"> Livre';}else{echo 'OpenModal('.$sex[0].')">'.$sex[1];}?>
+                        if(!isset($sex[1])){echo 'ModalLivre(5,'.$lab.','.$per.')"> Livre';}else{echo 'OpenModal('.$sex[0].')">'.$sex[1];}?>
                     </td>
                 </tr>
                 <?php
@@ -188,7 +188,7 @@ $nomelab = $labnome["lab_nome"];
         if($_SESSION['cargo'] =='adm'){
             ?>
         <a href="form2.php" class="focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Adicionar aula ao Cronograma</a>
-        <a href="FormDelCronograma.php" type="button" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Deletar Cronograma</a>
+        <!-- <a href="FormDelCronograma.php" type="button" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Deletar Cronograma</a> -->
         <a href="ResetCronograma.php" class="focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Limpar Cronograma</a>
         <a href="FormEditCrono.php" type="button" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">Editar aula do cronograma</a> 
         
@@ -228,15 +228,19 @@ $nomelab = $labnome["lab_nome"];
 
 <script>
     function OpenModal(cod){
-        var car = <?php echo json_encode($_SESSION['cargo']); ?>;
+        var cargo = <?php if(isset($_SESSION['cargo']) && $_SESSION['cargo'] == 'adm'){echo 1;}else{echo 2;} ?>;
 
         $.ajax({
             url: 'search.php',  // PHP script to handle the request
             type: 'POST',
             data: {
                 cod_search: cod,
-                cargo: car
+                cargo: cargo
             }, 
+            success: function(response){
+                // Lida com a resposta do PHP se necessário
+                document.getElementById('resultado').innerHTML = response;
+            },
             error: function() {
             // Caso ocorra um erro na requisição
             document.getElementById('resultado').innerHTML = "Erro ao processar a requisição.";
@@ -244,11 +248,13 @@ $nomelab = $labnome["lab_nome"];
         });
 
     };
-    function ModalLivre(sem,lab){
+    function ModalLivre(sem,lab,per){
         $.ajax({
             url: 'modalAdicionar.php',  // O script PHP que irá processar o valor
             type: 'POST',
-            data: {cod_search: sem,lab},  // Enviando o valor 'cod' para o PHP
+            data: {sem: sem,
+                lab:lab,
+            per:per},  // Enviando o valor 'cod' para o PHP
             success: function(response){
                 // Lida com a resposta do PHP se necessário
                 document.getElementById('resultado').innerHTML = response;
