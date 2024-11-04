@@ -157,6 +157,7 @@ window.location.href= url+"?filtro="+value;
         echo '</svg>';
         echo '</a>';
 }?>
+<!--  -->
 </div>
 <div class="flex">
 
