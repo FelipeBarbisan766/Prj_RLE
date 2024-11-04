@@ -1,8 +1,10 @@
-<?php
+<body>
+    
+    <?php
     include_once ("../conexao.php");
     include_once ("../navbar2.php");
     date_default_timezone_set('America/Sao_Paulo');
-?>
+    ?>
 
 <!-- TABELA 2 -->
 <?php
@@ -25,9 +27,9 @@ $nomelab = $labnome["lab_nome"];
 <div class="container mx-auto px-4">
 
     <a href="../index.php" class="my-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
     <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-    </svg>
+</svg>
     </a>
     <?php
     $slq = mysqli_query($conexao, "SELECT * FROM laboratorio");
@@ -133,10 +135,10 @@ $nomelab = $labnome["lab_nome"];
                         case "4":
                             $qui = [$crono['cod'],$crono['descr']];
                             break;
-                        case "5":
+                            case "5":
                             $sex = [$crono['cod'],$crono['descr']];
                             break;
-                        default:
+                            default:
                             break;
                         }
                 }
@@ -193,9 +195,9 @@ $nomelab = $labnome["lab_nome"];
         <?php }} ?>
     </div>
 
-
-
-<!-- Main modal -->
+    
+    
+    <!-- Main modal -->
 <div id="modal-first" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative p-4 w-full max-w-2xl max-h-full">
         <!-- Modal content -->
@@ -214,8 +216,8 @@ $nomelab = $labnome["lab_nome"];
             </div>
             <!-- Modal body -->
             <div class="p-4 md:p-5 space-y-4" id="resultado">
-            </div>
-            <!-- Modal footer -->
+                </div>
+                <!-- Modal footer -->
             <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
                 <button data-modal-hide="modal-first" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Fechar</button>
                 <!-- <button data-modal-hide="modal-first" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Decline</button> -->
@@ -267,3 +269,4 @@ $nomelab = $labnome["lab_nome"];
     //? https://github.com/rusty1s/table2excel/tree/master
 </script>
 </div>
+</body>

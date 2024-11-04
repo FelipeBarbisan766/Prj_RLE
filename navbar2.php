@@ -11,10 +11,10 @@
 <?php
   include_once("conexao.php");
   ?>
-<body class="min-h-screen">
+<body class="bg-gray-100 dark:bg-gray-800 min-h-screen">
 <!-- NAVBAR QUE TODOS VÃO VER -->
 
-<nav class="bg-white border-gray-200 dark:bg-gray-900">
+<nav class="bg-gray-200 border-gray-200 dark:bg-gray-900">
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-3">
     <a href="https://i.pinimg.com/736x/f9/27/1c/f9271c137f177641a969c7671b7d1415.jpg" class="flex items-center space-x-3 rtl:space-x-reverse">
         <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="RLE Logo" />

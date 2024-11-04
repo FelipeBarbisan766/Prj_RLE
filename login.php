@@ -9,7 +9,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="flex flex-col min-h-screen">
+<body class="bg-gray-200 dark:bg-gray-900 flex flex-col min-h-screen">
   <?php
   include_once ("conexao.php");  
   ?>
