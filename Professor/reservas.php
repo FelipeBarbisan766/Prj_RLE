@@ -27,7 +27,7 @@ $unic = false;
 <div class=" py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
     <?php
                 $cod = $_SESSION['cod'];
-                $sql = "SELECT r.res_cod as cod, r.res_aula as aula,r.res_desc as descr,r.res_isActive as active, l.lab_nome as lab, r.res_data as dat FROM reserva as r INNER JOIN laboratorio as l on r.lab_cod=l.lab_cod WHERE r.prof_cod='$cod' ORDER BY r.res_data DESC";
+                $sql = "SELECT r.res_cod as cod, r.res_aula as aula,r.res_desc as descr,r.res_isActive as active, l.lab_nome as lab, r.res_data as dat FROM reserva as r INNER JOIN laboratorio as l on r.lab_cod=l.lab_cod WHERE r.prof_cod='$cod' AND r.res_isActive IS true  ORDER BY r.res_data DESC";
                 $limite = mysqli_query($conexao, "$sql LIMIT $inicio,$total_reg");
                 $todos = mysqli_query($conexao, "$sql");
                 $tr = mysqli_num_rows($todos); // verifica o número total de registros
@@ -40,7 +40,7 @@ $unic = false;
                 }
                 ?>
     <div class="relative overflow-x-auto">
-        <table class="w-full text-sm text-center rtl:text-right text-gray-500 dark:text-gray-400"></table>
+        <table class="w-full text-sm text-center rtl:text-right text-gray-500 dark:text-gray-400">
                 <?php
                 while ($reserva = mysqli_fetch_array($limite)) {
                 if ($dia_atual <= $reserva['dat'] && $unic_fut == false){
@@ -58,10 +58,15 @@ $unic = false;
                         echo '<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                 <td scope="row" class="px-6 py-4 ">';
                         echo (new DateTime($reserva['dat']))->format('d/m/Y  ');
-                        '</td>
-                <td class="px-6 py-4">';
+                       
                         echo $reserva['aula'] . 'ºAula - ' . $reserva['descr'] . ' - ' . $reserva['lab'];
-                        '</td>
+                        echo '</td>
+                        <td class="px-6 py-4">
+                            <button type="button" data-modal-target="popup-modal" data-modal-toggle="popup-modal" data-modal-cod="'.$reserva['cod'].'" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+</svg>
+                            </button></td> 
                 </tr>
                 ';
                 }
@@ -87,12 +92,6 @@ $unic = false;
                 <td class="px-6 py-4">';
                         echo $reserva['aula'] . 'ºAula - ' . $reserva['descr'] . ' - ' . $reserva['lab'];
                         '</td>
-                <td class="px-6 py-4">
-                            <button type="button" data-modal-target="popup-modal" data-modal-toggle="popup-modal" data-modal-codeProf="'.$reserva['cod'].'" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-</svg>
-                            </button></td> 
                 </tr>';
                 }
                 
