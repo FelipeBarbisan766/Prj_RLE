@@ -38,7 +38,7 @@
             session_start();
         }
         if(isset($_SESSION['nome'])){
-            echo '<a href="\Prj_RLE/logoff.php" class="block py-2 px-3 text-red-700 bg-neutral-200 border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+            echo '<a href="\Prj_RLE/logoff.php" class="block py-2 px-3 text-red-700 bg-neutral-100 border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
             <div class="flex flex-row gap-1 place-content-center">
             Sair
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
