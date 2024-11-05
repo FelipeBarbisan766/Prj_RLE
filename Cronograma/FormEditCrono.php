@@ -17,7 +17,7 @@ include_once ('../ADM/protectAdm.php');
         <form class="max-w-sm mx-auto" action="" method="POST">
         <div class="mb-5 mt-2">
                 <?php
-                $cod = $_GET['crono'];
+                $cod = $_GET['crono'];  
                 $slq = mysqli_query($conexao, 'SELECT * FROM cronograma WHERE cro_cod=' . $cod . '');
                 $crono = mysqli_fetch_array($slq);
                 echo '<input type="hidden" name="cod" value="'.$cod.'">';
@@ -31,7 +31,7 @@ include_once ('../ADM/protectAdm.php');
                 $slq = mysqli_query($conexao, "SELECT * FROM curso");
                 while ($cur = mysqli_fetch_array($slq)) {
                     ?>
-                        <option value="<?php echo $cur['cur_cod'];if ($cur['cur_cod'] == $crono['cur_cod']) { echo 'selected'; } ?>"><?php echo $cur['cur_nome']; ?></option>
+                        <option value="<?php echo $cur['cur_cod'].'" ';if ($cur['cur_cod'] == $crono['cur_cod']) { echo 'selected'; } ?>"><?php echo $cur['cur_nome']; ?></option>
                     <?php
                 }
                 ; ?>            

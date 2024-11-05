@@ -3,6 +3,7 @@
     <?php
     include_once ("../conexao.php");
     include_once ("../navbar2.php");
+    include_once('../button_back.php');
     date_default_timezone_set('America/Sao_Paulo');
     ?>
 
@@ -26,11 +27,7 @@ $nomelab = $labnome["lab_nome"];
 
 <div class="container mx-auto px-4">
 
-    <a href="../index.php" class="my-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-</svg>
-    </a>
+
     <?php
     $slq = mysqli_query($conexao, "SELECT * FROM laboratorio");
     ?>
@@ -149,19 +146,19 @@ $nomelab = $labnome["lab_nome"];
                         <?php echo $aula;?>ª Aula
                     </th>
                     <?php echo '<td class="px-6 py-4" data-modal-target="modal-first" data-modal-toggle="modal-first" onclick="';
-                        if(!isset($seg[1])){echo 'ModalLivre(1,'.$lab.','.$per.')"> Livre';}else{echo 'OpenModal('.$seg[0].')">'.$seg[1];}?>
+                        if(!isset($seg[1])){echo 'ModalLivre(1,'.$lab.','.$per.','.$aula.')"> Livre';}else{echo 'OpenModal('.$seg[0].')">'.$seg[1];}?>
                     </td>
                     <?php echo '<td class="px-6 py-4" data-modal-target="modal-first" data-modal-toggle="modal-first" onclick="';
-                        if(!isset($ter[1])){echo 'ModalLivre(2,'.$lab.','.$per.')"> Livre';}else{echo 'OpenModal('.$ter[0].')">'.$ter[1];}?>
+                        if(!isset($ter[1])){echo 'ModalLivre(2,'.$lab.','.$per.','.$aula.')"> Livre';}else{echo 'OpenModal('.$ter[0].')">'.$ter[1];}?>
                     </td>
                     <?php echo '<td class="px-6 py-4" data-modal-target="modal-first" data-modal-toggle="modal-first" onclick="';
-                        if(!isset($qua[1])){echo 'ModalLivre(3,'.$lab.','.$per.')"> Livre';}else{echo 'OpenModal('.$qua[0].')">'.$qua[1];}?>
+                        if(!isset($qua[1])){echo 'ModalLivre(3,'.$lab.','.$per.','.$aula.')"> Livre';}else{echo 'OpenModal('.$qua[0].')">'.$qua[1];}?>
                     </td>
                     <?php echo '<td class="px-6 py-4" data-modal-target="modal-first" data-modal-toggle="modal-first" onclick="';
-                        if(!isset($qui[1])){echo 'ModalLivre(4,'.$lab.','.$per.')">Livre';}else{echo 'OpenModal('.$qui[0].')">'.$qui[1];}?>
+                        if(!isset($qui[1])){echo 'ModalLivre(4,'.$lab.','.$per.','.$aula.')">Livre';}else{echo 'OpenModal('.$qui[0].')">'.$qui[1];}?>
                     </td>
                     <?php echo '<td class="px-6 py-4" data-modal-target="modal-first" data-modal-toggle="modal-first" onclick="';
-                        if(!isset($sex[1])){echo 'ModalLivre(5,'.$lab.','.$per.')"> Livre';}else{echo 'OpenModal('.$sex[0].')">'.$sex[1];}?>
+                        if(!isset($sex[1])){echo 'ModalLivre(5,'.$lab.','.$per.','.$aula.')"> Livre';}else{echo 'OpenModal('.$sex[0].')">'.$sex[1];}?>
                     </td>
                 </tr>
                 <?php
@@ -190,7 +187,7 @@ $nomelab = $labnome["lab_nome"];
         <a href="form2.php" class="focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Adicionar aula ao Cronograma</a>
         <!-- <a href="FormDelCronograma.php" type="button" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Deletar Cronograma</a> -->
         <a href="ResetCronograma.php" class="focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Limpar Cronograma</a>
-        <a href="FormEditCrono.php" type="button" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">Editar aula do cronograma</a> 
+        
         
         <?php }} ?>
     </div>
@@ -248,13 +245,16 @@ $nomelab = $labnome["lab_nome"];
         });
 
     };
-    function ModalLivre(sem,lab,per){
+    function ModalLivre(sem,lab,per,aula){
+        var cargo = <?php if(isset($_SESSION['cargo']) && $_SESSION['cargo'] == 'adm'){echo 1;}else{echo 2;} ?>;
         $.ajax({
             url: 'modalAdicionar.php',  // O script PHP que irá processar o valor
             type: 'POST',
             data: {sem: sem,
                 lab:lab,
-            per:per},  // Enviando o valor 'cod' para o PHP
+            per:per,
+            aula:aula,
+            carg: cargo},  // Enviando o valor 'cod' para o PHP
             success: function(response){
                 // Lida com a resposta do PHP se necessário
                 document.getElementById('resultado').innerHTML = response;
