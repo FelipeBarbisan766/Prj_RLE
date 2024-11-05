@@ -11,11 +11,11 @@ if(isset($_GET['noti'])){
 }
 $noti = $_SESSION['noti'];
 if($noti !== false){
-    $sql = mysqli_query($conexao,'SELECT * FROM reserva WHERE prof_cod = '.$user.' AND res_data > "'.$dia_atual.'" ');
+    $sql = mysqli_query($conexao,'SELECT * FROM reserva WHERE prof_cod = '.$user.' AND res_data > "'.$dia_atual.' AND res_isActive is true" ');
     $quant_rows = mysqli_num_rows($sql);
     if($quant_rows >= 1){
 ?>
-
+<!--  -->
 <div id="toast-interactive" class="w-full max-w-xs p-4 text-gray-500 bg-white rounded-lg shadow dark:bg-gray-800 dark:text-gray-400 fixed bottom-5 right-5" role="alert">
     <div class="flex">
         <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-blue-500 bg-blue-100 rounded-lg dark:text-blue-300 dark:bg-blue-900">
