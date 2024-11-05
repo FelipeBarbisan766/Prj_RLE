@@ -37,7 +37,7 @@ $inicio = $inicio * $total_reg;
 </form>
 <br><br>
 <form class="flex items-center max-w-sm mx-auto">   
-<label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Filtros</label>
+<label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white py-3 px-5 sm:ms-4 ">Filtros:</label>
   <select id="countries" name="filtro" onchange="status_update(this.options[this.selectedIndex].value)" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
   <?php  
     echo '<option value="N"';if(!isset($_GET['filtro'])){echo 'SELECTED';} echo '>Nenhum</option>';
