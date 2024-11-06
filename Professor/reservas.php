@@ -88,10 +88,8 @@ $unic = false;
                         echo '<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                 <td scope="row" class="px-6 py-4 ">';
                         echo (new DateTime($reserva['dat']))->format('d/m/Y  ');
-                        '</td>
-                <td class="px-6 py-4">';
-                        echo $reserva['aula'] . 'ºAula - ' . $reserva['descr'] . ' - ' . $reserva['lab'];
-                        '</td>
+                        echo $reserva['aula'] . 'ºAula - ' . $reserva['descr'] . ' - ' . $reserva['lab'].
+                        '</td><td></td>
                 </tr>';
                 }
                 
