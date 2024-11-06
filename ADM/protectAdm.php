@@ -5,4 +5,5 @@ if(!isset($_SESSION)){
 if($_SESSION['cargo']!='adm'){
     header('Location:\index.php');
 }
+// 
 ?>
