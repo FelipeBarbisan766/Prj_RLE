@@ -8,10 +8,6 @@ include_once ('../protect.php');
 include_once('../button_back.php');
 ?>
 <head>
-<!-- esse script está bugando o visual do select -->
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 </head>
 <body>
 
@@ -19,18 +15,6 @@ include_once('../button_back.php');
 option:disabled {
     color: light-dark(graytext, rgb(255, 0, 0)) !important;
 }
-.select2-dropdown {
-  @apply !form-select !block !mb-2 !font-medium !dark:text-white !bg-gray-50 !border !border-gray-300 !text-gray-900 !mb-6 !text-sm !rounded-lg !focus:ring-blue-500 !focus:border-blue-500 !block !w-full !p-2.5 !dark:bg-gray-700 !dark:border-gray-600 !dark:placeholder-gray-400 !dark:text-white !dark:focus:ring-blue-500 !dark:focus:border-blue-500 !important;
-  }
-  span.selection > span {
-    @apply !bg-transparent !border-0 !important; /* adding ! make the class important */
-}
-.select2-container {
-    @apply !w-full z-10  !bg-white !divide-y !divide-gray-100 !rounded-lg !shadow !w-44 !dark:bg-gray-700 !important;
-}
-.select2-dropdown {
-  @apply absolute block w-auto box-border bg-white border-solid border-2 border-gray-600 z-50 float-left;
-  }
 </style>
 <div class="">
 <?php if(isset($_GET['data'])&& isset($_GET['lab'])) {?>
@@ -38,25 +22,8 @@ option:disabled {
         <form action="reserva.php" method="post" class="max-w-sm mx-auto">
 
             <label for="description" class="flex px-28 mb-2 text-sm font-medium text-gray-900 dark:text-white text-4xl">Descrição</label>
-            <input name="desc" id="description" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-            <label for="prof" class="flex px-28 mb-2 text-sm font-medium text-gray-900 dark:text-white text-4xl">Professor</label>
-            <select name="prof" id="prof" class="form-select block mb-2 font-medium dark:text-white bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <?php
-                
-                $slq = mysqli_query($conexao, "SELECT * FROM professor WHERE prof_isActive IS True");
-                while ($prof = mysqli_fetch_array($slq)) {
-                    ?>
-                        <option value="<?php echo $prof['prof_cod']; ?>"><?php echo $prof['prof_nome']; ?></option>
-                    <?php 
-                }
-                ; ?>            
-            </select>
-            
-            <script>
-                $(document).ready(function() {
-                    $('#prof').select2();
-                });
-            </script>
+            <input name="desc" id="description" type="text" placeholder="Ex: TCC" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+            <br>
             <!-- https://www.creative-tim.com/twcomponents/component/dropdown-with-search -->
             <!--  -->
             <label for="curso" class="flex justify-center px-28 mb-2 text-sm font-medium text-gray-900 dark:text-white text-4xl">Curso</label>
@@ -81,6 +48,11 @@ option:disabled {
             $lab = $_GET['lab'];
             $data = $_GET['data'];
             $per = $_GET['per'];
+            if(isset($_GET['prof'])){
+                $prof = $_GET['prof'];
+            }else{
+                $prof = $_SESSION['cod'];
+            }
             $timestamp = strtotime((new DateTime( $data))->format('d-m-Y')); 
             $arrydata = getdate($timestamp);
             $sem = $arrydata['wday']; 
@@ -136,6 +108,7 @@ option:disabled {
             echo '<input type="hidden" name="data" value="'.$data.'">';
             echo '<input type="hidden" name="lab" value="'.$lab.'">';
             echo '<input type="hidden" name="per" value="'.$per.'">';
+            echo '<input type="hidden" name="prof" value="'.$prof.'">';
             ?>
 
 
@@ -152,7 +125,7 @@ option:disabled {
                 <?php }?>
             </select><br>
             
-            <input type="submit" value="Reservar" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            <input type="submit" value="Reservar" class="focus:outline-none dark:text-gray-900 dark:bg-white dark:border dark:border-gray-300 dark:focus:outline-none dark:hover:bg-gray-100 dark:focus:ring-4 dark:focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 bg-gray-800 text-white border-gray-600 hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700">
         </form> 
         
         
@@ -191,7 +164,7 @@ option:disabled {
         </select>
     </div>
     <!-- botao nao ta aparecendo no meu pc (felipao) -->
-  <button type="submit" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Continuar</button>
+  <button type="submit" class="focus:outline-none dark:text-gray-900 dark:bg-white dark:border dark:border-gray-300 dark:focus:outline-none dark:hover:bg-gray-100 dark:focus:ring-4 dark:focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 bg-gray-800 text-white border-gray-600 hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700">Continuar</button>
 </form>
 <?php }; ?>
     </div>

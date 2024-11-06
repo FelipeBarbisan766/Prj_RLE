@@ -1,29 +1,22 @@
 <?php
 include_once ("../navbar2.php");
 include_once ('../ADM/protectAdm.php');
-include_once ("../conexao.php");
+include_once ("../conexao.php");    
+include_once('../button_back.php');
 ?>
 <div class="">
-    
-    <div class="px-4 mx-auto max-w-screen-xl ">
-        <a href="cronograma2.php" class="my-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">         
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-        </svg>
-        </a>
-    </div>
-    <?php if(isset($_GET['crono'])) { ?>
+    <?php if(isset($_GET['res'])) { ?>
         
         <form class="max-w-sm mx-auto" action="" method="POST">
         <div class="mb-5 mt-2">
                 <?php
-                $cod = $_GET['crono'];  
-                $slq = mysqli_query($conexao, 'SELECT * FROM cronograma WHERE cro_cod=' . $cod . '');
-                $crono = mysqli_fetch_array($slq);
+                $cod = $_GET['res'];  
+                $slq = mysqli_query($conexao, 'SELECT * FROM reserva WHERE res_cod=' . $cod . '');
+                $res = mysqli_fetch_array($slq);
                 echo '<input type="hidden" name="cod" value="'.$cod.'">';
                 ?>
              <label for="desc" class="block mb-2 text-3xl font-medium text-gray-900 dark:text-white">Descrição</label>
-                <input type="text" name="desc" id="desc" value="<?php echo $crono['cro_desc'] ?>" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required><br>
+                <input type="text" name="desc" id="desc" value="<?php echo $res['res_desc'] ?>" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required><br>
                 <label for="curso" class="block mb-2 text-3xl font-medium text-gray-900 dark:text-white">Curso</label>
             <select name="curso" id="curso" class="form-select block mb-2 font-medium dark:text-white bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 <?php
@@ -31,7 +24,7 @@ include_once ("../conexao.php");
                 $slq = mysqli_query($conexao, "SELECT * FROM curso");
                 while ($cur = mysqli_fetch_array($slq)) {
                     ?>
-                        <option value="<?php echo $cur['cur_cod'].'" ';if ($cur['cur_cod'] == $crono['cur_cod']) { echo 'selected'; } ?>"><?php echo $cur['cur_nome']; ?></option>
+                        <option value="<?php echo $cur['cur_cod'].'" ';if ($cur['cur_cod'] == $res['cur_cod']) { echo 'selected'; } ?>"><?php echo $cur['cur_nome']; ?></option>
                     <?php
                 }
                 ; ?>   
@@ -39,15 +32,15 @@ include_once ("../conexao.php");
             </select>
             <label for="Turma" class="block mb-2 text-3xl font-medium text-gray-900 dark:text-white">Turma</label>
             <select name="turma" id="Turma" class="form-select block mb-2 font-medium dark:text-white bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option value="TURMA A E B" <?php if ($crono['cro_turma'] == 'TURMA A E B' ) { echo 'selected'; } ?>>Turma A e B</option>
-                <option value="TURMA A" <?php if ($crono['cro_turma'] == 'TURMA A' ) { echo 'selected'; } ?>>Turma A</option>
-                <option value="TURMA B" <?php if ($crono['cro_turma'] == 'TURMA B' ) { echo 'selected'; } ?>>Turma B</option>
+                <option value="TURMA A E B" <?php if ($res['res_turma'] == 'TURMA A E B' ) { echo 'selected'; } ?>>Turma A e B</option>
+                <option value="TURMA A" <?php if ($res['res_turma'] == 'TURMA A' ) { echo 'selected'; } ?>>Turma A</option>
+                <option value="TURMA B" <?php if ($res['res_turma'] == 'TURMA B' ) { echo 'selected'; } ?>>Turma B</option>
             </select>
             <?php
-            $slq_cronograma = mysqli_query($conexao, 'SELECT cro_aula FROM cronograma WHERE cro_sem = '.$crono['cro_sem'].' AND lab_cod = '.$crono['lab_cod'].' AND cro_periodo = '.$crono['cro_periodo'].' AND cro_isActive IS TRUE  ');
+            $slq_reserva = mysqli_query($conexao, 'SELECT res_aula FROM reserva WHERE res_data = '.$res['res_data'].' AND lab_cod = '.$res['lab_cod'].' AND cro_periodo = '.$res['res_periodo'].' AND res_isActive IS TRUE  ');
 
-            while ($cronograma = mysqli_fetch_array($slq_cronograma )){
-                switch ($cronograma["cro_aula"]){
+            while ($reserva = mysqli_fetch_array($slq_reserva)){
+                switch ($reserva["res_aula"]){
                     case "1":
                         $aula1 = "disabled";
                         break;
@@ -74,33 +67,33 @@ include_once ("../conexao.php");
             <div class="mb-5">
                 <label for="aula" class="block mb-2 text-3xl font-medium text-gray-900 dark:text-white">Aula</label>
                 <select name="aula" id="aula" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option value="1" <?php if($crono['cro_aula'] == 1){echo ' Selected';}elseif(isset($aula1)){echo $aula1;} ?>>1º Aula</option>
-                    <option value="2" <?php if($crono['cro_aula'] == 2){echo ' Selected';}elseif(isset($aula2)){echo $aula2;}  ?>>2º Aula</option>
-                    <?php if($crono['cro_periodo'] == 1 || $crono['cro_periodo'] = 3){?>
-                    <option value="3" <?php if($crono['cro_aula'] == 3){echo ' Selected';}elseif(isset($aula3)){echo $aula3;}  ?>>3º Aula</option>
-                    <option value="4" <?php if($crono['cro_aula'] == 4){echo ' Selected';}elseif(isset($aula4)){echo $aula4;} ?>>4º Aula</option>
-                    <?php }if($crono['cro_periodo'] == 1){?>
-                    <option value="5" <?php if($crono['cro_aula'] == 5){echo ' Selected';}elseif(isset($aula5)){echo $aula5;} ?>>5º Aula</option>
-                    <option value="6" <?php if($crono['cro_aula'] == 6){echo ' Selected';}elseif(isset($aula6)){echo $aula6;}  ?>>6º Aula</option>
+                    <option value="1" <?php if($res['res_aula'] == 1){echo ' Selected';}elseif(isset($aula1)){echo $aula1;} ?>>1º Aula</option>
+                    <option value="2" <?php if($res['res_aula'] == 2){echo ' Selected';}elseif(isset($aula2)){echo $aula2;}  ?>>2º Aula</option>
+                    <?php if($res['res_periodo'] == 1 || $res['res_periodo'] = 3){?>
+                    <option value="3" <?php if($res['res_aula'] == 3){echo ' Selected';}elseif(isset($aula3)){echo $aula3;}  ?>>3º Aula</option>
+                    <option value="4" <?php if($res['res_aula'] == 4){echo ' Selected';}elseif(isset($aula4)){echo $aula4;} ?>>4º Aula</option>
+                    <?php }if($res['res_periodo'] == 1){?>
+                    <option value="5" <?php if($res['res_aula'] == 5){echo ' Selected';}elseif(isset($aula5)){echo $aula5;} ?>>5º Aula</option>
+                    <option value="6" <?php if($res['res_aula'] == 6){echo ' Selected';}elseif(isset($aula6)){echo $aula6;}  ?>>6º Aula</option>
                     <?php }?>
                 </select>
             </div>
             <div class="mb-5">
             <label for="sem" class="block mb-2 text-3xl font-medium text-gray-900 dark:text-white">Periodo</label>
             <select name="per" id="per" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option value="1" <?php if ($crono['cro_periodo'] == 1 ) { echo 'selected'; } ?>>Manhã</option>
-                <option value="2" <?php if ($crono['cro_periodo'] == 2 ) { echo 'selected'; } ?>>Tarde</option>
-                <option value="3" <?php if ($crono['cro_periodo'] == 3 ) { echo 'selected'; } ?>>Noite</option>
+                <option value="1" <?php if ($res['res_periodo'] == 1 ) { echo 'selected'; } ?>>Manhã</option>
+                <option value="2" <?php if ($res['res_periodo'] == 2 ) { echo 'selected'; } ?>>Tarde</option>
+                <option value="3" <?php if ($res['res_periodo'] == 3 ) { echo 'selected'; } ?>>Noite</option>
             </select>
         </div>
         <div class="mb-5">
             <label for="sem" class="block mb-2 text-3xl font-medium text-gray-900 dark:text-white">Dia</label>
             <select name="sem" id="sem" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option value="1" <?php if ($crono['cro_sem'] == 1 ) { echo 'selected'; } ?>>Segunda</option>
-                <option value="2" <?php if ($crono['cro_sem'] == 2 ) { echo 'selected'; } ?>>Terça</option>
-                <option value="3" <?php if ($crono['cro_sem'] == 3 ) { echo 'selected'; } ?>>Quarta</option>
-                <option value="4" <?php if ($crono['cro_sem'] == 4 ) { echo 'selected'; } ?>>Quinta</option>
-                <option value="5" <?php if ($crono['cro_sem'] == 5 ) { echo 'selected'; } ?>>Sexta</option>
+                <option value="1" <?php if ($res['res_data'] == 1 ) { echo 'selected'; } ?>>Segunda</option>
+                <option value="2" <?php if ($res['res_data'] == 2 ) { echo 'selected'; } ?>>Terça</option>
+                <option value="3" <?php if ($res['res_data'] == 3 ) { echo 'selected'; } ?>>Quarta</option>
+                <option value="4" <?php if ($res['res_data'] == 4 ) { echo 'selected'; } ?>>Quinta</option>
+                <option value="5" <?php if ($res['res_data'] == 5 ) { echo 'selected'; } ?>>Sexta</option>
             </select>
         </div>
         <div class="mb-5">
@@ -145,11 +138,11 @@ $curso = $_POST['curso'];
 $turma = $_POST['turma'];
 $aula = $_POST['aula'];
 $per = $_POST['per'];
-$sem = $_POST['sem'];
+$rdata = $_POST['data'];
 $lab = $_POST['lab'];
 $prof = $_POST['prof'];
 
-$sql = mysqli_query($conexao,"UPDATE cronograma SET cro_desc='$desc', cur_cod='$curso', cro_aula='$aula', cro_turma='$turma', cro_periodo='$per', cro_sem='$sem', lab_cod='$lab', prof_cod='$prof' WHERE cro_cod='$cod'");
+$sql = mysqli_query($conexao,"UPDATE reserva SET res_desc='$desc', cur_cod='$curso', res_aula='$aula', res_turma='$turma', res_periodo='$per', rdata='$dia', lab_cod='$lab', prof_cod='$prof' WHERE res_cod='$cod'");
 
 if($sql){
     echo "<script> window.location.href='cronograma2.php'</script>";
