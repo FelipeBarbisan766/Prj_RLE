@@ -85,7 +85,7 @@ if (isset($_GET['per'])) {
 
     <div class="relative overflow-x-auto sm:rounded-lg">
         <table id="table-semana" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-300 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-6 py-3"></th>
                         
@@ -197,7 +197,7 @@ for ($aula = 1; $aula <= $quant; $aula++)  {
         //? depois tentar por a data na semana mas tem que mudar a ordem do HTML ('Conserteza alguma coisa vai da pal')
         ?>
         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                    <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400" >
+                    <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap text-xs text-gray-700 uppercase bg-gray-300 dark:bg-gray-700 dark:text-gray-400" >
                         <?php echo $aula; ?>ºAula
                     </th>
                     <td class="px-6 py-4">
