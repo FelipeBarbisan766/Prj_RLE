@@ -1,17 +1,10 @@
 <?php
 include_once ("../navbar2.php");
 include_once ('../ADM/protectAdm.php');
-include_once ("../conexao.php");
+include_once ("../conexao.php");    
+include_once('../button_back.php');
 ?>
 <div class="">
-    
-    <div class="px-4 mx-auto max-w-screen-xl ">
-        <a href="reservas.php" class="my-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">         
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-        </svg>
-        </a>
-    </div>
     <?php if(isset($_GET['res'])) { ?>
         
         <form class="max-w-sm mx-auto" action="" method="POST">
@@ -149,7 +142,7 @@ $rdata = $_POST['data'];
 $lab = $_POST['lab'];
 $prof = $_POST['prof'];
 
-$sql = mysqli_query($conexao,"UPDATE reserva SET res_desc='$desc', cur_cod='$curso', res_aula='$aula', res_turma='$turma', res_periodo='$per', rdata='$data', lab_cod='$lab', prof_cod='$prof' WHERE res_cod='$cod'");
+$sql = mysqli_query($conexao,"UPDATE reserva SET res_desc='$desc', cur_cod='$curso', res_aula='$aula', res_turma='$turma', res_periodo='$per', rdata='$dia', lab_cod='$lab', prof_cod='$prof' WHERE res_cod='$cod'");
 
 if($sql){
     echo "<script> window.location.href='cronograma2.php'</script>";
