@@ -33,32 +33,30 @@ document.addEventListener('DOMContentLoaded', function() {
   //? TA FUNCIONANDO MAS PRECISA PUXAR OS VALORES DO BANCO E ALINHAR ELE CERTINHO
   eventClick: function(info) {  
 
-  const visualizarModal = document.getElementById("visualizarModal");
+    const modalFirst = document.getElementById("modal-first");
   
   const event = info.event;
-  
-  document.getElementById('modalTitle').innerText = event.title;
-  const description = ` 
-  <p>Data: ${event.start}</p>
-  <p>Professor: ${event.extendedProps.prof}</p>
-  <p>Laboratorio: ${event.extendedProps.lab}</p>
-  <p>Aula: ${event.extendedProps.aula}ºAula</p>
+  const resultadoContent = `
+    <p>Data: ${event.start}</p>
+    <p>Professor: ${event.extendedProps.prof}</p>
+    <p>Laboratório: ${event.extendedProps.lab}</p>
+    <p>Aula: ${event.extendedProps.aula}ª Aula</p>
   `;
-  // ! EVITAR MEXER (CODIGO DO CAPETA!)
-  document.getElementById('eventDetails').innerHTML = description;
+  document.getElementById("resultado").innerHTML = resultadoContent;
+
   
-  visualizarModal.classList.remove('hidden');
-  visualizarModal.classList.add('block');
+  modalFirst.classList.remove("hidden");
+  modalFirst.classList.add("block");
   
-  document.querySelector('[data-modal-hide="visualizarModal"]').addEventListener('click', function() {
-    visualizarModal.classList.remove('block');
-    visualizarModal.classList.add('hidden');
+  document.querySelector('[data-modal-hide="modal-first"]').addEventListener("click", function() {
+    modalFirst.classList.remove("block");
+    modalFirst.classList.add("hidden");
   });
   
-  visualizarModal.addEventListener('click', function(event) {
-    if (event.target === visualizarModal) {
-      visualizarModal.classList.remove('block');
-      visualizarModal.classList.add('hidden');
+  modalFirst.addEventListener("click", function(event) {
+    if (event.target === modalFirst) {
+      modalFirst.classList.remove("block");
+      modalFirst.classList.add("hidden");
     }
   });
 }

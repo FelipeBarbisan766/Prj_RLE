@@ -196,27 +196,34 @@ for ($aula = 1; $aula <= $quant; $aula++)  {
         // echo $data . ' - ' . $translate[$sem] . ' - '.$nomelab."<br>"; 
         //? depois tentar por a data na semana mas tem que mudar a ordem do HTML ('Conserteza alguma coisa vai da pal')
         ?>
-        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                    <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap text-xs text-gray-700 uppercase bg-gray-300 dark:bg-gray-700 dark:text-gray-400" >
-                        <?php echo $aula; ?>ºAula
-                    </th>
-                    <td class="px-6 py-4">
-                        <?php if(!isset($seg['desc'])){echo "Livre ";}else{echo $seg['desc'];if(isset($seg['prof'])){echo ' - '.$seg['prof'];}}?>
-                    </td>
-                    <td class="px-6 py-4">
-                        <?php if(!isset($ter['desc'])){echo "Livre ";}else{echo $ter['desc'];if(isset($ter['prof'])){echo ' - '.$ter['prof'];}}?>
-                    </td>
-                    <td class="px-6 py-4">
-                        <?php if(!isset($qua['desc'])){echo "Livre ";}else{echo $qua['desc'];if(isset($qua['prof'])){echo ' - '.$qua['prof'];}}?>
-                    </td>
-                    <td class="px-6 py-4">
-                        <?php if(!isset($qui['desc'])){echo "Livre ";}else{echo $qui['desc'];if(isset($qui['prof'])){echo ' - '.$qui['prof'];}}?>
-                    </td>
-                    <td class="px-6 py-4">
-                        <?php if(!isset($sex['desc'])){echo "Livre ";}else{echo $sex['desc'];if(isset($sex['prof'])){echo ' - '.$sex['prof'];}}?>
-                    </td>
-                </tr>
-        
+        <tr class="bg-gray-100 border-b dark:bg-gray-800 dark:border-gray-700">
+            <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap text-xs text-gray-700 uppercase bg-gray-300 dark:bg-gray-700 dark:text-gray-400">
+                <?php echo $aula; ?>ª Aula
+            </th>
+
+            <td class="px-6 py-4" data-modal-target="modal-first" data-modal-toggle="modal-first" onclick="<?php echo isset($seg[1]) ? 'OpenModal(' . $seg[0] . ')' : 'ModalLivre(1,' . $lab . ',' . $per . ',' . $aula . ')'; ?>">
+                <?php echo isset($seg[1]) ? $seg[1] : 'Livre'; ?>
+            </td>
+
+            <td class="px-6 py-4" data-modal-target="modal-first" data-modal-toggle="modal-first" onclick="<?php echo isset($ter[1]) ? 'OpenModal(' . $ter[0] . ')' : 'ModalLivre(2,' . $lab . ',' . $per . ',' . $aula . ')'; ?>">
+                <?php echo isset($ter[1]) ? $ter[1] : 'Livre'; ?>
+            </td>
+
+            <td class="px-6 py-4" data-modal-target="modal-first" data-modal-toggle="modal-first" onclick="<?php echo isset($qua[1]) ? 'OpenModal(' . $qua[0] . ')' : 'ModalLivre(3,' . $lab . ',' . $per . ',' . $aula . ')'; ?>">
+                <?php echo isset($qua[1]) ? $qua[1] : 'Livre'; ?>
+            </td>
+
+            <td class="px-6 py-4" data-modal-target="modal-first" data-modal-toggle="modal-first" onclick="<?php echo isset($qui[1]) ? 'OpenModal(' . $qui[0] . ')' : 'ModalLivre(4,' . $lab . ',' . $per . ',' . $aula . ')'; ?>">
+                <?php echo isset($qui[1]) ? $qui[1] : 'Livre'; ?>
+            </td>
+
+            <td class="px-6 py-4" data-modal-target="modal-first" data-modal-toggle="modal-first" onclick="<?php echo isset($sex[1]) ? 'OpenModal(' . $sex[0] . ')' : 'ModalLivre(5,' . $lab . ',' . $per . ',' . $aula . ')'; ?>">
+                <?php echo isset($sex[1]) ? $sex[1] : 'Livre'; ?>
+            </td>
+        </tr>
+
+                
+         <!-- Descobrir porque está dando erro na hora de aparecer na tabela--> 
     </div>
     <?php
     $seg = null;
@@ -239,8 +246,64 @@ for ($aula = 1; $aula <= $quant; $aula++)  {
   <path fill-rule="evenodd" d="M1.5 5.625c0-1.036.84-1.875 1.875-1.875h17.25c1.035 0 1.875.84 1.875 1.875v12.75c0 1.035-.84 1.875-1.875 1.875H3.375A1.875 1.875 0 0 1 1.5 18.375V5.625ZM21 9.375A.375.375 0 0 0 20.625 9h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h7.5a.375.375 0 0 0 .375-.375v-1.5Zm0 3.75a.375.375 0 0 0-.375-.375h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h7.5a.375.375 0 0 0 .375-.375v-1.5Zm0 3.75a.375.375 0 0 0-.375-.375h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h7.5a.375.375 0 0 0 .375-.375v-1.5ZM10.875 18.75a.375.375 0 0 0 .375-.375v-1.5a.375.375 0 0 0-.375-.375h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375h7.5ZM3.375 15h7.5a.375.375 0 0 0 .375-.375v-1.5a.375.375 0 0 0-.375-.375h-7.5a.375.375 0 0 0-.375.375v1.5c0 .207.168.375.375.375Zm0-3.75h7.5a.375.375 0 0 0 .375-.375v-1.5A.375.375 0 0 0 10.875 9h-7.5A.375.375 0 0 0 3 9.375v1.5c0 .207.168.375.375.375Z" clip-rule="evenodd" />
 </svg>
 </button>
+<!-- <?php
+    if(isset($_SESSION['nome'])){
+        if($_SESSION['cargo'] =='adm'){
+            ?>
+        <a href="form2.php" class="focus:outline-none dark:text-gray-900 dark:bg-white dark:border dark:border-gray-300 dark:focus:outline-none dark:hover:bg-gray-100 dark:focus:ring-4 dark:focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 bg-gray-800 text-white border-gray-600 hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700">Adicionar aula ao Cronograma</a>
+        <!-- <a href="FormDelCronograma.php" type="button" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Deletar Cronograma</a> -->
+        <!-- <a href="ResetCronograma.php" class="focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Limpar Cronograma</a> -->
+        
+        
+        <?php }} ?>
+-->
+    </div>
 
 <script>
+    function OpenModal(cod){
+        var cargo = <?php if(isset($_SESSION['cargo']) && $_SESSION['cargo'] == 'adm'){echo 1;}else{echo 2;} ?>;
+
+        $.ajax({
+            url: 'search.php',  // PHP script to handle the request
+            type: 'POST',
+            data: {
+                cod_search: cod,
+                cargo: cargo
+            }, 
+            success: function(response){
+                // Lida com a resposta do PHP se necessário
+                document.getElementById('resultado').innerHTML = response;
+            },
+            error: function() {
+            // Caso ocorra um erro na requisição
+            document.getElementById('resultado').innerHTML = "Erro ao processar a requisição.";
+            }
+        });
+
+    };
+    function ModalLivre(sem,lab,per,aula){
+        var cargo = <?php if(isset($_SESSION['cargo']) && $_SESSION['cargo'] == 'adm'){echo 1;}else{echo 2;} ?>;
+        $.ajax({
+            url: 'modalAdicionar.php',  // O script PHP que irá processar o valor
+            type: 'POST',
+            data: {sem: sem,
+                lab:lab,
+            per:per,
+            aula:aula,
+            carg: cargo},  // Enviando o valor 'cod' para o PHP
+            success: function(response){
+                // Lida com a resposta do PHP se necessário
+                document.getElementById('resultado').innerHTML = response;
+            },
+            error: function() {
+            // Caso ocorra um erro na requisição
+            document.getElementById('resultado').innerHTML = "Erro ao processar a requisição.";
+            }
+        });
+
+    };
+
+
     document.getElementById("excel-button").addEventListener('click',function() {
         var excel = new Table2Excel();
         excel.export(document.querySelectorAll("#table-semana"),"Tabela-Semana");  
