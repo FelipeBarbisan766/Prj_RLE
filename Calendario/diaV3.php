@@ -90,28 +90,28 @@ include_once('../button_back.php');
     
         <?php
         
-        $slq_reserva = mysqli_query($conexao, "SELECT r.res_aula as aula,r.res_desc as descr,r.res_isActive as active, p.prof_nome as prof FROM reserva as r INNER JOIN professor as p on r.prof_cod=p.prof_cod INNER JOIN laboratorio as l on r.lab_cod=l.lab_cod WHERE r.res_data = '$data' AND l.lab_cod = '$lab' AND r.res_periodo = '$per' AND r.res_isActive IS TRUE ORDER BY r.res_aula ASC");
-        $slq_cronograma = mysqli_query($conexao, "SELECT c.cro_aula as aula,c.cro_desc as descr,c.cro_isActive as active, p.prof_nome as prof FROM cronograma as c INNER JOIN laboratorio as l on c.lab_cod=l.lab_cod INNER JOIN professor as p on c.prof_cod=p.prof_cod WHERE c.cro_sem = '$sem' AND l.lab_cod = '$lab' AND c.cro_periodo = '$per' AND c.cro_isActive IS TRUE ORDER BY c.cro_aula ASC");
+        $slq_reserva = mysqli_query($conexao, "SELECT r.res_cod as cod, r.res_aula as aula,r.res_desc as descr,r.res_isActive as active, p.prof_nome as prof FROM reserva as r INNER JOIN professor as p on r.prof_cod=p.prof_cod INNER JOIN laboratorio as l on r.lab_cod=l.lab_cod WHERE r.res_data = '$data' AND l.lab_cod = '$lab' AND r.res_periodo = '$per' AND r.res_isActive IS TRUE ORDER BY r.res_aula ASC");
+        $slq_cronograma = mysqli_query($conexao, "SELECT c.cro_cod as cod, c.cro_aula as aula,c.cro_desc as descr,c.cro_isActive as active, p.prof_nome as prof FROM cronograma as c INNER JOIN laboratorio as l on c.lab_cod=l.lab_cod INNER JOIN professor as p on c.prof_cod=p.prof_cod WHERE c.cro_sem = '$sem' AND l.lab_cod = '$lab' AND c.cro_periodo = '$per' AND c.cro_isActive IS TRUE ORDER BY c.cro_aula ASC");
         while ($reserva = mysqli_fetch_array($slq_reserva)) {
 
             switch ($reserva["aula"]) {
                 case "1":
-                    $aula1 = ['desc' => $reserva['descr'],'prof' => $reserva['prof']];
+                    $aula1 = ['desc' => $reserva['descr'],'prof' => $reserva['prof'],'cod' => $reserva['cod'],'type' => '1'];
                     break;
                 case "2":
-                    $aula2 = ['desc' => $reserva['descr'],'prof' => $reserva['prof']];
+                    $aula2 = ['desc' => $reserva['descr'],'prof' => $reserva['prof'],'cod' => $reserva['cod'],'type' => '1'];
                     break;
                 case "3":
-                    $aula3 = ['desc' => $reserva['descr'],'prof' => $reserva['prof']];
+                    $aula3 = ['desc' => $reserva['descr'],'prof' => $reserva['prof'],'cod' => $reserva['cod'],'type' => '1'];
                     break;
                 case "4":
-                    $aula4 = ['desc' => $reserva['descr'],'prof' => $reserva['prof']];
+                    $aula4 = ['desc' => $reserva['descr'],'prof' => $reserva['prof'],'cod' => $reserva['cod'],'type' => '1'];
                     break;
                 case "5":
-                    $aula5 = ['desc' => $reserva['descr'],'prof' => $reserva['prof']];
+                    $aula5 = ['desc' => $reserva['descr'],'prof' => $reserva['prof'],'cod' => $reserva['cod'],'type' => '1'];
                     break;
                 case "6":
-                    $aula6 = ['desc' => $reserva['descr'],'prof' => $reserva['prof']];
+                    $aula6 = ['desc' => $reserva['descr'],'prof' => $reserva['prof'],'cod' => $reserva['cod'],'type' => '1'];
                     break;
                 default:
                     break;
@@ -121,22 +121,22 @@ include_once('../button_back.php');
         while ($cronograma = mysqli_fetch_array($slq_cronograma)) {
             switch ($cronograma["aula"]) {
                 case "1":
-                    $aula1 = ['desc' => $cronograma['descr']];
+                    $aula1 = ['desc' => $cronograma['descr'],'cod' => $cronograma['cod'],'type' => '2'];
                     break;
                 case "2":
-                    $aula2 = ['desc' => $cronograma['descr']];
+                    $aula2 = ['desc' => $cronograma['descr'],'cod' => $cronograma['cod'],'type' => '2'];
                     break;
                 case "3":
-                    $aula3 = ['desc' => $cronograma['descr']];
+                    $aula3 = ['desc' => $cronograma['descr'],'cod' => $cronograma['cod'],'type' => '2'];
                     break;
                 case "4":
-                    $aula4 = ['desc' => $cronograma['descr']];
+                    $aula4 = ['desc' => $cronograma['descr'],'cod' => $cronograma['cod'],'type' => '2'];
                     break;
                 case "5":
-                    $aula5 = ['desc' => $cronograma['descr']];
+                    $aula5 = ['desc' => $cronograma['descr'],'cod' => $cronograma['cod'],'type' => '2'];
                     break;
                 case "6":
-                    $aula6 = ['desc' => $cronograma['descr']];
+                    $aula6 = ['desc' => $cronograma['descr'],'cod' => $cronograma['cod'],'type' => '2'];
                     break;
                 default:
                     break;
@@ -160,24 +160,25 @@ include_once('../button_back.php');
    <div class="col-sm-6 col-md-8">  
    <?php
    
-    echo '<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"><td class="px-6 py-4">';
+    echo '
+    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"><td class="px-6 py-4" data-modal-target="modal-first" data-modal-toggle="modal-first" onclick="';if(!isset($aula1['desc'])){echo 'ModalLivre(1,'.strtotime($data).','.$sem.')';}else{echo 'OpenModal('.$aula1['cod'].','.$aula1['type'].')';} echo'" >';
     if(!isset($aula1['desc'])){echo "Livre ";}else{echo $aula1['desc'];if(isset($aula1['prof'])){echo ' - '.$aula1['prof'];}}
     echo '</td></tr>';
-    echo '<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"><td class="px-6 py-4">';
+    echo '<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"><td class="px-6 py-4" data-modal-target="modal-first" data-modal-toggle="modal-first" onclick="';if(!isset($aula2['desc'])){echo 'ModalLivre(2,'.strtotime($data).','.$sem.')';}else{echo 'OpenModal('.$aula2['cod'].','.$aula2['type'].')';} echo'" >';
     if(!isset($aula2['desc'])){echo "Livre ";}else{echo $aula2['desc'];if(isset($aula2['prof'])){echo ' - '.$aula2['prof'];}}
     echo '</td></tr>';
     if($per == 1 || $per == 3){
-    echo '<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"><td class="px-6 py-4">';
+    echo '<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"><td class="px-6 py-4" data-modal-target="modal-first" data-modal-toggle="modal-first" onclick="';if(!isset($aula3['desc'])){echo 'ModalLivre(3,'.strtotime($data).','.$sem.')';}else{echo 'OpenModal('.$aula3['cod'].','.$aula3['type'].')';} echo'" >';
     if(!isset($aula3['desc'])){echo "Livre ";}else{echo $aula3['desc'];if(isset($aula3['prof'])){echo ' - '.$aula3['prof'];}}
     echo '</td></tr>';
-    echo '<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"><td class="px-6 py-4">';
+    echo '<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"><td class="px-6 py-4" data-modal-target="modal-first" data-modal-toggle="modal-first" onclick="';if(!isset($aula4['desc'])){echo 'ModalLivre(4,'.strtotime($data).','.$sem.')';}else{echo 'OpenModal('.$aula4['cod'].','.$aula4['type'].')';} echo'" >';
     if(!isset($aula4['desc'])){echo "Livre ";}else{echo $aula4['desc'];if(isset($aula4['prof'])){echo ' - '.$aula4['prof'];}}
     echo '</td></tr>';
     }if($per == 1){
-    echo '<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"><td class="px-6 py-4">';
+    echo '<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"><td class="px-6 py-4" data-modal-target="modal-first" data-modal-toggle="modal-first" onclick="';if(!isset($aula4['desc'])){echo 'ModalLivre(5,'.strtotime($data).','.$sem.')';}else{echo 'OpenModal('.$aula4['cod'].','.$aula4['type'].')';} echo'" >';
     if(!isset($aula5['desc'])){echo "Livre ";}else{echo $aula5['desc'];if(isset($aula5['prof'])){echo ' - '.$aula5['prof'];}}
     echo '</td></tr>';
-    echo '<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"><td class="px-6 py-4">';
+    echo '<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"><td class="px-6 py-4" data-modal-target="modal-first" data-modal-toggle="modal-first" onclick="';if(!isset($aula4['desc'])){echo 'ModalLivre(6,'.strtotime($data).','.$sem.')';}else{echo 'OpenModal('.$aula4['cod'].','.$aula4['type'].')';} echo'" >';
     if(!isset($aula6['desc'])){echo "Livre ";}else{echo $aula6['desc'];if(isset($aula6['prof'])){echo ' - '.$aula6['prof'];}}
     echo '</td></tr>';}
         
@@ -187,6 +188,81 @@ include_once('../button_back.php');
 </div>   
 </div>
 </div>
-        
+<div id="modal-first" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 w-full max-w-2xl max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <!-- Modal header -->
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                    Informações da Aula
+                </h3>
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="modal-first">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="p-4 md:p-5 space-y-4" id="resultado">
+                </div>
+                <!-- Modal footer -->
+            <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+                <button data-modal-hide="modal-first" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Fechar</button>
+                <!-- <button data-modal-hide="modal-first" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Decline</button> -->
+            </div>
+        </div>
+    </div>
+</div>    
+<script>
+    function OpenModal(cod,type){
+        var codigo = <?php if(isset($_SESSION['cod'])){echo $_SESSION['cod'];}else{echo 0;} ?>;
 
-</script>
+        $.ajax({
+            url: 'search.php',  // PHP script to handle the request
+            type: 'POST',
+            data: {
+                cod_search: cod,
+                type: type,
+                cod: codigo
+            }, 
+            success: function(response){
+                // Lida com a resposta do PHP se necessário
+                document.getElementById('resultado').innerHTML = response;
+            },
+            error: function() {
+            // Caso ocorra um erro na requisição
+            document.getElementById('resultado').innerHTML = "Erro ao processar a requisição.";
+            }
+        });
+
+    };
+    function ModalLivre(aula,data,sem){
+        var codigo = <?php if(isset($_SESSION['cod'])){echo $_SESSION['cod'];}else{echo 0;} ?>;
+        var cargo = <?php if(isset($_SESSION['cargo']) && $_SESSION['cargo'] == 'adm' || $_SESSION['cargo'] == 'prof'){echo 1;}else{echo 0;} ?>;
+        var lab = <?php echo $lab ?>;
+        var per = <?php echo $per ?>;
+        $.ajax({
+            url: 'modalAdicionar.php',  // O script PHP que irá processar o valor
+            type: 'POST',
+            data: {
+            data: data,
+            sem:sem,
+            lab:lab,
+            per:per,
+            aula:aula,
+            carg: cargo,
+            cod: codigo
+            },  // Enviando o valor 'cod' para o PHP
+            success: function(response){
+                // Lida com a resposta do PHP se necessário
+                document.getElementById('resultado').innerHTML = response;
+            },
+            error: function() {
+            // Caso ocorra um erro na requisição
+            document.getElementById('resultado').innerHTML = "Erro ao processar a requisição.";
+            }
+        });
+
+    };</script>
