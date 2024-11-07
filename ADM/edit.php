@@ -5,7 +5,7 @@ include_once('../conexao.php');
 if (isset($_POST['cod']) && !empty($_POST['cod'])) {
     $cod = mysqli_real_escape_string($conexao, $_POST['cod']);
 } else {
-    // Redireciona para uma página de erro ou exibe uma mensagem informativa.
+    // exibe uma mensagem informativa.
     echo "Erro: Código não fornecido. Por favor, acesse a página corretamente.";
     exit;
 }

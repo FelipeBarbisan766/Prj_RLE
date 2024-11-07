@@ -5,7 +5,7 @@ include_once('../conexao.php');
 if (isset($_POST['cod']) && !empty($_POST['cod'])) {
     $cod = mysqli_real_escape_string($conexao, $_POST['cod']);
 } else {
-    // Redireciona para uma página de erro ou exibe uma mensagem informativa.
+    // exibe uma mensagem informativa.
     echo "Erro: Código não fornecido. Por favor, acesse a página corretamente.";
     exit;
 }
@@ -23,7 +23,7 @@ $res = mysqli_fetch_array($slq);
                 echo '<input type="hidden" name="cod" value="'.$cod.'">';
                 ?>
                 <label for="desc" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descrição</label>
-                <input value="<?php echo $res['res_desc']; ?>" type="text" id="desc" name="desc" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Descrição" required />
+                <input value="<?php echo $res['res_desc']; ?>" type="text" id="desc" name="desc" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nome da Aula" required />
             </div>
             <div class="mb-5">
                 <label for="aula" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Aula</label>
@@ -34,7 +34,9 @@ $res = mysqli_fetch_array($slq);
             <div class="mb-5">
                 <label for="turma" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Turma</label>
                 <select name="turma" id="turma" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-
+                <option value="TURMA A E B">Turma A e B</option>
+                <option value="TURMA A">Turma A</option>
+                <option value="TURMA B">Turma B</option>
                 </select> 
             </div>
             <div class="mb-5">
@@ -46,13 +48,20 @@ $res = mysqli_fetch_array($slq);
             <div class="mb-5">
             <label for="curso" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Curso</label>
             <select id="curso" name="curso" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-            
+            <?php
+                
+                $slq = mysqli_query($conexao, "SELECT * FROM curso");
+                while ($cur = mysqli_fetch_array($slq)) {
+                    if ($cur['cur_isActive'] == true) { ?>
+                        <option value="<?php echo $cur['cur_cod']; ?>"><?php echo $cur['cur_nome']; ?></option>
+                    <?php }
+                }
+                ; ?>            
             </select>
-        </div>
+            </div>
             <div class="mb-5">
                 <label for="data" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Data</label>
-                <select name="data" id="data" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-
+                <input name="data" id="data" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date" required min="<?php echo date('Y-m-d'); ?>" onchange="checkDate(this)">
                 </select> 
             </div>
             
