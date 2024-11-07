@@ -1,6 +1,19 @@
 <?php
 include_once('../conexao.php');
-$cod = $_POST['cod'];
+
+// Verifica se a variável 'cod' foi definida no POST ou se já existe uma definição anterior.
+if (isset($_POST['cod']) && !empty($_POST['cod'])) {
+    $cod = mysqli_real_escape_string($conexao, $_POST['cod']);
+} else {
+    // Redireciona para uma página de erro ou exibe uma mensagem informativa.
+    echo "Erro: Código não fornecido. Por favor, acesse a página corretamente.";
+    exit;
+}
+
+// Executa a consulta SQL se o código foi definido corretamente
+$slq = mysqli_query($conexao, "SELECT * FROM professor WHERE prof_cod='$cod'");
+$prof = mysqli_fetch_array($slq);
+
 ?>
 
 <form class="max-w-sm mx-auto" method="POST">
