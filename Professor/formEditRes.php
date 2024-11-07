@@ -1,35 +1,60 @@
 <?php
 include_once('../conexao.php');
-
-// Verifica se a variável 'cod' foi definida no POST ou se já existe uma definição anterior.
-if (isset($_POST['cod']) && !empty($_POST['cod'])) {
-    $cod = mysqli_real_escape_string($conexao, $_POST['cod']);
-} else {
-    // exibe uma mensagem informativa.
-    echo "Erro: Código não fornecido. Por favor, acesse a página corretamente.";
-    exit;
-}
-
-// Executa a consulta SQL se o código foi definido corretamente
-$slq = mysqli_query($conexao, "SELECT * FROM reserva WHERE res_cod='$cod'");
-$res = mysqli_fetch_array($slq);
-
+include_once ('../protect.php');
+include_once('../navbar2.php');
+include_once('../button_back.php');
 ?>
 <form class="max-w-sm mx-auto" method="POST">
         <div class="mb-5 mt-2">
                 <?php
-                $slq = mysqli_query($conexao, 'SELECT * FROM reserva WHERE res_cod=' . $cod . '');
-                $res = mysqli_fetch_array($slq);
-                echo '<input type="hidden" name="cod" value="'.$cod.'">';
+                    $cod = $_GET['cod'];
+                    $slq = mysqli_query($conexao, "SELECT * FROM reserva as r INNER JOIN laboratorio as l on r.lab_cod = l.lab_cod INNER JOIN professor as p on r.prof_cod = p.prof_cod WHERE r.res_cod = ".$cod."");
+                    $res = mysqli_fetch_array($slq);
                 ?>
                 <label for="desc" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descrição</label>
                 <input value="<?php echo $res['res_desc']; ?>" type="text" id="desc" name="desc" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nome da Aula" required />
             </div>
-            <div class="mb-5">
-                <label for="aula" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Aula</label>
-                <select name="aula" id="aula" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <?php
+            $slq_reserva = mysqli_query($conexao, 'SELECT res_aula FROM reserva WHERE res_data = '.$res['res_data'].' AND lab_cod = '.$res['lab_cod'].' AND res_periodo = '.$res['res_periodo'].' AND res_isActive IS TRUE  ');
 
-                </select> 
+            while ($reserva = mysqli_fetch_array($slq_reserva)){
+                switch ($reserva["res_aula"]){
+                    case "1":
+                        $aula1 = "disabled";
+                        break;
+                    case "2":
+                        $aula2 = "disabled";
+                        break;
+                    case "3":
+                        $aula3 = "disabled";
+                        break;
+                    case "4":
+                        $aula4 = "disabled";
+                        break;
+                    case "5":
+                        $aula5 = "disabled";
+                        break;
+                    case "6":
+                        $aula6 = "disabled";
+                        break;
+                    default:
+                        break;
+                    }
+             } 
+            ?>
+            <div class="mb-5">
+                <label for="aula" class="block mb-2 text-3xl font-medium text-gray-900 dark:text-white">Aula</label>
+                <select name="aula" id="aula" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option value="1" <?php if($res['res_aula'] == 1){echo ' Selected';}elseif(isset($aula1)){echo $aula1;} ?>>1º Aula</option>
+                    <option value="2" <?php if($res['res_aula'] == 2){echo ' Selected';}elseif(isset($aula2)){echo $aula2;}  ?>>2º Aula</option>
+                    <?php if($res['res_periodo'] == 1 || $res['res_periodo'] = 3){?>
+                    <option value="3" <?php if($res['res_aula'] == 3){echo ' Selected';}elseif(isset($aula3)){echo $aula3;}  ?>>3º Aula</option>
+                    <option value="4" <?php if($res['res_aula'] == 4){echo ' Selected';}elseif(isset($aula4)){echo $aula4;} ?>>4º Aula</option>
+                    <?php }if($res['res_periodo'] == 1){?>
+                    <option value="5" <?php if($res['res_aula'] == 5){echo ' Selected';}elseif(isset($aula5)){echo $aula5;} ?>>5º Aula</option>
+                    <option value="6" <?php if($res['res_aula'] == 6){echo ' Selected';}elseif(isset($aula6)){echo $aula6;}  ?>>6º Aula</option>
+                    <?php }?>
+                </select>
             </div>  
             <div class="mb-5">
                 <label for="turma" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Turma</label>
@@ -42,7 +67,9 @@ $res = mysqli_fetch_array($slq);
             <div class="mb-5">
                 <label for="periodo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Periodo</label>
                 <select name="periodo" id="periodo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-
+                <option value="1" <?php if ($res['res_periodo'] == 1 ) { echo 'selected'; } ?>>Manhã</option>
+                <option value="2" <?php if ($res['res_periodo'] == 2 ) { echo 'selected'; } ?>>Tarde</option>
+                <option value="3" <?php if ($res['res_periodo'] == 3 ) { echo 'selected'; } ?>>Noite</option>
                 </select> 
             </div>
             <div class="mb-5">
@@ -53,7 +80,7 @@ $res = mysqli_fetch_array($slq);
                 $slq = mysqli_query($conexao, "SELECT * FROM curso");
                 while ($cur = mysqli_fetch_array($slq)) {
                     if ($cur['cur_isActive'] == true) { ?>
-                        <option value="<?php echo $cur['cur_cod']; ?>"><?php echo $cur['cur_nome']; ?></option>
+                        <option value="<?php echo $cur['cur_cod']; if($res['cur_cod'] == $cur['cur_cod']){echo 'selected';}  ?> "><?php echo $cur['cur_nome']; ?></option>
                     <?php }
                 }
                 ; ?>            
@@ -70,49 +97,4 @@ $res = mysqli_fetch_array($slq);
                     <button href="pageControl.php" class="mb-2 text-white bg-danger-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Cancelar</button>
                     <button type="submit" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Confirmar</button>
             </div>
-        
-
-    <?php  
-
-// if(isset($_POST['desc']))  {  
-// include('../../conexao.php');
-// $cod = $_POST["cod"];
-// $desc = strtoupper($_POST['desc']);
-// $turma = strtolower($_POST['turma']);
-// $aula = strtolower($_POST['aula']);
-// $curso = strtolower($_POST['curso']);
-// $data = $_POST['data'];
-
-// $old_res = mysqli_fetch_array(mysqli_query($conexao,"SELECT prof_user,prof_email FROM reserva WHERE res_cod='$cod' "));
-// $sql_verify = mysqli_query($conexao,"SELECT prof_user,prof_email FROM reserva");//? confirmar se proibe apenas para contas ativas
-// $verify = false;
-// while ($res = mysqli_fetch_array($sql_verify)){
-//     if($user == $prof['prof_user'] && $user != $old_user['prof_user'] || $email == $prof['prof_email'] && $email != $old_user['prof_email']){
-//         $verify = true;
-//     }
-// }
-// if($verify == false){
-// $sql = mysqli_query($conexao,"UPDATE reserva SET res_desc='$desc', res_aula='$aula', res_turma='$turma', res_aula='$aula' ,res_curso='$curso', res_data='$data' WHERE res_cod='$cod'");
-
-// if($sql){
-//     echo "<script> window.location.href='reservas.php'</script>";
-// }else{
-//     echo "Erro no alter";
-// }
-// }else{
-//     echo'
-//         <div class="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-//         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-//             <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
-//         </svg>
-//         <span class="sr-only">Info</span>
-//         <div>
-//             <div><span class="font-medium">Estes Horários</span> Já Estão em Uso, Porfavor Tente Outro Horário.</div></div>
-//         </div>
-//         </div>
-//         ';
-// }
-// }
-// ?>
-</div>
 </form>

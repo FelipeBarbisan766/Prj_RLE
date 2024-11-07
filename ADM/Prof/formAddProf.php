@@ -1,7 +1,7 @@
 <?php
 include_once("../../navbar2.php");
 include_once('../protectAdm.php');
-$link_back = 'pageProf.php';
+$link_back = 'list_prof.php';
 include_once('../../button_back.php');
 ?>
 <div class="container mx-auto px-4">
@@ -69,7 +69,7 @@ if($verify == false){
 
     $sql = mysqli_query($conexao,"INSERT INTO professor(prof_nome,prof_senha,prof_user,prof_email,prof_cargo,prof_isActive) VALUES('$nome','$senha','$user','$email','$cargo','$isActive')");
     if($sql){
-        echo "<script> window.location.href='pageProf.php'</script>";
+        echo "<script> window.location.href='list_prof.php'</script>";
     }else{
         echo "Erro no Insert";
     }
