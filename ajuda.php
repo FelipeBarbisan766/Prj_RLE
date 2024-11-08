@@ -3,16 +3,15 @@
 <div data-popover id="popover-description" role="tooltip" class="absolute z-10 invisible inline-block text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 w-72 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-400">
     <div class="p-3 space-y-2">
         <?php 
-        if(!isset($_SESSION['cargo'])){
-
-        }elseif($_SESSION['cargo']=='prof'){
-
-        }else{
+       
             echo ' <h3 class="font-semibold text-gray-900 dark:text-white">Painel de ajuda</h3>
         <p>Este painel contém as informações de ajuda, com intuito de facilitar a utilização do site.</p>
         <h3 class="font-semibold text-gray-900 dark:text-white">Tela Inicial</h3>
         <p>1 - Ver Cronograma - provavelmente direciona para uma página ou modal onde o usuário pode visualizar o cronograma de atividades ou eventos. <br>
-        2 - Ver Calendário - exibe um calendário, possivelmente para agendar compromissos ou verificar datas importantes. <br>
+        2 - Ver Calendário - exibe um calendário, possivelmente para agendar compromissos ou verificar datas importantes. <br>';
+        if(isset($_SESSION['cargo'])){
+            echo '
+
         3 - Reservar Laboratório - opção para realizar reservas de um laboratório, útil em ambientes educacionais ou corporativos. <br>
         4 - Painel do Professor - acesso ao painel destinado a professores, possivelmente para gerenciar atividades e turmas. <br>
         </p>

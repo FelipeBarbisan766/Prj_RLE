@@ -19,9 +19,9 @@ option:disabled {
 <div class="">
 <?php if(isset($_GET['data'])&& isset($_GET['lab'])) {?>
 
-        <form action="reserva.php" method="post" class="max-w-sm mx-auto">
+        <form action="reserva.php" method="post" class="max-w-sm mx-auto ">
 
-            <label for="description" class="flex px-28 mb-2 text-sm font-medium text-gray-900 dark:text-white text-4xl">Descrição</label>
+            <label for="description" class="flex justify-center px-28 mb-2 text-sm font-medium text-gray-900 dark:text-white text-4xl">Descrição</label>
             <input name="desc" id="description" type="text" placeholder="Ex: TCC" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
             <br>
             <!-- https://www.creative-tim.com/twcomponents/component/dropdown-with-search -->
@@ -112,7 +112,7 @@ option:disabled {
             ?>
 
 
-            <label for="aula" class="flex px-28 mb-2 text-sm font-medium text-gray-900 dark:text-white text-4xl">Aula</label>
+            <label for="aula" class="flex justify-center px-28 mb-2 text-sm font-medium text-gray-900 dark:text-white text-4xl">Aula</label>
             <select name="aula" id="aula" class="form-select block mb-2 font-medium dark:text-white bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 <option value="1" <?php if(isset($aula1)){echo $aula1;}if(isset($_GET['aula'])&& $_GET['aula'] == 1){echo 'Selected';} ?>>1º Aula</option>
                 <option value="2" <?php if(isset($aula2)){echo $aula2;}if(isset($_GET['aula'])&& $_GET['aula'] == 2){echo 'Selected';} ?>>2º Aula</option>
@@ -124,8 +124,10 @@ option:disabled {
                 <option value="6" <?php if(isset($aula6)){echo $aula6;}if(isset($_GET['aula'])&& $_GET['aula'] == 6){echo 'Selected';} ?>>6º Aula</option>
                 <?php }?>
             </select><br>
-            
-            <input type="submit" value="Reservar" class="focus:outline-none dark:text-gray-900 dark:bg-white dark:border dark:border-gray-300 dark:focus:outline-none dark:hover:bg-gray-100 dark:focus:ring-4 dark:focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 bg-gray-800 text-white border-gray-600 hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700">
+            <div class="flex justify-center">
+
+                <input type="submit" value="Reservar" class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center focus:outline-none dark:text-gray-900 dark:bg-white dark:border dark:border-gray-300 dark:focus:outline-none dark:hover:bg-gray-100 dark:focus:ring-4 dark:focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 bg-gray-800 text-white border-gray-600 hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700">
+            </div>
         </form> 
         
         
@@ -135,12 +137,12 @@ option:disabled {
 
 <form class="max-w-sm mx-auto">
   <div class="mb-5">
-    <label for="data" class="flex px-36 mb-2 text-sm font-medium text-gray-900 dark:text-white text-4xl">Data</label>
+    <label for="data" class="flex justify-center px-36 mb-2 text-sm font-medium text-gray-900 dark:text-white text-4xl">Data</label>
     <input name="data" id="data" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date" required min="<?php echo date('Y-m-d'); ?>" onchange="checkDate(this)">
   </div>
   
   <div class="mb-5">
-    <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-3xl px-28">Laboratorios</label>
+    <label for="password" class="flex justify-center block mb-2 text-sm font-medium text-gray-900 dark:text-white text-3xl px-28">Laboratorios</label>
     <select name="lab" id="lab" class="form-select bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
             <?php
             
@@ -156,7 +158,7 @@ option:disabled {
   </div>
   
   <div class="mb-5">
-        <label for="sem" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-3xl px-28">Periodo</label>
+        <label for="sem" class="flex justify-center block mb-2 text-sm font-medium text-gray-900 dark:text-white text-3xl px-28">Periodo</label>
         <select name="per" id="per" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             <option value="1">Manhã</option>
             <option value="2">Tarde</option>
@@ -164,7 +166,10 @@ option:disabled {
         </select>
     </div>
     <!-- botao nao ta aparecendo no meu pc (felipao) -->
-  <button type="submit" class="focus:outline-none dark:text-gray-900 dark:bg-white dark:border dark:border-gray-300 dark:focus:outline-none dark:hover:bg-gray-100 dark:focus:ring-4 dark:focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 bg-gray-800 text-white border-gray-600 hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700">Continuar</button>
+     <div class="flex justify-center">
+
+         <button type="submit" class="focus:outline-none dark:text-gray-900 dark:bg-white dark:border dark:border-gray-300 dark:focus:outline-none dark:hover:bg-gray-100 dark:focus:ring-4 dark:focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 bg-gray-800 text-white border-gray-600 hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700">Continuar</button>
+     </div>
 </form>
 <?php }; ?>
     </div>

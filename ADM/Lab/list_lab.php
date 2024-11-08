@@ -58,7 +58,7 @@ window.location.href= url+"?filtro="+value;
 </script>  
 
 
-<a href="addLab.php" class="py-3 px-5 sm:ms-4 text-base font-medium text-center text-white rounded-lg bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900">
+<a href="addLab.php" class="focus:outline-none dark:text-gray-900 dark:bg-white dark:border dark:border-gray-300 dark:focus:outline-none dark:hover:bg-gray-100 dark:focus:ring-4 dark:focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 bg-gray-800 text-white border-gray-600 hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700">
     Adicionar Laboratorio
 </a><br> <br> 
     <div class="relative overflow-x-auto sm:rounded-lg mb-2">
@@ -155,12 +155,12 @@ window.location.href= url+"?filtro="+value;
         echo '<svg class="w-3.5 h-3.5 me-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">';
         echo '<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0 4 4M1 5l4-4"/>';
         echo '</svg>';
-        echo  'Previous';
+        echo  'Anterior';
         echo '</a>';
     } 
     if ($pc<$tp) {
         echo '<a href="list_lab.php?pagina='.$proximo.'&'; if(isset($search)){echo 'search='.$search;}if(isset($_GET['filtro'])){echo 'filtro='.$_GET['filtro'];} echo '" class="flex items-center justify-center px-3 h-8 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">';
-        echo 'Next';
+        echo 'Próximo';
         echo '<svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">';
         echo '<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>';
         echo '</svg>';
