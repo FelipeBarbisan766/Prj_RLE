@@ -13,11 +13,15 @@ $tranPer = ['Erro','Manhã','Tarde','Noite'];
 
     $sql = mysqli_query($conexao,'SELECT * FROM laboratorio WHERE lab_cod = '.$lab.'');
     $result = mysqli_fetch_array($sql);
-    echo ''.$data.'
+    echo '
     <dl class="max-w-md text-gray-900 divide-y divide-gray-200 dark:text-white dark:divide-gray-700">
     <div class="flex flex-col pb-3">
         <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Status</dt>
         <dd class="text-lg font-semibold">Livre</dd>
+    </div>
+    <div class="flex flex-col py-3">
+        <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Data</dt>
+        <dd class="text-lg font-semibold">'; echo (new DateTime($data))->format('d/m/Y'); echo '</dd>
     </div>
     <div class="flex flex-col py-3">
         <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Laboratorio</dt>
@@ -35,7 +39,7 @@ $tranPer = ['Erro','Manhã','Tarde','Noite'];
 ';
 if(isset($cargo)&&$cargo>=1){
     echo'
-    <a id="btnAdicionar" href="../Reserva/formReserva.php?data='.$data.'&lab='.$lab.'&sem='.$sem.'&per='.$per.'&aula='.$aula.'&prof='.$cod.'" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+    <a id="btnAdicionar" href="../Reserva/formReserva.php?data='.$data.'&lab='.$lab.'&sem='.$sem.'&per='.$per.'&aula='.$aula.'&prof='.$cod.'" class="focus:outline-none dark:text-gray-900 dark:bg-white dark:border dark:border-gray-300 dark:focus:outline-none dark:hover:bg-gray-100 dark:focus:ring-4 dark:focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 bg-gray-800 text-white border-gray-600 hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700">
         Adicionar Cronograma
     </a>';
     

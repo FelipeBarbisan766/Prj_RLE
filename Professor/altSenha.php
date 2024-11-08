@@ -55,7 +55,7 @@ include_once('../button_back.php');
         if($senha_nova == $senha_nova2){
             $sql = mysqli_query($conexao,"UPDATE professor SET prof_senha='$senha_nova' WHERE prof_cod='$cod'");
             if($sql){
-                header('Location:pageProfessor.php');
+                echo "<script> window.location.href='pageProfessor.php'</script>";
             }else{
                 echo "Erro no alter";
             }
