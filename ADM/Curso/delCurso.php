@@ -4,11 +4,10 @@ include_once ('../../protectCode.php');
 $cod = $_POST['cod'];
 $isActive = false;
 
-$sql = mysqli_query($conexao,"UPDATE laboratorio SET lab_isActive='$isActive' WHERE lab_cod='$cod'");
+$sql = mysqli_query($conexao,"UPDATE curso SET cur_isActive='$isActive' WHERE cur_cod='$cod'");
 
 if($sql){
     
 }else{
     echo "Erro no Insert";
 }
-?>

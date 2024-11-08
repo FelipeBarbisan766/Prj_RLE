@@ -43,7 +43,6 @@ $inicio = $inicio * $total_reg;
     echo '<option value="N"';if(!isset($_GET['filtro'])){echo 'SELECTED';} echo '>Nenhum</option>';
     echo '<option value="NC"';if(isset($_GET['filtro'])&& $_GET['filtro'] == "NC"){echo 'SELECTED';} echo '>Nome Crescente</option>';
     echo '<option value="ND"';if(isset($_GET['filtro'])&& $_GET['filtro'] == "ND"){echo 'SELECTED';} echo '>Nome Decrescente</option>';
-    echo '<option value="CA"';if(isset($_GET['filtro'])&& $_GET['filtro'] == "CA"){echo 'SELECTED';} echo '>Descrição</option>';
     echo '<option value="CO"';if(isset($_GET['filtro'])&& $_GET['filtro'] == "CO"){echo 'SELECTED';} echo '>Codigo</option>';
     ?> 
   </select>
@@ -52,14 +51,14 @@ $inicio = $inicio * $total_reg;
     
 <script type="text/javascript">  
 function status_update(value){  
-let url = "list_lab.php";  
+let url = "list_cur.php";  
 window.location.href= url+"?filtro="+value;  
 }
 </script>  
 
 
-<a href="addLab.php" class="py-3 px-5 sm:ms-4 text-base font-medium text-center text-white rounded-lg bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900">
-    Adicionar Laboratorio
+<a href="AddCurso.php" class="py-3 px-5 sm:ms-4 text-base font-medium text-center text-white rounded-lg bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900">
+    Adicionar Curso
 </a><br> <br> 
     <div class="relative overflow-x-auto sm:rounded-lg mb-2">
         
@@ -72,9 +71,6 @@ window.location.href= url+"?filtro="+value;
                     <th scope="col" class="px-6 py-3">
                         Nome
                     </th>
-                    <th scope="col" class="px-6 py-3">
-                        Descrição
-                    </th>
                     <th scope="col" class="px-6 py-3"></th>
                 </tr>
             </thead>
@@ -82,42 +78,38 @@ window.location.href= url+"?filtro="+value;
                 <?php
                 if(isset($_GET['search'])&& $_GET['search'] != null){
                     $search = strtoupper($_GET['search']);
-                    $sql = "SELECT * FROM laboratorio WHERE lab_isActive IS TRUE AND lab_nome LIKE '%".$search."%'";
+                    $sql = "SELECT * FROM curso WHERE cur_isActive IS TRUE AND cur_nome LIKE '%".$search."%'";
                 }elseif(isset($_GET['filtro'])){
                     switch($_GET['filtro']){
                         case "NC":
-                            $sql = "SELECT * FROM laboratorio WHERE lab_isActive IS TRUE ORDER BY lab_nome ASC";
+                            $sql = "SELECT * FROM curso WHERE cur_isActive IS TRUE ORDER BY cur_nome ASC";
                             break;
                         case "ND":
-                            $sql = "SELECT * FROM laboratorio WHERE lab_isActive IS TRUE ORDER BY lab_nome DESC";
-                            break;
-                        case "CA":
-                            $sql = "SELECT * FROM laboratorio WHERE lab_isActive IS TRUE ORDER BY lab_desc ASC";
+                            $sql = "SELECT * FROM curso WHERE cur_isActive IS TRUE ORDER BY cur_nome DESC";
                             break;
                         case "CO":
-                            $sql = "SELECT * FROM laboratorio WHERE lab_isActive IS TRUE ORDER BY lab_cod ASC";
+                            $sql = "SELECT * FROM curso WHERE cur_isActive IS TRUE ORDER BY cur_cod ASC";
                             break;
                         default:
-                            $sql = "SELECT * FROM laboratorio WHERE lab_isActive IS TRUE";
+                            $sql = "SELECT * FROM curso WHERE cur_isActive IS TRUE";
                             break;
                     }
                 }
                 else{
-                    $sql = "SELECT * FROM laboratorio WHERE lab_isActive IS TRUE";
+                    $sql = "SELECT * FROM curso WHERE cur_isActive IS TRUE";
                 }
                 $limite = mysqli_query($conexao,"$sql LIMIT $inicio,$total_reg");
                 $todos = mysqli_query($conexao, "$sql");
                 $tr = mysqli_num_rows($todos); // verifica o número total de registros
                 $tp = $tr / $total_reg; // verifica o número total de páginas
                 
-                while ($lab = mysqli_fetch_array($limite)) {
+                while ($cur = mysqli_fetch_array($limite)) {
                         ?>
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                    <td class="px-6 py-4"><?php echo $lab['lab_cod']; ?></td>
-                    <td class="px-6 py-4"><?php echo $lab['lab_nome']; ?></td>
-                    <td class="px-6 py-4"><?php echo $lab['lab_desc']; ?></td>
+                    <td class="px-6 py-4"><?php echo $cur['cur_cod']; ?></td>
+                    <td class="px-6 py-4"><?php echo $cur['cur_nome']; ?></td>
                     <td class="px-6 py-4">
-                        <a type="button" href="altLab.php?cod=<?php echo $lab['lab_cod']; ?>">
+                        <a type="button" href="EditCurso.php?cod=<?php echo $cur['cur_cod']; ?>">
                         <button class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">
                             <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="23" viewBox="0 0 32 32">
                                 <path d="M 23.90625 3.96875 C 22.859375 3.96875 21.8125 4.375 21 5.1875 L 5.1875 21 L 5.125 21.3125 L 4.03125 26.8125 L 3.71875 28.28125 L 5.1875 27.96875 L 10.6875 26.875 L 11 26.8125 L 26.8125 11 C 28.4375 9.375 28.4375 6.8125 26.8125 5.1875 C 26 4.375 24.953125 3.96875 23.90625 3.96875 Z M 23.90625 5.875 C 24.410156 5.875 24.917969 6.105469 25.40625 6.59375 C 26.378906 7.566406 26.378906 8.621094 25.40625 9.59375 L 24.6875 10.28125 L 21.71875 7.3125 L 22.40625 6.59375 C 22.894531 6.105469 23.402344 5.875 23.90625 5.875 Z M 20.3125 8.71875 L 23.28125 11.6875 L 11.1875 23.78125 C 10.53125 22.5 9.5 21.46875 8.21875 20.8125 Z M 6.9375 22.4375 C 8.136719 22.921875 9.078125 23.863281 9.5625 25.0625 L 6.28125 25.71875 Z"></path>
@@ -125,8 +117,8 @@ window.location.href= url+"?filtro="+value;
                         </button>
                         </a>
                         <button type="button" data-modal-target="popup-modal"
-                            data-modal-toggle="popup-modal" data-modal-codelab="<?php echo $lab['lab_cod'];?>"
-                            data-modal-name="<?php echo $lab['lab_nome'];?>"
+                            data-modal-toggle="popup-modal" data-modal-codecur="<?php echo $cur['cur_cod'];?>"
+                            data-modal-name="<?php echo $cur['cur_nome'];?>"
                             class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-6">
@@ -151,7 +143,7 @@ window.location.href= url+"?filtro="+value;
    $proximo = $pc +1;
    ?>
     <?php if ($pc>1) { 
-        echo '<a href="list_lab.php?pagina='.$anterior.'&'; if(isset($search)){echo 'search='.$search;}if(isset($_GET['filtro'])){echo 'filtro='.$_GET['filtro'];} echo '" class="flex items-center justify-center px-3 h-8 me-3 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">';
+        echo '<a href="list_cur.php?pagina='.$anterior.'&'; if(isset($search)){echo 'search='.$search;}if(isset($_GET['filtro'])){echo 'filtro='.$_GET['filtro'];} echo '" class="flex items-center justify-center px-3 h-8 me-3 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">';
         echo '<svg class="w-3.5 h-3.5 me-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">';
         echo '<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0 4 4M1 5l4-4"/>';
         echo '</svg>';
@@ -159,7 +151,7 @@ window.location.href= url+"?filtro="+value;
         echo '</a>';
     } 
     if ($pc<$tp) {
-        echo '<a href="list_lab.php?pagina='.$proximo.'&'; if(isset($search)){echo 'search='.$search;}if(isset($_GET['filtro'])){echo 'filtro='.$_GET['filtro'];} echo '" class="flex items-center justify-center px-3 h-8 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">';
+        echo '<a href="list_cur.php?pagina='.$proximo.'&'; if(isset($search)){echo 'search='.$search;}if(isset($_GET['filtro'])){echo 'filtro='.$_GET['filtro'];} echo '" class="flex items-center justify-center px-3 h-8 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">';
         echo 'Next';
         echo '<svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">';
         echo '<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>';
@@ -194,7 +186,7 @@ window.location.href= url+"?filtro="+value;
                 </svg>
                 <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400" id="modal-title">Deseja deletar ?</h3>
 
-                <input type="hidden" name="cod" id="lab_form">
+                <input type="hidden" name="cod" id="cur_form">
 
                 <button id="delete-btn" 
                     class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
@@ -216,10 +208,10 @@ const buttons = document.querySelectorAll('[data-modal-toggle="popup-modal"]');
 buttons.forEach(button => {
 
     button.addEventListener('click', () => {
-        const cod = button.getAttribute('data-modal-codelab');
+        const cod = button.getAttribute('data-modal-codecur');
         const name = button.getAttribute('data-modal-name');
 
-        document.getElementById('lab_form').value = cod;
+        document.getElementById('cur_form').value = cod;
         document.getElementById('modal-title').textContent = `Deseja deletar ${name}?`;
     });
 
@@ -227,11 +219,11 @@ buttons.forEach(button => {
 
 $('#delete-btn').on('click', function() {
 
-    const cod = $('#lab_form').val();
+    const cod = $('#cur_form').val();
 
     $.ajax({
         type: 'POST',
-        url: 'delLab.php',
+        url: 'delCurso.php',
         data: {
             cod: cod
         },

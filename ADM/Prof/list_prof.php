@@ -231,7 +231,7 @@ $('#delete-btn').on('click', function() {
 
     $.ajax({
         type: 'POST',
-        url: 'Prof/delProf.php',
+        url: 'delProf.php',
         data: {
             cod: cod
         },

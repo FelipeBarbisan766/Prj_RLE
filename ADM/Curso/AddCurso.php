@@ -1,7 +1,7 @@
 <?php
 include_once("../../navbar2.php");
 include_once('../protectAdm.php');
-$link_back = 'PageCurso.php';
+$link_back = 'list_cur.php';
 include_once('../../button_back.php');
 ?>
 <div class="container mx-auto px-4">
@@ -29,7 +29,7 @@ $isActive = true;
 
 $sql = mysqli_query($conexao,"INSERT INTO curso(cur_nome,cur_isActive) VALUES('$nome','$isActive')");
 if($sql){
-    echo "<script> window.location.href='pageCurso.php'</script>";
+    echo "<script> window.location.href='list_cur.php'</script>";
 }else{
     echo "Erro no Insert";
 }
