@@ -1,7 +1,7 @@
 <?php
 include_once ("../../navbar2.php");
 include_once ('../protectAdm.php');
-$link_back = 'pageProf.php';
+$link_back = 'list_prof.php';
 include_once('../../button_back.php');
 ?>
 <div class="">
