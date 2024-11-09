@@ -20,6 +20,10 @@ include_once('../button_back.php');
         <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Descrição</dt>
         <dd class="text-lg font-semibold">' . $result['cro_desc'] . '</dd>
     </div>
+    <div class="flex flex-col pt-3">
+        <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Criado Por</dt>
+        <dd class="text-lg font-semibold">' . $result['prof_nome'] . '</dd>
+    </div>
     <div class="flex flex-col py-3">
         <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Laboratorio</dt>
         <dd class="text-lg font-semibold">' . $result['lab_nome'] . '</dd>
