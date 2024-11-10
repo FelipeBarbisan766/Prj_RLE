@@ -227,18 +227,16 @@ $nomelab = $labnome["lab_nome"];
         var cargo = <?php if(isset($_SESSION['cargo']) && $_SESSION['cargo'] == 'adm'){echo 1;}else{echo 2;} ?>;
 
         $.ajax({
-            url: 'search.php',  // PHP script to handle the request
+            url: 'search.php',
             type: 'POST',
             data: {
                 cod_search: cod,
                 cargo: cargo
             }, 
             success: function(response){
-                // Lida com a resposta do PHP se necessário
                 document.getElementById('resultado').innerHTML = response;
             },
             error: function() {
-            // Caso ocorra um erro na requisição
             document.getElementById('resultado').innerHTML = "Erro ao processar a requisição.";
             }
         });
@@ -247,19 +245,17 @@ $nomelab = $labnome["lab_nome"];
     function ModalLivre(sem,lab,per,aula){
         var cargo = <?php if(isset($_SESSION['cargo']) && $_SESSION['cargo'] == 'adm'){echo 1;}else{echo 2;} ?>;
         $.ajax({
-            url: 'modalAdicionar.php',  // O script PHP que irá processar o valor
+            url: 'modalAdicionar.php',
             type: 'POST',
             data: {sem: sem,
                 lab:lab,
             per:per,
             aula:aula,
-            carg: cargo},  // Enviando o valor 'cod' para o PHP
+            carg: cargo},
             success: function(response){
-                // Lida com a resposta do PHP se necessário
                 document.getElementById('resultado').innerHTML = response;
             },
             error: function() {
-            // Caso ocorra um erro na requisição
             document.getElementById('resultado').innerHTML = "Erro ao processar a requisição.";
             }
         });
