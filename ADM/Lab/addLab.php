@@ -10,7 +10,7 @@ include_once('../../button_back.php');
 
     
 
-    <h1 class="mb-4 text-3xl text-center mt-2 font-extrabold tracking-tight leading-none text-gray-900 md:text-3xl lg:text-4xl dark:text-white">Adicionar Professor</h1>
+    <h1 class="mb-4 text-3xl text-center mt-2 font-extrabold tracking-tight leading-none text-gray-900 md:text-3xl lg:text-4xl dark:text-white">Adicionar Laboratorio</h1>
 
     <form class="max-w-sm mx-auto" action="" method="POST">
     <div class="mb-5">
