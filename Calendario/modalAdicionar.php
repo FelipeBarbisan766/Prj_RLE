@@ -1,6 +1,7 @@
 <?php
 include_once('../conexao.php');
 $lab = $_POST['lab'];
+$dia_atual = date('Y-d-m');
 $data = date("Y-m-d", $_POST['data']);;
 $sem = $_POST['sem'];
 $per = $_POST['per'];
@@ -37,10 +38,13 @@ $tranPer = ['Erro','Manhã','Tarde','Noite'];
     </div>
     </dl><br>
 ';
+// echo $dia_atual;
+// echo $data;
+if($dia_atual <= $data){
 if(isset($cargo)&&$cargo>=1){
     echo'
     <a id="btnAdicionar" href="../Reserva/formReserva.php?data='.$data.'&lab='.$lab.'&sem='.$sem.'&per='.$per.'&aula='.$aula.'&prof='.$cod.'" class="focus:outline-none dark:text-gray-900 dark:bg-white dark:border dark:border-gray-300 dark:focus:outline-none dark:hover:bg-gray-100 dark:focus:ring-4 dark:focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 bg-gray-800 text-white border-gray-600 hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700">
         Adicionar Cronograma
     </a>';
     
-}
+}}
