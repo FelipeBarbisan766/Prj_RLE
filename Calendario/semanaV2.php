@@ -295,7 +295,7 @@ for ($aula = 1; $aula <= $quant; $aula++)  {
     };
     function ModalLivre(aula,data,sem){
         var codigo = <?php if(isset($_SESSION['cod'])){echo $_SESSION['cod'];}else{echo 0;} ?>;
-        var cargo = <?php if(isset($_SESSION['cargo']) && $_SESSION['cargo'] == 'adm' || $_SESSION['cargo'] == 'prof'){echo 1;}else{echo 0;} ?>;
+        var cargo = <?php if(isset($_SESSION['cargo'])){echo 1;}else{echo 0;} ?>;
         var lab = <?php echo $lab ?>;
         var per = <?php echo $per ?>;
         $.ajax({
