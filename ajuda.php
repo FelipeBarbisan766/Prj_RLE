@@ -5,15 +5,16 @@
         <?php 
        
             echo ' <h3 class="font-semibold text-gray-900 dark:text-white">Painel de ajuda</h3>
-        <p>Este painel contém as informações de ajuda, com intuito de facilitar a utilização do site.</p>
+        <p>Este painel contém informações, com intuito de facilitar a utilização do site.</p>
         <h3 class="font-semibold text-gray-900 dark:text-white">Tela Inicial</h3>
-        <p>1 - Ver Cronograma - provavelmente direciona para uma página ou modal onde o usuário pode visualizar o cronograma de atividades ou eventos. <br>
-        2 - Ver Calendário - exibe um calendário, possivelmente para agendar compromissos ou verificar datas importantes. <br>';
+        <p>1 - Ver Cronograma - Esta página contém os horários fixos de aulas <br>
+        2 - Ver Calendário - Esta página contém os horários que podem ser reservados <br>';
         if(isset($_SESSION['cargo'])){
             echo '
 
-        3 - Reservar Laboratório - opção para realizar reservas de um laboratório, útil em ambientes educacionais ou corporativos. <br>
-        4 - Painel do Professor - acesso ao painel destinado a professores, possivelmente para gerenciar atividades e turmas. <br>
+        3 - Reservar Laboratório - Selecionar agendamento para um laboratório e/ou espaço disponível <br>
+        4 - Painel do Professor - Acesso a página única dos professores, a reservas já feitas e edição de dados <br>
+        
         </p>
         </svg></a>';
         }

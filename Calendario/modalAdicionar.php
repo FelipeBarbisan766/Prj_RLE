@@ -7,7 +7,7 @@ $per = $_POST['per'];
 $aula = $_POST['aula'];
 $cargo = $_POST['carg'];
 $cod = $_POST['cod'];
-$tranSem = ['Erro','Segunda','Terça','Quarta','Quinta','Sexta'];
+$tranSem = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
 $tranPer = ['Erro','Manhã','Tarde','Noite'];    
 
 

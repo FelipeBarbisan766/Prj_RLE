@@ -18,9 +18,9 @@ include_once ("../button_back.php");
                 $crono = mysqli_fetch_array($slq);
                 echo '<input type="hidden" name="cod" value="'.$cod.'">';
                 ?>
-             <label for="desc" class="block mb-2 text-3xl font-medium text-gray-900 dark:text-white">Descrição</label>
+             <label for="desc" class="block mb-2 text-3xl font-medium text-gray-900 dark:text-white flex justify-center flex justify-center">Descrição</label>
                 <input type="text" name="desc" id="desc" value="<?php echo $crono['cro_desc'] ?>" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required><br>
-                <label for="curso" class="block mb-2 text-3xl font-medium text-gray-900 dark:text-white">Curso</label>
+                <label for="curso" class="block mb-2 text-3xl font-medium text-gray-900 dark:text-white flex justify-center">Curso</label>
             <select name="curso" id="curso" class="form-select block mb-2 font-medium dark:text-white bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 <?php
                 
@@ -33,7 +33,7 @@ include_once ("../button_back.php");
                 ; ?>   
                            
             </select>
-            <label for="Turma" class="block mb-2 text-3xl font-medium text-gray-900 dark:text-white">Turma</label>
+            <label for="Turma" class="block mb-2 text-3xl font-medium text-gray-900 dark:text-white flex justify-center">Turma</label>
             <select name="turma" id="Turma" class="form-select block mb-2 font-medium dark:text-white bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 <option value="TURMA A E B" <?php if ($crono['cro_turma'] == 'TURMA A E B' ) { echo 'selected'; } ?>>Turma A e B</option>
                 <option value="TURMA A" <?php if ($crono['cro_turma'] == 'TURMA A' ) { echo 'selected'; } ?>>Turma A</option>
@@ -68,7 +68,7 @@ include_once ("../button_back.php");
              } 
             ?>
             <div class="mb-5">
-                <label for="aula" class="block mb-2 text-3xl font-medium text-gray-900 dark:text-white">Aula</label>
+                <label for="aula" class="block mb-2 text-3xl font-medium text-gray-900 dark:text-white flex justify-center">Aula</label>
                 <select name="aula" id="aula" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value="1" <?php if($crono['cro_aula'] == 1){echo ' Selected';}elseif(isset($aula1)){echo $aula1;} ?>>1º Aula</option>
                     <option value="2" <?php if($crono['cro_aula'] == 2){echo ' Selected';}elseif(isset($aula2)){echo $aula2;}  ?>>2º Aula</option>
@@ -82,7 +82,7 @@ include_once ("../button_back.php");
                 </select>
             </div>
             <div class="mb-5">
-            <label for="sem" class="block mb-2 text-3xl font-medium text-gray-900 dark:text-white">Periodo</label>
+            <label for="sem" class="block mb-2 text-3xl font-medium text-gray-900 dark:text-white flex justify-center">Periodo</label>
             <select name="per" id="per" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 <option value="1" <?php if ($crono['cro_periodo'] == 1 ) { echo 'selected'; } ?>>Manhã</option>
                 <option value="2" <?php if ($crono['cro_periodo'] == 2 ) { echo 'selected'; } ?>>Tarde</option>
@@ -90,7 +90,7 @@ include_once ("../button_back.php");
             </select>
         </div>
         <div class="mb-5">
-            <label for="sem" class="block mb-2 text-3xl font-medium text-gray-900 dark:text-white">Dia</label>
+            <label for="sem" class="block mb-2 text-3xl font-medium text-gray-900 dark:text-white flex justify-center">Dia</label>
             <select name="sem" id="sem" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 <option value="1" <?php if ($crono['cro_sem'] == 1 ) { echo 'selected'; } ?>>Segunda</option>
                 <option value="2" <?php if ($crono['cro_sem'] == 2 ) { echo 'selected'; } ?>>Terça</option>
@@ -100,7 +100,7 @@ include_once ("../button_back.php");
             </select>
         </div>
         <div class="mb-5">
-            <label for="lab" class="block mb-2 text-3xl font-medium text-gray-900 dark:text-white">Laboratório</label>
+            <label for="lab" class="block mb-2 text-3xl font-medium text-gray-900 dark:text-white flex justify-center">Laboratório</label>
             <select name="lab" id="lab" class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                 <?php
             
@@ -113,22 +113,9 @@ include_once ("../button_back.php");
             ; ?>
         </select>
         </div>
-        <div class="mb-5">
-            <label for="prof" class="block mb-2 text-3xl font-medium text-gray-900 dark:text-white">Professor</label>
-            <select name="prof" id="prof" class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                <?php
-            $slq = mysqli_query($conexao, "SELECT * FROM professor");
-            while ($prof = mysqli_fetch_array($slq)) {
-                if ($prof['prof_isActive'] == true) { ?>
-                    <option value="<?php echo $prof['prof_cod'].'" '; if ($prof['prof_cod'] == $crono['prof_cod']) { echo 'selected'; } ?> "><?php echo $prof['prof_nome']; ?></option>
-                    <?php }
-            }
-            ; ?>
-        </select>
-        </div>
-        <div class="mb-5">
-            <input type="submit" value="Atualizar" class="focus:outline-none dark:text-gray-900 dark:bg-white dark:border dark:border-gray-300 dark:focus:outline-none dark:hover:bg-gray-100 dark:focus:ring-4 dark:focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 bg-gray-800 text-white border-gray-600 hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700">
-        </div>
+        <div class="mb-5 flex justify-center">
+            <input type="submit" value="Atualizar" class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center focus:outline-none dark:text-gray-900 dark:bg-white dark:border dark:border-gray-300 dark:focus:outline-none dark:hover:bg-gray-100 dark:focus:ring-4 dark:focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 bg-gray-800 text-white border-gray-600 hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700">
+        </div><br>
         </form>
 
     <?php } ?>    
