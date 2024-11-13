@@ -1,12 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
 <?php
     include_once ("../navbar2.php");
     include_once ("../protect.php");
@@ -33,5 +24,3 @@
       </div>
 
 </body>
-
-</html>
