@@ -44,7 +44,7 @@ $unic = false;
                 <?php
                 while ($reserva = mysqli_fetch_array($limite)) {
                 if ($dia_atual <= $reserva['dat'] && $unic_fut == false){
-                    echo '<thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    echo '<thead class="uppercase text-xs text-white uppercase bg-red-700">
                         <tr>
                             <th colspan=2 scope="col" class="px-6 py-3">
                                 Proximas Reservas
@@ -85,7 +85,7 @@ $unic = false;
                 
                 if ($dia_atual > $reserva['dat'] && $unic == false) {
                     echo '
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <thead class="uppercase text-xs text-white uppercase bg-red-700">
                             <tr>
                                 <th colspan=2 scope="col" class="px-6 py-3">
                                     Reservas Antigas
