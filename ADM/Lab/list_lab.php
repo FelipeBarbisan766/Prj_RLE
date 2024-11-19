@@ -194,14 +194,15 @@ window.location.href= url+"?filtro="+value;
                 </svg>
                 <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400" id="modal-title">Deseja deletar ?</h3>
 
-                <input type="hidden" name="cod" id="lab_form">
-
-                <button id="delete-btn" 
-                    class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
-                    Deletar
-                </button>
-                <button data-modal-hide="popup-modal" type="button"
-                    class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Cancelar</button>
+                <form action="delLab.php" method="post">
+                    <input type="hidden" name="cod" id="lab_form">
+                    <button id="delete-btn" type="submit" 
+                        class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                        Deletar
+                    </button>
+                    <button data-modal-hide="popup-modal" type="button"
+                        class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Cancelar</button>
+                </form>
             </div>
 
         </div>
@@ -225,24 +226,6 @@ buttons.forEach(button => {
 
 });
 
-$('#delete-btn').on('click', function() {
-
-    const cod = $('#lab_form').val();
-
-    $.ajax({
-        type: 'POST',
-        url: 'delLab.php',
-        data: {
-            cod: cod
-        },
-
-        success: function(data) {
-            window.location.reload();
-        }
-
-    });
-
-});
 </script>
 
 </body>
