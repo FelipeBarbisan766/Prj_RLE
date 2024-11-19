@@ -49,7 +49,7 @@ $inicio = $inicio * $total_reg;
   </select>
 </form>
 </select>
-    
+    <br>
 <script type="text/javascript">  
 function status_update(value){  
 let url = "list_prof.php";  
