@@ -18,7 +18,7 @@ $prof = $_SESSION['cod'];//é o codigo do administrador que criou o registro
 $sql = mysqli_query($conexao,"INSERT INTO `cronograma` (`cro_desc`, `cro_aula`,`cro_turma`,`cro_periodo`,`cro_sem`, `cro_isActive`, `lab_cod`,`prof_cod`,`cur_cod`) VALUES ('$descr', '$aula','$turma','$per', '$sem', '$isActive', '$lab','$prof','$curso')");
 
 if($sql){
-    header('Location:cronograma2.php');
+    header('Location:cronograma2.php?lab='.$lab.'&&per='.$per);
 }else{
     echo "Erro no Insert";
 }

@@ -27,7 +27,7 @@ include_once ("../button_back.php");
                 $slq = mysqli_query($conexao, "SELECT * FROM curso WHERE cur_isActive is TRUE");
                 while ($cur = mysqli_fetch_array($slq)) {
                     ?>
-                        <option value="<?php echo $cur['cur_cod'].'" ';if ($cur['cur_cod'] == $crono['cur_cod']) { echo 'selected'; } ?>"><?php echo $cur['cur_nome']; ?></option>
+                        <option value="<?php echo $cur['cur_cod'];?>" <?php if ($cur['cur_cod'] == $crono['cur_cod']) { echo 'selected'; } ?>><?php echo $cur['cur_nome']; ?></option>
                     <?php
                 }
                 ; ?>   
@@ -72,7 +72,7 @@ include_once ("../button_back.php");
                 <select name="aula" id="aula" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value="1" <?php if($crono['cro_aula'] == 1){echo ' Selected';}elseif(isset($aula1)){echo $aula1;} ?>>1º Aula</option>
                     <option value="2" <?php if($crono['cro_aula'] == 2){echo ' Selected';}elseif(isset($aula2)){echo $aula2;}  ?>>2º Aula</option>
-                    <?php if($crono['cro_periodo'] == 1 || $crono['cro_periodo'] = 3){?>
+                    <?php if($crono['cro_periodo'] == 1 || $crono['cro_periodo'] == 3){?>
                     <option value="3" <?php if($crono['cro_aula'] == 3){echo ' Selected';}elseif(isset($aula3)){echo $aula3;}  ?>>3º Aula</option>
                     <option value="4" <?php if($crono['cro_aula'] == 4){echo ' Selected';}elseif(isset($aula4)){echo $aula4;} ?>>4º Aula</option>
                     <?php }if($crono['cro_periodo'] == 1){?>
@@ -130,7 +130,7 @@ $aula = $_POST['aula'];
 $per = $_POST['per'];
 $sem = $_POST['sem'];
 $lab = $_POST['lab'];
-$prof = $_POST['prof'];
+$prof = $_SESSION['cod'];
 
 $sql = mysqli_query($conexao,"UPDATE cronograma SET cro_desc='$desc', cur_cod='$curso', cro_aula='$aula', cro_turma='$turma', cro_periodo='$per', cro_sem='$sem', lab_cod='$lab', prof_cod='$prof' WHERE cro_cod='$cod'");
 
