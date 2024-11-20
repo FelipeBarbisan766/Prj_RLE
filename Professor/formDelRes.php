@@ -1,6 +1,9 @@
 <?php
+
+use Vtiful\Kernel\Format;
 include_once ("../navbar2.php");
 include_once ('../ADM/protectAdm.php');
+$link_back = 'pageProfessor.php';
 include_once('../button_back.php');
 ?>
 
@@ -12,7 +15,7 @@ include_once('../button_back.php');
     if (isset($_GET['cod'])) {
     $cod_search = $_GET['cod'];
     $result = mysqli_fetch_array(mysqli_query($conexao, "SELECT * FROM reserva as r INNER JOIN laboratorio as l on r.lab_cod=l.lab_cod INNER JOIN professor as p on r.prof_cod=p.prof_cod INNER JOIN curso as u ON r.cur_cod=u.cur_cod WHERE r.res_cod = " . $cod_search . " "));
-
+    $data = new DateTime($result['res_dataRes']);
     echo '
     <dl class=" text-gray-900 divide-y divide-gray-200 dark:text-white dark:divide-gray-700">
     <div class="flex flex-col pb-3">
@@ -30,6 +33,10 @@ include_once('../button_back.php');
     <div class="flex flex-col pt-3">
         <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Turma</dt>
         <dd class="text-lg font-semibold">' . $result['res_turma'] . '</dd>
+    </div>
+    <div class="flex flex-col pt-3">
+        <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Data da Criação da Reserva</dt>
+        <dd class="text-lg font-semibold">' . $data -> format('d/m/Y - g:i:s A') . '</dd>
     </div>
     </dl>
 ';}
