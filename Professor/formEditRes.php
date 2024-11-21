@@ -5,6 +5,11 @@ include_once('../navbar2.php');
 $link_back = 'pageProfessor.php';
 include_once('../button_back.php');
 ?>
+<style>
+option:disabled {
+    color: light-dark(graytext, rgb(255, 0, 0)) !important;
+}
+</style>
 <form class="max-w-sm mx-auto" method="POST">
         <div class="mb-5 mt-2">
                 <?php
@@ -17,7 +22,7 @@ include_once('../button_back.php');
                 <input value="<?php echo $res['res_desc']; ?>" type="text" id="desc" name="desc" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nome da Aula" required />
             </div>
             <?php
-            $slq_reserva = mysqli_query($conexao, 'SELECT res_aula FROM reserva WHERE res_data = '.$res['res_data'].' AND lab_cod = '.$res['lab_cod'].' AND res_periodo = '.$res['res_periodo'].' AND res_isActive IS TRUE  ');
+            $slq_reserva = mysqli_query($conexao, 'SELECT res_aula FROM reserva WHERE res_data = "'.$res['res_data'].'" AND lab_cod = '.$res['lab_cod'].' AND res_periodo = '.$res['res_periodo'].' AND res_isActive IS TRUE  ');
 
             while ($reserva = mysqli_fetch_array($slq_reserva)){
                 switch ($reserva["res_aula"]){
@@ -47,11 +52,11 @@ include_once('../button_back.php');
             <div class="mb-5">
                 <label for="aula" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Aula</label>
                 <select name="aula" id="aula" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option value="1" <?php if($res['res_aula'] == 1){echo ' Selected';}elseif(isset($aula1)){echo $aula1;} ?>>1º Aula</option>
-                    <option value="2" <?php if($res['res_aula'] == 2){echo ' Selected';}elseif(isset($aula2)){echo $aula2;}  ?>>2º Aula</option>
+                    <option value="1" <?php if($res['res_aula'] == 1){echo ' Selected';}elseif(isset($aula1)){echo $aula1;}?>>1º Aula</option>
+                    <option value="2" <?php if($res['res_aula'] == 2){echo ' Selected';}elseif(isset($aula2)){echo $aula2;}?>>2º Aula</option>
                     <?php if($res['res_periodo'] == 1 || $res['res_periodo'] == 3){?>
-                    <option value="3" <?php if($res['res_aula'] == 3){echo ' Selected';}elseif(isset($aula3)){echo $aula3;}  ?>>3º Aula</option>
-                    <option value="4" <?php if($res['res_aula'] == 4){echo ' Selected';}elseif(isset($aula4)){echo $aula4;} ?>>4º Aula</option>
+                    <option value="3" <?php if($res['res_aula'] == 3){echo ' Selected';}elseif(isset($aula3)){echo $aula3;}?>>3º Aula</option>
+                    <option value="4" <?php if($res['res_aula'] == 4){echo ' Selected';}elseif(isset($aula4)){echo $aula4;}?>>4º Aula</option>
                     <?php }if($res['res_periodo'] == 1){?>
                     <option value="5" <?php if($res['res_aula'] == 5){echo ' Selected';}elseif(isset($aula5)){echo $aula5;} ?>>5º Aula</option>
                     <option value="6" <?php if($res['res_aula'] == 6){echo ' Selected';}elseif(isset($aula6)){echo $aula6;}  ?>>6º Aula</option>

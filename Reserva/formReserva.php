@@ -17,8 +17,66 @@ option:disabled {
 }
 </style>
 <div class="">
-<?php if(isset($_GET['data'])&& isset($_GET['lab'])) {?>
+<?php if(isset($_GET['data'])&& isset($_GET['lab'])) {
+$lab = $_GET['lab'];
+$data = $_GET['data'];
+$per = $_GET['per'];
+if(isset($_GET['prof'])){
+    $prof = $_GET['prof'];
+}else{
+    $prof = $_SESSION['cod'];
+}
+$timestamp = strtotime((new DateTime( $data))->format('d-m-Y')); 
+$arrydata = getdate($timestamp);
+$sem = $arrydata['wday']; 
+$slq_reserva = mysqli_query($conexao, "SELECT res_aula FROM reserva WHERE res_data = '$data' AND lab_cod = '$lab' AND res_periodo = '$per' AND res_isActive IS TRUE ");
+$slq_cronograma = mysqli_query($conexao, "SELECT cro_aula FROM cronograma WHERE cro_sem = '$sem' AND lab_cod = '$lab' AND cro_periodo = '$per' AND cro_isActive IS TRUE ");
+$quant = mysqli_num_rows($slq_reserva) + mysqli_num_rows($slq_cronograma);
+if($quant >= 6){
+echo '
+<form class="max-w-sm mx-auto">
+<div class="mb-5">
+<label for="data" class="flex justify-center px-36 mb-2 text-sm font-medium text-gray-900 dark:text-white text-4xl">Data</label>
+<input name="data" id="data" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date" value="'.$data.'" required min="'.date('Y-m-d').'" onchange="checkDate(this)">
+</div>
 
+<div class="mb-5">
+<label for="password" class="flex justify-center block mb-2 text-sm font-medium text-gray-900 dark:text-white text-3xl px-28">Laboratorios</label>
+<select name="lab" id="lab" class="form-select bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>';
+
+    
+    $slq = mysqli_query($conexao, "SELECT * FROM laboratorio");
+    while ($labs = mysqli_fetch_array($slq)) {
+        if ($labs['lab_isActive'] == true) { 
+            echo '<option value="'; echo $labs['lab_cod'].'"'; if($labs['lab_cod'] == $lab){echo 'disabled';} echo '>';echo $labs['lab_nome']; echo '</option>';
+        }
+    }
+    ; echo'
+    </select>
+
+</div>
+
+<div class="mb-5">
+<label for="sem" class="flex justify-center block mb-2 text-sm font-medium text-gray-900 dark:text-white text-3xl px-28">Periodo</label>
+<select name="per" id="per" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+    <option value="1">Manhã</option>
+    <option value="2">Tarde</option>
+    <option value="3">Noite</option>
+</select>
+</div>
+<div class="flex justify-center">
+
+<button type="submit" class="focus:outline-none dark:text-gray-900 dark:bg-white dark:border dark:border-gray-300 dark:focus:outline-none dark:hover:bg-gray-100 dark:focus:ring-4 dark:focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 bg-gray-800 text-white border-gray-600 hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700">Continuar</button>
+</div>
+</form>
+<br>
+<div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 max-w-sm mx-auto" role="alert">
+<span class="font-medium">Laboratorio Indisponivel ! Tente Outro Laboratorio ou Escolha outra Data </span> 
+</div>
+
+';
+}else{
+?>
         <form action="reserva.php" method="post" class="max-w-sm mx-auto ">
 
             <label for="description" class="flex justify-center px-28 mb-2 text-sm font-medium text-gray-900 dark:text-white text-4xl">Descrição</label>
@@ -45,19 +103,6 @@ option:disabled {
                 <option value="TURMA B">Turma B</option>
             </select>
             <?php
-            $lab = $_GET['lab'];
-            $data = $_GET['data'];
-            $per = $_GET['per'];
-            if(isset($_GET['prof'])){
-                $prof = $_GET['prof'];
-            }else{
-                $prof = $_SESSION['cod'];
-            }
-            $timestamp = strtotime((new DateTime( $data))->format('d-m-Y')); 
-            $arrydata = getdate($timestamp);
-            $sem = $arrydata['wday']; 
-            $slq_reserva = mysqli_query($conexao, "SELECT res_aula FROM reserva WHERE res_data = '$data' AND lab_cod = '$lab' AND res_periodo = '$per' AND res_isActive IS TRUE ");
-            $slq_cronograma = mysqli_query($conexao, "SELECT cro_aula FROM cronograma WHERE cro_sem = '$sem' AND lab_cod = '$lab' AND cro_periodo = '$per' AND cro_isActive IS TRUE ");
             while ($reserva = mysqli_fetch_array($slq_reserva)){
                 switch ($reserva["res_aula"]) {
                     case "1":
@@ -131,7 +176,7 @@ option:disabled {
         </form> 
         
         
-    <?php }else{ ?>
+    <?php }}else{ ?>
 
         
 
@@ -165,7 +210,6 @@ option:disabled {
             <option value="3">Noite</option>
         </select>
     </div>
-    <!-- botao nao ta aparecendo no meu pc (felipao) -->
      <div class="flex justify-center">
 
          <button type="submit" class="focus:outline-none dark:text-gray-900 dark:bg-white dark:border dark:border-gray-300 dark:focus:outline-none dark:hover:bg-gray-100 dark:focus:ring-4 dark:focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 bg-gray-800 text-white border-gray-600 hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700">Continuar</button>
