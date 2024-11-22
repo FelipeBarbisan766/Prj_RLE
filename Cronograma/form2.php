@@ -85,7 +85,7 @@ option:disabled {
                 <select name="aula" id="aula" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value="1" <?php if(isset($aula1)){echo $aula1;}if(isset($_GET['aula'])&& $_GET['aula'] == 1){echo 'Selected';} ?>>1º Aula</option>
                     <option value="2" <?php if(isset($aula2)){echo $aula2;}if(isset($_GET['aula'])&& $_GET['aula'] == 2){echo 'Selected';}  ?>>2º Aula</option>
-                    <?php if($per == 1 || $per = 3){?>
+                    <?php if($per == 1 || $per == 3){?>
                     <option value="3" <?php if(isset($aula3)){echo $aula3;}if(isset($_GET['aula'])&& $_GET['aula'] == 3){echo 'Selected';}  ?>>3º Aula</option>
                     <option value="4" <?php if(isset($aula4)){echo $aula4;}if(isset($_GET['aula'])&& $_GET['aula'] == 4){echo 'Selected';}  ?>>4º Aula</option>
                     <?php }if($per == 1){?>
