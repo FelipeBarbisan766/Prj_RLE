@@ -1,8 +1,7 @@
 <?php
 
-use Vtiful\Kernel\Format;
 include_once ("../navbar2.php");
-include_once ('../ADM/protectAdm.php');
+include_once ('../protect.php');
 $link_back = 'pageProfessor.php';
 include_once('../button_back.php');
 ?>
