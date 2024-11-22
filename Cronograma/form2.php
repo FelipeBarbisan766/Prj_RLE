@@ -24,7 +24,7 @@ option:disabled {
             <select name="curso" id="curso" class="form-select block mb-2 font-medium dark:text-white bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 <?php
                 
-                $slq = mysqli_query($conexao, "SELECT * FROM curso");
+                $slq = mysqli_query($conexao, "SELECT * FROM curso Order By cur_nome ASC");
                 while ($cur = mysqli_fetch_array($slq)) {
                     if ($cur['cur_isActive'] == true) { ?>
                         <option value="<?php echo $cur['cur_cod']; ?>"><?php echo $cur['cur_nome']; ?></option>

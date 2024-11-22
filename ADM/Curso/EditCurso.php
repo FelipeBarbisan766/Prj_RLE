@@ -13,7 +13,7 @@ include_once('../../button_back.php');
         <div class="mb-5 mt-2">
                 <?php
                 $cod = $_GET['cod'];
-                $slq = mysqli_query($conexao, 'SELECT * FROM curso WHERE cur_cod=' . $cod . '');
+                $slq = mysqli_query($conexao, 'SELECT * FROM curso WHERE cur_cod=' . $cod . '  Order By cur_nome ASC');
                 $cur = mysqli_fetch_array($slq);
                 echo '<input type="hidden" name="cod" value="'.$cod.'">';
                 ?>

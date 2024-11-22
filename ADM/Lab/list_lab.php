@@ -126,7 +126,7 @@ window.location.href= url+"?filtro="+value;
                         </a>
                         <button type="button" data-modal-target="popup-modal"
                             data-modal-toggle="popup-modal" data-modal-codelab="<?php echo $lab['lab_cod'];?>"
-                            data-modal-name="<?php echo $lab['lab_nome'];?>"
+                            data-modal-name="<?php echo $lab['lab_nome'];?>" <?php if($tr == 1){echo "disabled";}?> 
                             class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-6">
