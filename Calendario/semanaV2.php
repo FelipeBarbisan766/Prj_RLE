@@ -142,9 +142,9 @@ if($per == 1){
 for ($aula = 1; $aula <= $quant; $aula++)  {
         
         
-        $slq_reserva = mysqli_query($conexao, "SELECT r.res_cod as cod,r.res_aula as aula,r.res_desc as descr,r.res_isActive as active, p.prof_nome as prof, r.res_data as dia FROM reserva as r INNER JOIN professor as p on r.prof_cod=p.prof_cod INNER JOIN laboratorio as l on r.lab_cod=l.lab_cod WHERE r.res_aula = '$aula' AND r.lab_cod='$lab' AND r.res_periodo AND r.res_isActive IS TRUE ORDER BY r.res_aula ASC");
+        $slq_reserva = mysqli_query($conexao, "SELECT r.res_cod as cod,r.res_aula as aula,r.res_desc as descr,r.res_isActive as active, p.prof_nome as prof, r.res_data as dia FROM reserva as r INNER JOIN professor as p on r.prof_cod=p.prof_cod INNER JOIN laboratorio as l on r.lab_cod=l.lab_cod WHERE r.res_aula = '$aula' AND r.lab_cod='$lab' AND r.res_periodo = '$per' AND r.res_isActive IS TRUE ORDER BY r.res_aula ASC");
         
-        $slq_cronograma = mysqli_query($conexao, "SELECT c.cro_cod as cod,c.cro_aula as aula,c.cro_desc as descr,c.cro_isActive as active,p.prof_nome as prof,c.cro_sem as sem FROM cronograma as c INNER JOIN laboratorio as l on c.lab_cod=l.lab_cod INNER JOIN professor as p on c.prof_cod=p.prof_cod WHERE c.cro_aula = '$aula' AND c.lab_cod='$lab' AND c.cro_periodo AND c.cro_isActive IS TRUE ORDER BY c.cro_aula ASC");
+        $slq_cronograma = mysqli_query($conexao, "SELECT c.cro_cod as cod,c.cro_aula as aula,c.cro_desc as descr,c.cro_isActive as active,p.prof_nome as prof,c.cro_sem as sem FROM cronograma as c INNER JOIN laboratorio as l on c.lab_cod=l.lab_cod INNER JOIN professor as p on c.prof_cod=p.prof_cod WHERE c.cro_aula = '$aula' AND c.lab_cod='$lab' AND c.cro_periodo = '$per' AND c.cro_isActive IS TRUE ORDER BY c.cro_aula ASC");
 
         // echo var_dump($dia);
         while ($reserva = mysqli_fetch_array($slq_reserva)) {
