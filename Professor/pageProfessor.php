@@ -17,7 +17,12 @@
                 </a> 
                 <a href="AltDados.php" class="py-3 px-5 sm:ms-4 text-base font-medium text-center text-white rounded-lg bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900">
                     Alterar Dados 
-                </a>   
+                </a>
+                <?php if($_SESSION['cargo'] == 'adm'){?>
+                <a href="Desativar.php" class="py-3 px-5 sm:ms-4 text-base font-medium text-center text-white rounded-lg bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900">
+                    Desativar Perfil 
+                </a>  
+                <?php } ?>
                 
             </div>
         </div>

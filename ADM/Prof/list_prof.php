@@ -3,6 +3,7 @@ include_once ('../../navbar2.php');
 include_once ('../protectAdm.php');
 $link_back = '../pageControl.php';
 include_once('../../button_back.php');
+$cargos = ['adm' => 'COORDENADOR/ADM','prof' => 'PROFESSOR']; 
 $total_reg = "5";
 if(isset($_GET['pagina'])){
 $pagina=$_GET['pagina'];
@@ -115,8 +116,19 @@ window.location.href= url+"?filtro="+value;
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                     <td class="px-6 py-4"><?php echo $prof['prof_cod']; ?></td>
                     <td class="px-6 py-4"><?php echo $prof['prof_nome']; ?></td>
-                    <td class="px-6 py-4"><?php echo $prof['prof_cargo']; ?></td>
-                    <td class="px-6 py-4">
+                    <td class="px-6 py-4"><?php echo $cargos[$prof['prof_cargo']]; ?></td>
+                    <td class="px-6 py-4"><?php if ($prof['prof_cargo'] == 'adm'){ ?>
+                        <a type="button" href="visualizar.php?cod=<?php echo $prof['prof_cod']; ?>">
+                        <button class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                        <svg class="h-6 text-gray-900" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        viewbox="0 0 576 512">
+                        <path fill="currentColor"
+                            d="M572.52 241.4C518.29 135.59 410.93 64 288 64S57.68 135.64 3.48 241.41a32.35 32.35 0 0 0 0 29.19C57.71 376.41 165.07 448 288 448s230.32-71.64 284.52-177.41a32.35 32.35 0 0 0 0-29.19zM288 400a144 144 0 1 1 144-144 143.93 143.93 0 0 1-144 144zm0-240a95.31 95.31 0 0 0-25.31 3.79 47.85 47.85 0 0 1-66.9 66.9A95.78 95.78 0 1 0 288 160z">
+                        </path>
+                        </svg>
+                        </button>
+                        </a>
+                    <?php }else{ ?>
                         <a type="button" href="formEditProf.php?cod=<?php echo $prof['prof_cod']; ?>">
                         <button class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">
                             <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="23" viewBox="0 0 32 32">
@@ -134,6 +146,7 @@ window.location.href= url+"?filtro="+value;
                                     d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                             </svg>
                         </button>
+                    <?php } ?>
                     </td>
                 </tr>
                 <?php 
@@ -192,12 +205,12 @@ window.location.href= url+"?filtro="+value;
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                 </svg>
-                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400" id="modal-title">Deseja deletar ?</h3>
+                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400" id="modal-title">Deseja Desativar ?</h3>
                 <form action="delProf.php" method="post">
                     <input type="hidden" name="cod" id="prof_form">
                     <button type="submit" id="delete-btn" 
                         class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
-                        Deletar
+                        Desativar
                     </button>
                     <button data-modal-hide="popup-modal" type="button"
                         class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Cancelar</button>
@@ -219,7 +232,7 @@ buttons.forEach(button => {
         const name = button.getAttribute('data-modal-name');
 
         document.getElementById('prof_form').value = cod;
-        document.getElementById('modal-title').textContent = `Deseja deletar ${name}?`;
+        document.getElementById('modal-title').textContent = `Deseja Desativar ${name}?`;
     });
 });
 

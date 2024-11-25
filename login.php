@@ -67,9 +67,9 @@
 
                   $user = strtolower($user);
 
-                  $sql_user = mysqli_query($conexao,"SELECT * FROM professor WHERE prof_user = '$user' AND prof_senha ='$senha'"); //select do usuario e senha
+                  $sql_user = mysqli_query($conexao,"SELECT * FROM professor WHERE prof_user = '$user' AND prof_senha ='$senha' and prof_isActive is true"); //select do usuario e senha
                   $quantUser = $sql_user->num_rows;
-                  $sql_email = mysqli_query($conexao,"SELECT * FROM professor WHERE prof_email = '$user' AND prof_senha ='$senha'"); //select do email e da senha
+                  $sql_email = mysqli_query($conexao,"SELECT * FROM professor WHERE prof_email = '$user' AND prof_senha ='$senha' and prof_isActive is true"); //select do email e da senha
                   $quantEmail = $sql_email->num_rows;
 
                   if ($quantUser == 1 || $quantEmail == 1) {
