@@ -8,7 +8,7 @@ include_once('../button_back.php');
 
 <div class="container mx-auto px-4">
 
-    <h1 class="mb-4 text-3xl text-center mt-2 font-extrabold tracking-tight leading-none text-gray-900 md:text-3xl lg:text-4xl dark:text-white">Deseja Desativar este Cronograma</h1>
+    <h1 class="mb-4 text-3xl text-center mt-2 font-extrabold tracking-tight leading-none text-gray-900 md:text-3xl lg:text-4xl dark:text-white">Deseja Desativar Está Reserva ?</h1>
     <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
     <?php
     if (isset($_GET['cod'])) {
@@ -45,7 +45,7 @@ include_once('../button_back.php');
     </form>
     <br><br>
     <div class="max-w-sm mx-auto">
-        <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Desativar Cronograma</button>
+        <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Desativar Reserva</button>
     </div>
 </div>
 
